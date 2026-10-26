@@ -3,29 +3,38 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aiglainers"
+name = "aiglainer"
 version = "0.1.0"
 description = "aigspod explainers: narrated motion-graphics videos about papers, books and more, built in code"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
-license-files = ["LICENSE", "explainer/fonts/OFL-*.txt"]
-# Ranges here; the exact versions the videos were built with are pinned in requirements*.txt.
+license-files = ["LICENSE", "aiglainer/fonts/OFL-*.txt"]
+# Ranges here; the exact versions the videos are built with are locked in uv.lock (`uv sync` installs them).
 dependencies = ["skia-python>=144", "pymupdf>=1.24", "numpy>=2.0", "pillow>=10", "scipy>=1.13", "matplotlib>=3.9"]
 
 [project.optional-dependencies]
-# narration (Apple Silicon): Kokoro-82M via mlx-audio, Whisper via mlx-whisper. tools/setup.sh also installs
-# spaCy's en_core_web_sm wheel and fixes espeak-ng's data path, which pip alone cannot do.
-tts = ["mlx-audio>=0.6", "mlx>=0.30", "misaki[en]>=0.9", "spacy>=3.8", "mlx-whisper>=0.4", "soundfile>=0.12"]
+# Narration: Kokoro-82M via mlx-audio, Whisper via mlx-whisper (Apple Silicon). tools/setup.sh also fixes
+# espeak-ng's data path, which no installer can do.
+tts = ["mlx-audio>=0.6", "mlx>=0.30", "misaki[en]>=0.9", "spacy>=3.8", "mlx-whisper>=0.4", "soundfile>=0.12",
+       "en-core-web-sm"]
 
 [project.urls]
-Repository = "https://github.com/aigspod/aiglainers"
+Repository = "https://github.com/aigspod/aiglainer"
 
 [project.scripts]
-explainer = "explainer.__main__:main"
+aiglainer = "aiglainer.__main__:main"
 
 [tool.setuptools]
-packages = ["explainer"]
+packages = ["aiglainer"]
 
 [tool.setuptools.package-data]
-explainer = ["fonts/*", "template/*", "template/**/*", "template/paper/.gitkeep"]
+aiglainer = ["fonts/*", "template/*", "template/**/*", "template/paper/.gitkeep"]
+
+[tool.uv]
+# Built and tested on Apple Silicon Macs only (mlx, SF Pro fallback fonts).
+environments = ["sys_platform == 'darwin' and platform_machine == 'arm64'"]
+
+[tool.uv.sources]
+# spaCy's English model isn't on PyPI; misaki's own download fails under uv.
+en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }

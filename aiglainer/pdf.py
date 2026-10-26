@@ -1,6 +1,6 @@
 """Getting real data out of a paper's figures, so charts are redrawn from numbers rather than eyeballed.
 
-  python -m explainer inspect paper.pdf 8      # list page 8's vector paths and images (1-based page)
+  python -m aiglainer inspect paper.pdf 8      # list page 8's vector paths and images (1-based page)
 
 Most arXiv figures made with matplotlib keep their curves as vector paths: read the points with
 `path_points`, then map them to data units with two known tick positions (`axis_map`). Heatmaps and

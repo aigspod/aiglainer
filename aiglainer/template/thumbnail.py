@@ -1,7 +1,7 @@
 """The YouTube thumbnail (make thumbnail): drawn on the 1920x1080 canvas, saved at 1280x720.
 One focal image, three to five big words, and nothing important bottom-right (the duration badge sits there)."""
-from explainer.core import *
-from explainer.notes import lamp, swash, sticky
+from aiglainer.core import *
+from aiglainer.notes import lamp, swash, sticky
 
 def draw(c):
     lamp(c, 1450, 300, 2.6, 1, on=1)

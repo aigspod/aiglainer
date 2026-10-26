@@ -1,4 +1,4 @@
-"""Settings for this video. Every setting is optional; defaults are in explainer/project.py."""
+"""Settings for this video. Every setting is optional; defaults are in aiglainer/project.py."""
 from margin_notes import NOTES
 
 HUD = 'the aigs pod  ·  /mull/  ·  __NAME__'      # top-left label on every chapter scene
@@ -36,7 +36,7 @@ Notes
 {voice}• This is an unofficial explainer, not produced by the authors.
 """
 
-THEME = {}                           # override colour tokens from explainer/core.py PAL, e.g. {'y': '#e3a75a'}
+THEME = {}                           # override colour tokens from aiglainer/core.py PAL, e.g. {'y': '#e3a75a'}
 
 def THUMBNAIL(c):
     from thumbnail import draw

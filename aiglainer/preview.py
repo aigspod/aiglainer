@@ -1,4 +1,4 @@
-"""Contact sheet of one scene at chosen authored times: python -m explainer preview Fig4a 5 12 20
+"""Contact sheet of one scene at chosen authored times: python -m aiglainer preview Fig4a 5 12 20
 Writes <project>/out/prev/<Scene>.png (half resolution when there is more than one frame)."""
 import os
 import numpy as np

@@ -2,9 +2,9 @@
 import math
 import numpy as np
 import skia
-from explainer.core import *
-from explainer.kit import *
-from explainer.timeline import Scene
+from aiglainer.core import *
+from aiglainer.kit import *
+from aiglainer.timeline import Scene
 from scenes1 import rasters, draw_body
 import walker as WK
 
@@ -228,5 +228,5 @@ class Roadmap(Scene):
         k4 = ramp(t, 21.0, 0.8)
         if k4 > 0:
             hand(c, 'the tracker up top follows along', W / 2 + 120, 150, 34, 'pencil', k4, -2.0, ramp(t, 21.0, 1.4, e_lin))
-            from explainer.notes import hand_arrow
+            from aiglainer.notes import hand_arrow
             hand_arrow(c, W / 2 + 110, 135, W / 2 + 30, 92, 'pencil', k4, ramp(t, 22.2, 0.6), bend=-0.3)

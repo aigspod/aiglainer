@@ -2,9 +2,9 @@
 import math
 import numpy as np
 import skia
-from explainer.core import *
-from explainer.kit import *
-from explainer.timeline import Scene
+from aiglainer.core import *
+from aiglainer.kit import *
+from aiglainer.timeline import Scene
 from scenes2 import fig4
 from scenes1 import rasters
 
@@ -632,7 +632,7 @@ class Discussion(Scene):
             text(c, f'Q{i + 1}', MX, y + 8 + (1 - k) * 10, 30, 750, 'y', k, kind='mono')
             h = rich(c, q, MX + 90, y + 8, 33, 1580, t, t0 + 0.1, 0.025, 0.45, k, lh=1.28)
             y += max(h, 44) + 48
-        from explainer.notes import sticky
+        from aiglainer.notes import sticky
         sticky(c, 1560, 860, ['bring one', 'to the desk'], ramp(t, 27.0, 0.5, e_back), rot=-4.0, w=230, h=170, tag='homework')
 
 # ======================================================================= END
@@ -663,6 +663,6 @@ class End(Scene):
             text(c, 'code  github.com/aciculachen/LAWFUL', MX, 832, 22, 500, 'g', 1, kind='mono')
             note(c, 'Charts are redrawn from data extracted from the paper’s figures. Walker, radar and step diagrams are illustrations.', MX, 900, 0.85, 16)
         k3 = ramp(t, 7.0, 0.8)
-        from explainer.notes import lamp
+        from aiglainer.notes import lamp
         lamp(c, 1640, 760, 1.15, k3, on=k3)
         hand(c, 'see you at the desk', 1390, 960, 36, 'pencil', k3, -3.0, ramp(t, 7.4, 1.0, e_lin))

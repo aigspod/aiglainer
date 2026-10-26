@@ -2,9 +2,9 @@
 import math
 import numpy as np
 import skia
-from explainer.core import *
-from explainer.kit import *
-from explainer.timeline import Scene
+from aiglainer.core import *
+from aiglainer.kit import *
+from aiglainer.timeline import Scene
 import walker as WK
 
 RAST = None
@@ -126,7 +126,7 @@ class Title(Scene):
     WORDS = [('L', 'aw-'), ('A', 'ligned '), ('W', 'itness for '), ('F', 'aithful '), ('U', 'se of '), ('L', 'atents')]
 
     def draw(self, c, t):
-        from explainer.notes import swash, lamp, sticky
+        from aiglainer.notes import swash, lamp, sticky
         x0 = MX + 40
         kicker(c, 'the aigs pod  ·  /mull/  ·  journal club', x0, 320, ramp(t, 0.2, 0.8), 'muted', 18)
         # the lamp switches on as the title lands

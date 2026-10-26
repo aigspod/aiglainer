@@ -1,4 +1,4 @@
-# aiglainers
+# aiglainer
 
 *aigspod explainers*: narrated, 1080p60 motion-graphics explainer videos in the aigspod site's dark /mull/ style,
 about papers, books, or anything else worth a journal-club conversation. The first explains a research paper.
@@ -14,6 +14,7 @@ make P=mypaper                               # build + verify -> projects/mypape
 ```
 
 - **[docs/NEW_VIDEO.md](docs/NEW_VIDEO.md)**: making a new video step by step (written for a paper; most steps apply to any topic).
+- **[AGENTS.md](AGENTS.md)**: orientation and ground rules for AI agents (and people) picking up the work.
 - **[docs/WORKFLOW.md](docs/WORKFLOW.md)**: the pipeline, changing lines, timing and visuals, the pre-upload
   checklist, and the decisions behind it.
 
@@ -26,7 +27,7 @@ make P=mypaper                               # build + verify -> projects/mypape
 ## Layout
 
 ```
-explainer/           the engine (topic-agnostic); python -m explainer <command> -p <project>
+aiglainer/           the engine (topic-agnostic); python -m aiglainer <command> -p <project>
   core.py, kit.py    type (site fonts + fallback), LaTeX, shapes, easing; headers, captions, axes, pills
   notes.py           handwriting, sticky notes, lamp, swash
   timeline.py        sequencing, time warps, background, HUD, story tracker
@@ -38,7 +39,7 @@ explainer/           the engine (topic-agnostic); python -m explainer <command> 
   template/          a complete four-scene example video, copied by `make new`
 projects/
   lawful/            the LAWFUL video: settings, scenes, narration, data
-tools/setup.sh       creates .venv and .venv-tts, installs the package (editable), enables the commit guard
+tools/setup.sh       uv sync (.venv from uv.lock, package editable), narration fixes, enables the commit guard
 tools/hooks/         pre-commit: refuses media files and anything over 1 MB
 ```
 
@@ -54,5 +55,5 @@ tools/hooks/         pre-commit: refuses media files and anything over 1 MB
 ## License
 
 Code: MIT ([LICENSE](LICENSE)). Bundled fonts (Fraunces, Inter, Space Mono, Caveat) are under the SIL Open Font
-License; see `explainer/fonts/OFL-*.txt`. Figure data under `projects/*/data/` is extracted from the cited papers
+License; see `aiglainer/fonts/OFL-*.txt`. Figure data under `projects/*/data/` is extracted from the cited papers
 and remains credited to their authors.

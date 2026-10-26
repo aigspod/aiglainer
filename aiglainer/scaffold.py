@@ -1,4 +1,4 @@
-"""python -m explainer new <name> ["Paper Title"]  ->  projects/<name>/, copied from explainer/template/.
+"""python -m aiglainer new <name> ["Paper Title"]  ->  projects/<name>/, copied from aiglainer/template/.
 
 The template is a complete four-scene video (title, question, method with an equation and a data-driven chart,
 takeaway) with narration, a margin note and a thumbnail, so `make P=<name>` works straight away; then
@@ -11,9 +11,9 @@ SKIP = {'cache', 'out', '__pycache__', 'tex', 'lines.json'}
 
 def main(name=None, title=None):
     if not name or not re.fullmatch(r'[a-z0-9][a-z0-9_-]*', name):
-        raise SystemExit('usage: python -m explainer new <name> ["Paper Title"]   (name: lowercase letters, digits, - or _)')
-    # new projects go to $EXPLAINER_PROJECTS, else ./projects in the current directory
-    root = os.path.abspath(os.environ.get('EXPLAINER_PROJECTS') or 'projects')
+        raise SystemExit('usage: python -m aiglainer new <name> ["Paper Title"]   (name: lowercase letters, digits, - or _)')
+    # new projects go to $AIGLAINER_PROJECTS, else ./projects in the current directory
+    root = os.path.abspath(os.environ.get('AIGLAINER_PROJECTS') or 'projects')
     src, dst = TEMPLATE, os.path.join(root, name)
     os.makedirs(root, exist_ok=True)
     if os.path.exists(dst):

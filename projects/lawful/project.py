@@ -1,4 +1,4 @@
-"""LAWFUL (Chen, Parker & Arora, ICML 2026 MI workshop): settings for this video. See explainer/template/project.py."""
+"""LAWFUL (Chen, Parker & Arora, ICML 2026 MI workshop): settings for this video. See aiglainer/template/project.py."""
 from margin_notes import NOTES
 
 HUD = 'the aigs pod  ·  /mull/  ·  lawful'

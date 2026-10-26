@@ -1,9 +1,9 @@
 """LAWFUL thumbnail: the glowing marker-body a radar is watching, and the question the paper asks."""
 import math
 import numpy as np
-from explainer.core import *
-from explainer.kit import radar_icon
-from explainer.notes import swash, sticky
+from aiglainer.core import *
+from aiglainer.kit import radar_icon
+from aiglainer.notes import swash, sticky
 import walker as WK
 
 def draw(c):

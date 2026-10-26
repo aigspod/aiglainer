@@ -1,6 +1,6 @@
 """Check the final mix (after `finish`): transcribe it with Whisper and compare against the script and planned timings.
 
-  python -m explainer verify          # (in .venv-tts)
+  python -m aiglainer verify
 Transcribes each line's window of the mix on its own, then reports word error rate and how far the first
 heard word is from the planned start. Lines that look wrong are listed.
 """

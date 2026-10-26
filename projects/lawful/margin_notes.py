@@ -1,4 +1,4 @@
-"""Handwritten margin notes for the LAWFUL video: scene name -> notes (format in explainer/notes.py)."""
+"""Handwritten margin notes for the LAWFUL video: scene name -> notes (format in aiglainer/notes.py)."""
 
 NOTES = {}
 

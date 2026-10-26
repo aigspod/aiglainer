@@ -1,6 +1,6 @@
 """Contact sheets with one frame per narration line, captioned with the line, to eyeball sync.
 
-  python -m explainer frames          -> <project>/out/narrated/qa/sheet_*.png
+  python -m aiglainer frames          -> <project>/out/narrated/qa/sheet_*.png
 Each frame is taken just after its line starts (half the line, at most 1.2 s, in).
 """
 import json, os, subprocess

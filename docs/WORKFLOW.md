@@ -5,7 +5,7 @@ Apple Silicon Mac; nothing is sent to a service. To start a video for a new pape
 
 ## Layout
 
-The engine in `explainer/` knows nothing about any one paper. Each video is a project in `projects/<name>/`:
+The engine in `aiglainer/` knows nothing about any one paper. Each video is a project in `projects/<name>/`:
 
 ```
 projects/<name>/
@@ -22,13 +22,13 @@ projects/<name>/
   cache/  out/      synthesized clips and build outputs (not committed)
 ```
 
-`explainer/template/` is a complete four-scene example (copied by `make new`); `projects/lawful/` is the full LAWFUL video.
+`aiglainer/template/` is a complete four-scene example (copied by `make new`); `projects/lawful/` is the full LAWFUL video.
 
 ## Pipeline
 
 ```
 paper.pdf
-   │  make inspect / extract_paper.py   vector paths → curves; colormapped rasters → values (explainer/pdf.py)
+   │  make inspect / extract_paper.py   vector paths → curves; colormapped rasters → values (aiglainer/pdf.py)
    ▼
 data/*.json ─────────────┐
 eqs.py                   │
@@ -39,7 +39,7 @@ scenes*.py + margin_notes.py              authored on their own clocks
 narration.py                              scene order + beats
    │  make narration                      Kokoro-82M → cache/*.wav, Whisper-checked → lines.json
    ▼
-explainer/narrated.py                     lays lines end to end, time-warps each scene so beats land on their lines
+aiglainer/narrated.py                     lays lines end to end, time-warps each scene so beats land on their lines
    │  make video                          skia frames, 15 processes → out/<cut>/video_noaudio.mp4
    │  make audio                          score + sound effects + narration, music ducked under the voice
    │  make finish                         −14 LUFS mux, captions.srt, youtube_description.txt
@@ -55,7 +55,7 @@ out/narrated/<OUTPUT_NAME>
 Every target takes `P=<project>` (default `lawful`).
 
 ```sh
-make setup                       # once: .venv (rendering) and .venv-tts (Kokoro, Whisper)
+make setup                       # once: .venv from uv.lock (rendering + Kokoro + Whisper)
 make P=lawful                    # tex → narration → video → audio → finish → verify → thumbnail
 make plan P=lawful               # scene timings and speeds, without rendering
 make frames P=lawful             # contact sheets of every narration line → out/narrated/qa/
@@ -66,7 +66,7 @@ make CUT=full P=lawful           # the project's un-narrated cut, if it defines 
 make help                        # everything
 ```
 
-The Makefile calls `python -m explainer <command> -p <project>`; you can run that directly too.
+The Makefile calls `python -m aiglainer <command> -p <project>`; you can run that directly too.
 
 Outputs for upload are in `projects/<name>/out/narrated/`: the MP4 (captions embedded as a soft track),
 `captions.srt` (upload to YouTube as English captions too), `youtube_description.txt` (chapters included), and
@@ -88,15 +88,15 @@ the scene's authored timeline (read it off the scene code, or use `make preview`
 | `vend` | authored time the scene ends at; use it to drop un-narrated tail content rather than fast-forwarding it |
 | `still` | seconds at the end where visuals freeze |
 
-Global spacing (`GAP` between lines, `LEAD`, defaults) is at the top of `explainer/narrated.py`. `make plan` prints
+Global spacing (`GAP` between lines, `LEAD`, defaults) is at the top of `aiglainer/narrated.py`. `make plan` prints
 each scene's speed range; anything above ~2× in the tail column is content flashing by, so trim it with `vend`.
 
 **Voice.** `VOICE` and `SPEED` in `narration.py`; `make voices` builds an audition page.
 
 **Look.** The aigspod site's dark /mull/ style: Fraunces headings with one amber italic word and a hand-drawn swash
 (`header(..., 'The plan: *three* steps')`), Inter body text, lowercase Space Mono labels, Caveat handwriting for
-asides, the lamp and sticky-note doodles. Fonts are bundled in `explainer/fonts/` (OFL); any glyph a face lacks
-(Greek, arrows) falls back per character to Inter, then SF Pro. Colours are tokens in `explainer/core.py` `PAL`
+asides, the lamp and sticky-note doodles. Fonts are bundled in `aiglainer/fonts/` (OFL); any glyph a face lacks
+(Greek, arrows) falls back per character to Inter, then SF Pro. Colours are tokens in `aiglainer/core.py` `PAL`
 (override per project with `THEME`); data colours should follow the paper's figures. Keep margin notes to one
 aside per scene, never the explanation itself.
 
@@ -105,7 +105,7 @@ at the top then shows the current step. For beginners, say in the narration whic
 A scene can override with `steps = (i,)` or `tracker = False`.
 
 **Visuals.** Scenes are plain Python drawing on a skia canvas: `draw(c, t)` with `t` in authored seconds, using
-helpers from `explainer/core.py` (text, LaTeX, shapes, easing), `kit.py` (headers, captions, axes, pills, radar
+helpers from `aiglainer/core.py` (text, LaTeX, shapes, easing), `kit.py` (headers, captions, axes, pills, radar
 icon) and `notes.py` (handwriting, sticky, lamp). Build every animation from `ramp`/`window` of `t` so the
 narrated cut can warp it. To add a scene: write the class in a module listed in `SCENE_MODULES`, give it a chapter
 title in `project.py`, and add an entry with beats to `narration.py`.
@@ -130,7 +130,7 @@ score: a quiet drone and a riser before `intro_until`, a plucked arpeggio betwee
   and took ~30× longer. Kokoro-82M's built-in voices were word-perfect under Whisper and need no cloning.
   "Bella" (`af_bella`) was chosen by listening.
 - **Verification.** Whisper over the whole soundtrack loops ("The control. The control.") and drops words under
-  music. `explainer/verify_mix.py` transcribes each line's window separately; that is reliable. The per-line check
+  music. `aiglainer/verify_mix.py` transcribes each line's window separately; that is reliable. The per-line check
   also catches script problems: the template once said "eqs dot py", which Kokoro read as "x dot pi".
 - **Length.** A first beginner script for LAWFUL ran to 11 minutes of speech; trimming every line to one idea brought
   it to ~6.7 minutes of speech in a 7:52 video. Speech runs ~145 words/minute; budget words per scene.
@@ -145,8 +145,11 @@ score: a quiet drone and a riser before `intro_until`, a plucked arpeggio betwee
   drops every word that didn't survive `thumbnail_sizes.png`.
 - **skia-python gotcha.** Font variation coordinates must stay referenced until `makeClone` returns, or weights
   silently fall back to regular (`core._var` keeps them alive).
-- **Environment gotchas** are handled in `tools/setup.sh`: spaCy's `en_core_web_sm` installed as a wheel, and
-  espeak-ng data symlinked where the bundled library looks. For F5-TTS (not used in the build): remove `torchcodec`
-  and pin `torch`/`torchaudio` 2.8.
-- **Refactor check.** When the engine was split from the LAWFUL project, 155 sampled frames from both cuts, every
-  cue and narration placement, and the final audio were compared against the pre-refactor build: all identical.
+- **Dependencies.** One environment, `.venv`, from `uv.lock` (`uv sync --extra tts`; `pyproject.toml` holds the
+  ranges). spaCy's `en_core_web_sm` comes from a URL source in `pyproject.toml`, and `tools/setup.sh` symlinks
+  espeak-ng's data where its bundled library looks. Pixel output depends on skia and numpy versions: bump the
+  lock deliberately and re-check a known build. For F5-TTS (not used in the build): remove `torchcodec` and pin
+  `torch`/`torchaudio` 2.8.
+- **Refactor checks.** Splitting the engine from the LAWFUL project, renaming the package to `aiglainer`, and moving
+  from two environments to one locked one were each checked the same way: 155 sampled frames from both cuts,
+  every cue and narration placement, and the final audio, compared against the original build. All identical.

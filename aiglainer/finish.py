@@ -1,6 +1,6 @@
 """Mux video + audio, normalize loudness, and write captions and the YouTube description.
 
-  python -m explainer finish --cut narrated
+  python -m aiglainer finish --cut narrated
 Reads <project>/out/<cut>/video_noaudio.mp4 and audio.wav, writes to the same folder:
   <OUTPUT_NAME>             H.264 + AAC, -14 LUFS integrated (YouTube's reference), -1.5 dBTP
   captions.srt              from the narration script and its exact placements (narrated cut only)

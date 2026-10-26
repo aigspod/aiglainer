@@ -1,4 +1,4 @@
-"""YouTube thumbnail: python -m explainer thumbnail  ->  <project>/out/thumbnail.png (1280x720) + a legibility sheet.
+"""YouTube thumbnail: python -m aiglainer thumbnail  ->  <project>/out/thumbnail.png (1280x720) + a legibility sheet.
 
 The project's THUMBNAIL(c) draws on the usual 1920x1080 canvas (same coordinates and helpers as scenes) over
 the standard background; the result is downsampled to YouTube's 1280x720. Thumbnails are mostly seen small,

@@ -1,6 +1,6 @@
 """Synthesize every narration line with Kokoro-82M, then verify each clip with Whisper.
 
-  python -m explainer tts            # (in .venv-tts) synthesize (cached) + verify
+  python -m aiglainer tts            # synthesize (cached) + verify
 Writes <project>/cache/<hash>.wav (24 kHz mono) and <project>/lines.json:
   [{scene, i, v, text, file, dur, heard, wer}, ...]
 Clips are cached by (voice, speed, spoken text), so editing one line only re-synthesizes that line.

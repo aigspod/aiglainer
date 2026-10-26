@@ -2,9 +2,9 @@
 import math
 import numpy as np
 import skia
-from explainer.core import *
-from explainer.kit import *
-from explainer.timeline import Scene
+from aiglainer.core import *
+from aiglainer.kit import *
+from aiglainer.timeline import Scene
 
 FIG4 = None
 def fig4():

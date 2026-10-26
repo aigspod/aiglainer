@@ -1,4 +1,4 @@
-"""Audition narrator voices: python -m explainer voices [voice ...]       (in .venv-tts)
+"""Audition narrator voices: python -m aiglainer voices [voice ...]
 
 Reads one representative line from <project>/voice_samples/sample.txt (a line with the paper's hard words),
 has each Kokoro-82M voice read it, Whisper-checks every clip, and writes voice_samples/index.html with a

@@ -10,7 +10,7 @@ minutes. `projects/lawful/` is the worked example for every step.
 ## 1. Start the project
 
 ```sh
-make new P=sparse-probing TITLE="Sparse Probing"      # copies explainer/template
+make new P=sparse-probing TITLE="Sparse Probing"      # copies aiglainer/template
 cp ~/Downloads/paper.pdf projects/sparse-probing/paper/
 make P=sparse-probing                                # builds the template video: a smoke test of the toolchain
 ```
@@ -38,7 +38,7 @@ make inspect PDF=projects/sparse-probing/paper/paper.pdf PAGE=6
 ```
 
 lists the page's coloured vector paths (data curves), embedded images (heatmaps, spectrograms) and numeric tick
-labels. Write `extract_paper.py` with the helpers in `explainer/pdf.py` (`path_points`, `axis_map`, `image`,
+labels. Write `extract_paper.py` with the helpers in `aiglainer/pdf.py` (`path_points`, `axis_map`, `image`,
 `invert_colormap`) to save `data/*.json`; see `projects/lawful/extract_paper.py`. Numbers from tables can be typed
 straight into the scene code with a comment naming the table.
 
@@ -52,7 +52,7 @@ One idea per scene, 15–35 authored seconds each. Start from the template's sce
 
 | want | look at |
 |---|---|
-| title card with lamp and sticky note | `explainer/template/scenes.py` `Title`, `lawful/scenes1.py` `Title` |
+| title card with lamp and sticky note | `aiglainer/template/scenes.py` `Title`, `lawful/scenes1.py` `Title` |
 | three cards that build up | `template` `Question`, `lawful` `Question`, `Roadmap` |
 | equation + chart from data | `template` `Method`, `lawful` `Fig4a`, `Score` |
 | box-and-arrow framework diagram | `lawful/scenes2.py` `Framework` |

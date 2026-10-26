@@ -2,17 +2,17 @@
 skia canvas at authored time t. Build every animation from ramp()/window() of t, so the narrated cut can
 time-warp it. Iterate with `make preview SCENE=Method T="2 6 10"`.
 
-The toolkit (explainer/core.py, kit.py, notes.py):
+The toolkit (aiglainer/core.py, kit.py, notes.py):
   text, rich (word-by-word reveal; {y:amber} {g:blue} {f:green} {c:coral} {x:lilac} {r:red} {m:muted}), tex (equations),
   header (section title, one *amber italic* word), caption, panel, pill, kicker, stat, Axes, draw_poly,
   legend_item, arrow, flow_dots, hand (handwriting), sticky, lamp, swash; easing ramp/window/e_out/e_io/e_expo.
 """
 import math
 import numpy as np
-from explainer.core import *
-from explainer.kit import *
-from explainer.timeline import Scene
-from explainer.notes import lamp, sticky, swash
+from aiglainer.core import *
+from aiglainer.kit import *
+from aiglainer.timeline import Scene
+from aiglainer.notes import lamp, sticky, swash
 
 class Title(Scene):
     dur = 7.0
