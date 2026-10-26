@@ -34,6 +34,8 @@ DEFAULTS = dict(
     THEME={},                   # overrides for core.PAL colour tokens
     MUSIC={},                   # intro_until / arp_from / arp_until: scene names that shape the score
     THUMBNAIL=None,             # optional: function(canvas) drawing a 1280x720 thumbnail
+    KIND='video',               # 'video' (16:9), 'short' (9:16, aiglainer/short.py) or 'podcast' (aiglainer/podcast.py)
+    SOURCES=[],                 # other projects whose scenes, data/ and tex/ this one may use, e.g. ['lawful']
 )
 
 class Project:
@@ -49,6 +51,11 @@ class Project:
         for k, v in DEFAULTS.items():
             if not hasattr(mod, k):
                 setattr(mod, k, v)
+        # source projects come after this one on sys.path, so this project's own modules win on a name clash
+        self.sources = [os.path.abspath(resolve(s)) for s in mod.SOURCES]
+        for d in self.sources:
+            if d not in sys.path:
+                sys.path.append(d)
 
     # -- paths
     def path(self, *p):
@@ -61,6 +68,13 @@ class Project:
     def cache(self): return self.path('cache')
     def out(self, cut=''):
         return self.path('out', cut)
+    def find(self, sub, name):
+        """<project>/<sub>/<name>, else the first source project that has it (for data/ and tex/)."""
+        for d in [self.dir] + self.sources:
+            p = os.path.join(d, sub, name)
+            if os.path.exists(p):
+                return p
+        return os.path.join(self.dir, sub, name)
 
     # -- content
     def narration(self):

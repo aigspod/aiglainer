@@ -62,12 +62,17 @@ def main():
     lines = []
     for sc in N.SCENES:
         for i, (v, text) in enumerate(sc['beats']):
-            lines.append(dict(scene=sc['scene'], i=i, v=v, text=text, say=spoken(text, getattr(N, 'SAY', {}))))
-    voice, speed, lang = N.VOICE, N.SPEED, N.LANG
+            lines.append(dict(scene=sc.get('id', sc['scene']), i=i, v=v, text=text, say=spoken(text, getattr(N, 'SAY', {}))))
+    voice = N.VOICE
     if voice in hosts.HOSTS:                     # a host's key ('bella') rather than a raw Kokoro voice id
         h = hosts.get(voice)
-        voice, speed, lang = h['voice'], getattr(N, 'SPEED', h['speed']), h['lang']
+        voice, speed, lang = h['voice'], getattr(N, 'SPEED', h['speed']), getattr(N, 'LANG', h['lang'])
+    else:
+        speed, lang = N.SPEED, N.LANG
     bad = synthesize(P, lines, voice, speed, lang)
+    if not bad and P.KIND == 'short':
+        from . import short
+        short.word_times(P, lines)
     sys.exit(1 if bad else 0)
 
 def synthesize(P, lines, voice, speed, lang):

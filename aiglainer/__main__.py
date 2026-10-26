@@ -64,7 +64,10 @@ def main(argv=None):
     elif c == 'verify':
         from . import verify_mix; verify_mix.main(a.cut)
     elif c == 'frames':
-        from . import line_frames; line_frames.main(a.cut)
+        if project.get().KIND == 'short':
+            from . import short; short.qa()
+        else:
+            from . import line_frames; line_frames.main(a.cut)
     elif c == 'preview':
         from . import preview; preview.main(a.args[0], [float(x) for x in a.args[1:]])
     elif c == 'thumbnail':

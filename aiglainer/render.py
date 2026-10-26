@@ -14,6 +14,9 @@ def outdir(cut):
 def make_timeline(cut):
     """cut='narrated' (voice-synced, from narration.py) or 'full' (the project's FULL_CUT, played as authored)."""
     P = project.get()
+    if P.KIND == 'short' and cut == 'narrated':
+        from . import short
+        return short.make_timeline()
     if cut == 'full':
         if not P.FULL_CUT:
             raise SystemExit(f'project {P.name} has no FULL_CUT')
@@ -27,13 +30,14 @@ def make_timeline(cut):
 def worker(args):
     idx, f0, f1, cut = args
     tl = make_timeline(cut)
+    w, h = getattr(tl, 'size', (W, H))
     path = os.path.join(outdir(cut), 'seg', f'seg_{idx:04d}.mp4')
-    cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
+    cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', f'{w}x{h}', '-r', str(FPS), '-i', '-',
            '-vf', 'scale=out_color_matrix=bt709:out_range=tv,format=yuv420p',
            '-c:v', 'libx264', '-preset', 'slow', '-crf', '14', '-tune', 'animation', '-g', str(FPS * 2), '-bf', '2',
            '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709', '-movflags', '+faststart', path]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-    surf = skia.Surface(W, H)
+    surf = skia.Surface(w, h)
     c = surf.getCanvas()
     for fr in range(f0, f1):
         c.clear(skia.ColorBLACK)

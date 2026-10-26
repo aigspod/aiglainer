@@ -60,7 +60,17 @@ def pad_note(freq, n, bright=0.5):
     vib = 1 + 0.15 * np.sin(2 * np.pi * 0.13 * t + rng.uniform(0, 6))
     return out * vib / 6
 
-def music(total, arp_on):
+# Styles of the score, chosen by a project's MUSIC['style']. 'night' is the original (and the default).
+STYLES = dict(
+    night=dict(chords=CHORDS, ch_len=CH_LEN, bpm=96, pattern=[0, 2, 4, 3, 1, 4, 2, 3], pulse=0.0, cutoff=5200),
+    # brighter and quicker: C6/9 - Am11 - Fmaj9 - G6sus4, eighth-note arpeggio at 112 bpm, a soft heartbeat on the beat
+    dawn=dict(chords=[[48, 55, 62, 64, 69], [45, 52, 57, 60, 62], [41, 48, 57, 60, 64], [43, 50, 55, 60, 64]],
+              ch_len=60 / 112 * 8, bpm=112, pattern=[0, 1, 2, 3, 2, 1, 3, 2], pulse=0.07, cutoff=6400),
+)
+
+def music(total, arp_on, style='night'):
+    S = STYLES[style]
+    CHORDS, CH_LEN = S['chords'], S['ch_len']
     n = int(total * SR) + SR * 4
     out = np.zeros((n, 2))
     k = 0
@@ -81,9 +91,9 @@ def music(total, arp_on):
         end = min(n, i0 + seg)
         out[i0:end] += stereo(sub)[:end - i0]
         # arpeggio plucks
-        step = 60 / 96 / 2
+        step = 60 / S['bpm'] / 2
         nsteps = int(CH_LEN / step)
-        pattern = [0, 2, 4, 3, 1, 4, 2, 3]
+        pattern = S['pattern']
         for s_ in range(nsteps):
             tt = t + s_ * step
             amt = arp_on(tt)
@@ -99,9 +109,15 @@ def music(total, arp_on):
             a0 = int(tt * SR)
             if a0 + L < n:
                 out[a0:a0 + L] += stereo(x, 0.35 * math.sin(s_ * 1.3)) * 0.035 * amt * acc
+            if S['pulse'] and s_ % 2 == 0 and amt > 0.01:      # a soft kick on each beat
+                L = int(0.35 * SR)
+                tl = np.arange(L) / SR
+                x = np.sin(2 * np.pi * np.cumsum(48 + 60 * np.exp(-tl * 30)) / SR) * np.exp(-tl * 9) * np.minimum(1, tl / 0.003)
+                if a0 + L < n:
+                    out[a0:a0 + L] += stereo(x) * S['pulse'] * amt * (1.0 if s_ % 8 == 0 else 0.75)
         t += CH_LEN
         k += 1
-    out = lp(out, 5200)
+    out = lp(out, S['cutoff'])
     return out[:int(total * SR)]
 
 # ---------------------------------------------------------------- sfx
@@ -273,7 +289,7 @@ def build(out_wav, cut='narrated'):
     disc = start(M.get('arp_until'), tl.starts[-1])
     def arp_on(tt):
         return float(np.clip((tt - fw) / 6, 0, 1) * np.clip((disc + 4 - tt) / 6, 0, 1))
-    mus = music(total, arp_on)
+    mus = music(total, arp_on, M.get('style', 'night'))
     n = len(mus)
     T = np.arange(n) / SR
     # music level: cold open = quiet drone bed, swell into title, gentle dip under dense sections, fade out
@@ -310,6 +326,8 @@ def build(out_wav, cut='narrated'):
         if name.startswith('whoosh') and tl.placements:
             tt -= 0.55          # on the cut itself, clear of the scene's first spoken word
         i = int(tt * SR)
+        if i < 0:               # a cue moved before the start of the video (a whoosh on its first frame): start it at 0
+            x, i = x[-i:], 0
         sfx[i:i + len(x)] += x
     sfx = sfx[:n] * (1 - 0.7 * env)[:, None] * (0.7 if tl.placements else 1.0)
     sw = np.stack([fftconvolve(sfx[:, i], ir[:, i])[:n] for i in range(2)], 1)

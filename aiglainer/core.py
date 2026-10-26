@@ -101,6 +101,8 @@ def typeface(weight=400, kind='sans', size=30):
         return _var(SFNS, wght=weight, opsz=clamp(size, 17, 96))
     if kind == 'sf-italic':
         return _var(SFNS_I, wght=weight, opsz=clamp(size, 17, 96))
+    if kind == 'heavy':        # Inter at any size and weight, never swapped for the display face (shorts' captions)
+        return _var(os.path.join(FONT_DIR, 'Inter.ttf'), wght=clamp(weight, 100, 900), opsz=32)
     return _var(os.path.join(FONT_DIR, 'Inter.ttf'), wght=clamp(weight, 100, 900), opsz=clamp(size, 14, 32))
 
 def _resolve(size, weight, kind):
@@ -118,7 +120,7 @@ def font(size, weight=400, kind='sans'):
     f.setHinting(skia.FontHinting.kNone)
     return f
 
-_FALLBACK = dict(italic=('sf-italic',), display=('sans', 'sf'), mono=('sans', 'sf'), hand=('sans', 'sf'), sans=('sf',))
+_FALLBACK = dict(italic=('sf-italic',), display=('sans', 'sf'), mono=('sans', 'sf'), hand=('sans', 'sf'), sans=('sf',), heavy=('sf',))
 
 @functools.lru_cache(maxsize=8192)
 def runs(s, size, weight=400, kind='sans'):
@@ -274,7 +276,7 @@ _tex_cache = {}
 
 def tex_img(key):
     if key not in _tex_cache:
-        _tex_cache[key] = skia.Image.open(os.path.join(project.get().tex, key + '.png'))
+        _tex_cache[key] = skia.Image.open(project.get().find('tex', key + '.png'))
     return _tex_cache[key]
 
 def tex_size(key, size):
@@ -438,7 +440,7 @@ def draw_image(c, im, x, y, w, h, a=1.0, smooth=True):
 # ---------------------------------------------------------------- data
 def load_json(name):
     """Read a JSON file from the current project's data/ folder."""
-    return json.load(open(os.path.join(project.get().data, name)))
+    return json.load(open(project.get().find('data', name)))
 
 if project._current is not None:
     PAL.update(project._current.THEME)

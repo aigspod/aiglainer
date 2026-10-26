@@ -180,6 +180,6 @@ class Timeline:
         out = []
         for s, st in zip(self.scenes, self.starts):
             for (t, name) in s.cues:
-                if t <= to_visual(s, rdur(s)):
+                if to_visual(s, 0) <= t <= to_visual(s, rdur(s)):
                     out.append((st + to_real(s, t), name))
         return sorted(out)

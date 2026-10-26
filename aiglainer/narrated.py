@@ -29,10 +29,11 @@ def build():
     out, placements, T = [], [], 0.0
     for sd in SCRIPT:
         inst = P.scene_class(sd['scene'])()
+        inst.entry = sd                 # the script entry, for layouts that read extra keys (shorts: crop, headline)
         smax = sd.get('smax', SMAX)
-        r_pts, v_pts = [0.0], [0.0]
+        r_pts, v_pts = [0.0], [sd.get('vstart', 0.0)]      # vstart: begin partway into the scene (shorts)
         t_free = LEAD
-        for l in by_scene[sd['scene']]:
+        for l in by_scene[sd.get('id', sd['scene'])]:
             v = l['v']
             r = max(t_free, r_pts[-1] + (v - v_pts[-1]) / smax)
             r_pts.append(r); v_pts.append(v)

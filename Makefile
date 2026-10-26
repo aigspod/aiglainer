@@ -18,8 +18,9 @@ TTS    := $(PY)
 NPROC  ?= 15
 EX      = -m aiglainer -p $(P) --cut $(CUT)
 
-all:              ## build and verify $(P): the video, or the episode for a podcast project
+all:              ## build and verify $(P): a video, a 9:16 short, or a podcast episode, by the project's KIND
 	@if grep -qs "^KIND *= *'podcast'" projects/$(P)/project.py; then $(MAKE) --no-print-directory podcast P=$(P); \
+	elif grep -qs "^KIND *= *'short'" projects/$(P)/project.py; then $(MAKE) --no-print-directory narration video audio finish verify frames P=$(P); \
 	else $(MAKE) --no-print-directory tex narration video audio finish verify thumbnail P=$(P) CUT=$(CUT); fi
 
 .PHONY: all podcast help setup doctor new inspect data tex narration plan video audio finish verify frames preview thumbnail voices fingerprint check clean
