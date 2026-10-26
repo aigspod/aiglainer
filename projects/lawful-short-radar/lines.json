@@ -1,0 +1,90 @@
+[
+ {
+  "scene": "SpecA",
+  "i": 0,
+  "v": 1.7,
+  "text": "Can a neural network learn the Doppler effect, without ever being told about it?",
+  "say": "Can a neural network learn the Doppler effect, without ever being told about it?",
+  "file": "cache/2546ea65347c9441.wav",
+  "dur": 5.2,
+  "heard": "Can a neural network learn the Doppler effect without ever being told about it?",
+  "wer": 0.0
+ },
+ {
+  "scene": "SpecA",
+  "i": 1,
+  "v": 2.0,
+  "text": "This is radar from a person walking around. The swings are the body moving toward and away from the radar.",
+  "say": "This is radar from a person walking around. The swings are the body moving toward and away from the radar.",
+  "file": "cache/ecb9d8ebcc4e94c3.wav",
+  "dur": 7.275,
+  "heard": "This is radar from a person walking around. The swings are the body moving toward and away from the radar.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SpecA",
+  "i": 2,
+  "v": 5.5,
+  "text": "A small network learned to predict it from motion capture alone. Positions in, radar out.",
+  "say": "A small network learned to predict it from motion capture alone. Positions in, radar out.",
+  "file": "cache/53aba57a159615d8.wav",
+  "dur": 6.8,
+  "heard": "A small network learned to predict it from motion capture alone. Positions in, radar out.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SpecB",
+  "i": 0,
+  "v": 3.0,
+  "text": "Now replay the walk with every move toward the radar slowed to thirty percent. Physics says the swings should shrink.",
+  "say": "Now replay the walk with every move toward the radar slowed to thirty percent. Physics says the swings should shrink.",
+  "file": "cache/ba7f0cb35bb1937b.wav",
+  "dur": 7.85,
+  "heard": "Now replay the walk with every move toward the radar slowed to 30%. Physics says the swings should shrink.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SpecB",
+  "i": 1,
+  "v": 6.0,
+  "text": "And the network's prediction shrinks, just like physics says.",
+  "say": "And the network's prediction shrinks, just like physics says.",
+  "file": "cache/96c1e32da64b97cc.wav",
+  "dur": 3.975,
+  "heard": "And the network's prediction shrinks, just like physics says.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SpecC",
+  "i": 0,
+  "v": 11.0,
+  "text": "Patch in only half the network, the circuit, and it shrinks too.",
+  "say": "Patch in only half the network, the circuit, and it shrinks too.",
+  "file": "cache/e5e7ac92232f008e.wav",
+  "dur": 4.35,
+  "heard": "Patch in only half the network, the circuit, and it shrinks too.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SpecC",
+  "i": 1,
+  "v": 14.5,
+  "text": "Patch in the other half, and the swings stay full size.",
+  "say": "Patch in the other half, and the swings stay full size.",
+  "file": "cache/1cc17d120c80837d.wav",
+  "dur": 3.825,
+  "heard": "Patch in the other half and the swings stay full size.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SpecC",
+  "i": 2,
+  "v": 16.0,
+  "text": "So we know where the behavior lives. How it works is still an open question.",
+  "say": "So we know where the behavior lives. How it works is still an open question.",
+  "file": "cache/87603560fe00904b.wav",
+  "dur": 5.125,
+  "heard": "So we know where the behavior lives. How it works is still an open question.",
+  "wer": 0.0
+ }
+]

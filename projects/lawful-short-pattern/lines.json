@@ -1,0 +1,90 @@
+[
+ {
+  "scene": "WhereVsWhat",
+  "i": 0,
+  "v": 0.4,
+  "text": "Inside a transformer, every attention head does two jobs.",
+  "say": "Inside a transformer, every attention head does two jobs.",
+  "file": "cache/dccd2d5407288c5f.wav",
+  "dur": 4.45,
+  "heard": "Inside a transformer, every attention head does two jobs.",
+  "wer": 0.0
+ },
+ {
+  "scene": "WhereVsWhat",
+  "i": 1,
+  "v": 1.8,
+  "text": "It decides where to look, and what to carry back.",
+  "say": "It decides where to look, and what to carry back.",
+  "file": "cache/5fc07df45ea2df2c.wav",
+  "dur": 3.45,
+  "heard": "It decides where to look and what to carry back.",
+  "wer": 0.0
+ },
+ {
+  "scene": "WhereVsWhat",
+  "i": 2,
+  "v": 5.0,
+  "text": "Researchers swapped each job separately, using what-if versions of a walk.",
+  "say": "Researchers swapped each job separately, using what-if versions of a walk.",
+  "file": "cache/3d93c01bc25ef99d.wav",
+  "dur": 5.2,
+  "heard": "Researchers swapped each job separately, using what-if versions of a walk.",
+  "wer": 0.0
+ },
+ {
+  "scene": "WhereVsWhat",
+  "i": 3,
+  "v": 8.0,
+  "text": "Swap only where the heads look, and about two thirds of the law-following comes back.",
+  "say": "Swap only where the heads look, and about two thirds of the law-following comes back.",
+  "file": "cache/4314cde57a971527.wav",
+  "dur": 5.225,
+  "heard": "Swap only where the heads look, and about two-thirds of the law following comes back.",
+  "wer": 0.0
+ },
+ {
+  "scene": "WhereVsWhat",
+  "i": 4,
+  "v": 11.5,
+  "text": "Swap only what they carry, and the score drops below zero.",
+  "say": "Swap only what they carry, and the score drops below zero.",
+  "file": "cache/54dc2e55b0722e83.wav",
+  "dur": 4.3,
+  "heard": "swap only what they carry and the score drops below zero",
+  "wer": 0.0
+ },
+ {
+  "scene": "Heatmaps",
+  "i": 0,
+  "v": 5.0,
+  "text": "So where do they look?",
+  "say": "So where do they look?",
+  "file": "cache/d17678298ac47aa8.wav",
+  "dur": 1.8,
+  "heard": "So where do they look?",
+  "wer": 0.0
+ },
+ {
+  "scene": "Heatmaps",
+  "i": 1,
+  "v": 12.0,
+  "text": "One head watches the earliest moments. Another watches the latest.",
+  "say": "One head watches the earliest moments. Another watches the latest.",
+  "file": "cache/d85ac2f412c11654.wav",
+  "dur": 4.975,
+  "heard": "One head watches the earliest moments. Another watches the latest.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Heatmaps",
+  "i": 2,
+  "v": 20.0,
+  "text": "Late minus early. That's velocity. Maybe. The paper calls it a possible explanation, not a proof.",
+  "say": "Late minus early. That's velocity. Maybe. The paper calls it a possible explanation, not a proof.",
+  "file": "cache/78e3d0dca48f7b6b.wav",
+  "dur": 7.45,
+  "heard": "Late minus early. That's velocity. Maybe. The paper calls it a possible explanation, not a proof.",
+  "wer": 0.0
+ }
+]

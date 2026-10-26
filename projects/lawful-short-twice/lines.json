@@ -1,0 +1,90 @@
+[
+ {
+  "scene": "Fig4a",
+  "i": 0,
+  "v": 2.1,
+  "text": "A model could be twice wrong, and still ace this physics test. Here's how.",
+  "say": "A model could be twice wrong, and still ace this physics test. Here's how.",
+  "file": "cache/25251a06bb0e5b49.wav",
+  "dur": 5.125,
+  "heard": "A model could be twice wrong and still ace this physics test. Here's how.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig4a",
+  "i": 1,
+  "v": 4.2,
+  "text": "Speed up the motion toward a radar, and physics says the Doppler signal scales with it. That's the blue line.",
+  "say": "Speed up the motion toward a radar, and physics says the Doppler signal scales with it. That's the blue line.",
+  "file": "cache/a1c8559bad80810b.wav",
+  "dur": 7.375,
+  "heard": "Speed up the motion toward a radar, and physics says the Doppler signal scales with it. That's the blue line.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig4a",
+  "i": 2,
+  "v": 8.0,
+  "text": "A real network, in green, follows it closely. A score of zero point nine eight eight.",
+  "say": "A real network, in green, follows it closely. A score of zero point nine eight eight.",
+  "file": "cache/24893f1fc83b4ef4.wav",
+  "dur": 6.075,
+  "heard": "A real network in green follows it closely, a score of 0.988.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwiceWrong",
+  "i": 0,
+  "v": 0.4,
+  "text": "But the score compares each model with its own starting point.",
+  "say": "But the score compares each model with its own starting point.",
+  "file": "cache/44123bd5052af909.wav",
+  "dur": 4.0,
+  "heard": "But the score compares each model with its own starting point.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwiceWrong",
+  "i": 1,
+  "v": 2.4,
+  "text": "So picture a second model that always predicts twice the right frequency.",
+  "say": "So picture a second model that always predicts twice the right frequency.",
+  "file": "cache/64326c2e070363f5.wav",
+  "dur": 5.15,
+  "heard": "So picture a second model that always predicts twice the right frequency.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwiceWrong",
+  "i": 2,
+  "v": 5.2,
+  "text": "Slow the motion, and it slows. Speed it up, and it speeds up.",
+  "say": "Slow the motion, and it slows. Speed it up, and it speeds up.",
+  "file": "cache/288a3c3bc61cca55.wav",
+  "dur": 4.375,
+  "heard": "Slow the motion and it slows. Speed it up and it speeds up.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwiceWrong",
+  "i": 3,
+  "v": 12.0,
+  "text": "Same slopes. Same perfect score. Still twice wrong.",
+  "say": "Same slopes. Same perfect score. Still twice wrong.",
+  "file": "cache/2ca11d57b4871368.wav",
+  "dur": 4.25,
+  "heard": "Same slopes, same perfect score, still twice wrong.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwiceWrong",
+  "i": 4,
+  "v": 15.5,
+  "text": "So this score checks the scaling, not the size. What test would you add?",
+  "say": "So this score checks the scaling, not the size. What test would you add?",
+  "file": "cache/a9fb03a5191cad8d.wav",
+  "dur": 4.75,
+  "heard": "So this score checks the scaling, not the size. What test would you add?",
+  "wer": 0.0
+ }
+]

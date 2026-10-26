@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "ProbeBars",
+  "i": 0,
+  "v": 0.4,
+  "text": "Here's a trap in AI research. Finding information inside a network doesn't mean the network uses it.",
+  "say": "Here's a trap in AI research. Finding information inside a network doesn't mean the network uses it.",
+  "file": "cache/3fee0910e2ac5bb9.wav",
+  "dur": 7.575,
+  "heard": "Here's a trap in AI research. Finding information inside a network doesn't mean the network uses it.",
+  "wer": 0.0
+ },
+ {
+  "scene": "ProbeBars",
+  "i": 1,
+  "v": 3.0,
+  "text": "Researchers trained probes to read velocity from a small transformer that predicts radar.",
+  "say": "Researchers trained probes to read velocity from a small transformer that predicts radar.",
+  "file": "cache/3428375ec52c04f1.wav",
+  "dur": 6.425,
+  "heard": "Researchers train probes to read velocity from a small transformer that predicts radar.",
+  "wer": 0.077
+ },
+ {
+  "scene": "ProbeBars",
+  "i": 2,
+  "v": 5.5,
+  "text": "Right before the attention layer, almost nothing. The best single attention head, a little.",
+  "say": "Right before the attention layer, almost nothing. The best single attention head, a little.",
+  "file": "cache/7f6df85e281f3b47.wav",
+  "dur": 6.325,
+  "heard": "Right before the attention layer, almost nothing. The best single attention head a little.",
+  "wer": 0.0
+ },
+ {
+  "scene": "ProbeBars",
+  "i": 3,
+  "v": 9.0,
+  "text": "All the circuit's heads together: zero point seven six. Now it's readable.",
+  "say": "All the circuit's heads together: zero point seven six. Now it's readable.",
+  "file": "cache/9dab0af5628753d6.wav",
+  "dur": 5.625,
+  "heard": "All the circuits heads together. 0.76. Now it's readable.",
+  "wer": 0.0
+ },
+ {
+  "scene": "ProbeBars",
+  "i": 4,
+  "v": 12.5,
+  "text": "The next layer reads it too. But replace the attention's output with its average, and it drops to almost zero.",
+  "say": "The next layer reads it too. But replace the attention's output with its average, and it drops to almost zero.",
+  "file": "cache/8f5c606338a03d39.wav",
+  "dur": 7.925,
+  "heard": "The next layer reads it too, but replace the attention's output with its average, and it drops to almost zero.",
+  "wer": 0.0
+ },
+ {
+  "scene": "ProbeBars",
+  "i": 5,
+  "v": 17.0,
+  "text": "Readable tells you where to look. Only an intervention tells you what the network uses.",
+  "say": "Readable tells you where to look. Only an intervention tells you what the network uses.",
+  "file": "cache/09efb97147c2f8b6.wav",
+  "dur": 6.275,
+  "heard": "Readable tells you where to look. Only an intervention tells you what the network uses.",
+  "wer": 0.0
+ }
+]

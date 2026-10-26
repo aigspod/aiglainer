@@ -1,0 +1,79 @@
+[
+ {
+  "scene": "Doppler",
+  "i": 0,
+  "v": 1.9,
+  "text": "Want to know if an AI really learned a law of physics? Check what the law forbids.",
+  "say": "Want to know if an AI really learned a law of physics? Check what the law forbids.",
+  "file": "cache/8f7dc7fcd53624d5.wav",
+  "dur": 5.925,
+  "heard": "Want to know if an AI really learned a law of physics? Check what the law forbids.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Doppler",
+  "i": 1,
+  "v": 2.4,
+  "text": "A radar's Doppler shift depends only on motion toward it, or away from it.",
+  "say": "A radar's Doppler shift depends only on motion toward it, or away from it.",
+  "file": "cache/4a3cbaee121f7dce.wav",
+  "dur": 5.575,
+  "heard": "A radar's Doppler shift depends only on motion toward it or away from it.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Doppler",
+  "i": 2,
+  "v": 9.0,
+  "text": "Move sideways across its view, and there is essentially no shift at all.",
+  "say": "Move sideways across its view, and there is essentially no shift at all.",
+  "file": "cache/ac6d844d9006600f.wav",
+  "dur": 5.225,
+  "heard": "Move sideways across its view, and there is essentially no shift at all.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig4b",
+  "i": 0,
+  "v": 1.7,
+  "text": "So researchers took real walks, removed the motion toward the radar, and scaled only the sideways part.",
+  "say": "So researchers took real walks, removed the motion toward the radar, and scaled only the sideways part.",
+  "file": "cache/f20fafd15cd5b293.wav",
+  "dur": 7.625,
+  "heard": "So researchers took real walks, removed the motion toward the radar, and scaled only the sideways part.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig4b",
+  "i": 1,
+  "v": 3.0,
+  "text": "Physics says the response should stay near zero. That's the blue line.",
+  "say": "Physics says the response should stay near zero. That's the blue line.",
+  "file": "cache/4df8c3c26915f27d.wav",
+  "dur": 4.925,
+  "heard": "Physics says the response should stay near zero. That's the blue line.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig4b",
+  "i": 2,
+  "v": 6.0,
+  "text": "The network, in green, stays near zero too. And when the body stands still, its predicted Doppler centroid lands right on zero.",
+  "say": "The network, in green, stays near zero too. And when the body stands still, its predicted Doppler centroid lands right on zero.",
+  "file": "cache/4c6d3c12fcb184c9.wav",
+  "dur": 9.675,
+  "heard": "The network in green stays near zero, too, and when the body stands still, its predicted Doppler centroid lands right on zero.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig4b",
+  "i": 3,
+  "v": 14.0,
+  "text": "That's its behavior. How the network enforces the rule inside is still an open question.",
+  "say": "That's its behavior. How the network enforces the rule inside is still an open question.",
+  "file": "cache/e9fc5b16771519df.wav",
+  "dur": 6.475,
+  "heard": "That's its behavior. How the network enforces the rule inside is still an open question.",
+  "wer": 0.0
+ }
+]
