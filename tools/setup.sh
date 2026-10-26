@@ -8,4 +8,4 @@ command -v pixi >/dev/null || { echo "install pixi first: https://pixi.sh"; exit
 pixi install
 # refuse commits of media and big files (see tools/hooks/pre-commit)
 git config core.hooksPath tools/hooks
-echo "environment ready: .pixi/envs/default"
+.pixi/envs/default/bin/python -m aiglainer doctor

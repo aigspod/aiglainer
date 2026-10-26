@@ -5,14 +5,20 @@
 #   make help                      every target
 P      ?= lawful
 CUT    ?= narrated
+# Python: the pixi environment if `pixi install` has run, otherwise whatever python3 is active (a venv you made).
+# Override with `make PY=/path/to/python`.
 ENV    := $(CURDIR)/.pixi/envs/default
-PY     := $(ENV)/bin/python
+ifneq ($(wildcard $(ENV)/bin/python),)
+PY     ?= $(ENV)/bin/python
+export PATH := $(ENV)/bin:$(PATH)            # the project's own ffmpeg and tectonic
+else
+PY     ?= python3
+endif
 TTS    := $(PY)
 NPROC  ?= 15
 EX      = -m aiglainer -p $(P) --cut $(CUT)
-export PATH := $(ENV)/bin:$(PATH)            # the project's own ffmpeg and tectonic
 
-.PHONY: all help setup new inspect data tex narration plan video audio finish verify frames preview thumbnail voices fingerprint check clean
+.PHONY: all help setup doctor new inspect data tex narration plan video audio finish verify frames preview thumbnail voices fingerprint check clean
 all: tex narration video audio finish verify thumbnail
 
 help:             ## list targets
@@ -20,6 +26,9 @@ help:             ## list targets
 
 setup:            ## pixi install from pixi.lock, and enable the commit guard
 	./tools/setup.sh
+
+doctor:           ## check this machine: tools, libraries, speech models (and fix espeak's data path)
+	$(PY) -m aiglainer doctor
 
 new:              ## scaffold projects/$(P) from the template: make new P=name TITLE="Paper Title"
 	$(PY) -m aiglainer new $(P) "$(TITLE)"

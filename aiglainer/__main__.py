@@ -19,6 +19,7 @@ COMMANDS = {
     'thumbnail': '1280x720 YouTube thumbnail -> out/thumbnail.png',
     'voices':    'audition Kokoro voices on a line -> voice_samples/index.html',
     'fingerprint': 'hash sampled frames/cues/placements; --compare after an engine change',
+    'doctor':    'check this machine (tools, libraries, models) and fix espeak\'s data path',
 }
 
 def main(argv=None):
@@ -35,6 +36,9 @@ def main(argv=None):
     if a.command == 'new':
         from . import scaffold
         return scaffold.main(*a.args)
+    if a.command == 'doctor':
+        from . import doctor
+        return doctor.main()
     if a.command == 'inspect':
         from . import pdf
         return pdf.inspect(*a.args)

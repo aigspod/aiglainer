@@ -19,12 +19,17 @@ doesn't replace it).
 
 ## Setup and commands
 
-macOS 14.5+ on Apple Silicon only (mlx narration, SF Pro font fallback). The only prerequisite is
-[pixi](https://pixi.sh): `pixi install` brings Python, ffmpeg, tectonic and every library into
-`.pixi/envs/default`, and the Makefile runs everything from there.
+macOS 14.5+ on Apple Silicon only (mlx narration, SF Pro font fallback). The supported setup is
+[pixi](https://pixi.sh): if `pixi` isn't on PATH, install it ([instructions](https://pixi.sh/latest/installation/):
+`curl -fsSL https://pixi.sh/install.sh | sh`, or `brew install pixi`), then `make setup`. That brings Python, ffmpeg,
+tectonic and every library into `.pixi/envs/default` at the versions in `pixi.lock`, and the Makefile runs everything
+from there. The README's "Install" section also covers a pip/venv route and a render-only install. Start any
+session on a new machine with `make doctor`: it reports what's missing (and fixes espeak's data path if needed).
+First narration run downloads Kokoro (~340 MB) and Whisper (~1.5 GB) from Hugging Face.
 
 ```sh
-make setup                      # once: pixi install (+ commit guard)
+make setup                      # once: pixi install (+ commit guard, + doctor)
+make doctor                     # what's installed / missing on this machine
 make P=<name>                   # full build: tex, narration, video, audio, finish, verify, thumbnail (~4 min for LAWFUL)
 make plan P=<name>              # timing plan, instant: use it after every narration edit
 make preview P=<name> SCENE=X T="2 8 14"   # render one scene at authored times -> out/prev/X.png
