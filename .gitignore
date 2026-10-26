@@ -1,5 +1,6 @@
 # environments and caches
 .venv/
+.pixi/
 __pycache__/
 *.egg-info/
 build/
@@ -32,4 +33,4 @@ projects/*/voice_samples/*
 !projects/*/voice_samples/sample.txt
 
 # the lockfile is the pinned environment for this repo (overrides a global ignore)
-!uv.lock
+!pixi.lock

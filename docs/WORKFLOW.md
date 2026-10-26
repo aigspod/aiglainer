@@ -55,7 +55,7 @@ out/narrated/<OUTPUT_NAME>
 Every target takes `P=<project>` (default `lawful`).
 
 ```sh
-make setup                       # once: .venv from uv.lock (rendering + Kokoro + Whisper)
+make setup                       # once: pixi install (rendering, Kokoro, Whisper, ffmpeg, tectonic)
 make P=lawful                    # tex → narration → video → audio → finish → verify → thumbnail
 make plan P=lawful               # scene timings and speeds, without rendering
 make frames P=lawful             # contact sheets of every narration line → out/narrated/qa/
@@ -145,11 +145,14 @@ score: a quiet drone and a riser before `intro_until`, a plucked arpeggio betwee
   drops every word that didn't survive `thumbnail_sizes.png`.
 - **skia-python gotcha.** Font variation coordinates must stay referenced until `makeClone` returns, or weights
   silently fall back to regular (`core._var` keeps them alive).
-- **Dependencies.** One environment, `.venv`, from `uv.lock` (`uv sync --extra tts`; `pyproject.toml` holds the
-  ranges). spaCy's `en_core_web_sm` comes from a URL source in `pyproject.toml`, and `tools/setup.sh` symlinks
-  espeak-ng's data where its bundled library looks. Pixel output depends on skia and numpy versions: bump the
-  lock deliberately and re-check a known build. For F5-TTS (not used in the build): remove `torchcodec` and pin
+- **Dependencies.** One pixi environment (`[tool.pixi.*]` in `pyproject.toml`, locked in `pixi.lock`): conda-forge for
+  Python, the scientific stack, ffmpeg, tectonic, mlx, mlx-audio, misaki, spaCy and its English model, and
+  PyTorch; PyPI for skia-python and mlx-whisper (not on conda-forge) and pymupdf (pixi would otherwise install
+  conda's and PyPI's side by side). PyTorch must come from conda: PyPI's bundles a second OpenMP runtime that
+  crashes the process. conda-forge's `spacy-curated-transformers` breaks spaCy's plugin loading, so it's left out
+  (only transformer pipelines need it). Pixel output depends on skia and numpy versions: bump the lock
+  deliberately and run `make check`. For F5-TTS (not used in the build): remove `torchcodec` and pin
   `torch`/`torchaudio` 2.8.
 - **Refactor checks.** Splitting the engine from the LAWFUL project, renaming the package to `aiglainer`, and moving
-  from two environments to one locked one were each checked the same way: 155 sampled frames from both cuts,
+  moving from two environments to one locked one, and then to pixi were each checked the same way: 155 sampled frames from both cuts,
   every cue and narration placement, and the final audio, compared against the original build. All identical.

@@ -1,15 +1,16 @@
 # Paper explainer videos. Each video is a project under projects/; pick one with P=<name>.
-#   make setup                     once: create .venv
+#   make setup                     once: pixi install (+ the commit guard)
 #   make new P=mypaper             start a new video from the template
 #   make P=mypaper                 build and verify its narrated cut -> projects/mypaper/out/narrated/
 #   make help                      every target
 P      ?= lawful
 CUT    ?= narrated
-PY     := $(CURDIR)/.venv/bin/python
+ENV    := $(CURDIR)/.pixi/envs/default
+PY     := $(ENV)/bin/python
 TTS    := $(PY)
 NPROC  ?= 15
 EX      = -m aiglainer -p $(P) --cut $(CUT)
-export PATH := $(HOME)/.pixi/bin:$(PATH)
+export PATH := $(ENV)/bin:$(PATH)            # the project's own ffmpeg and tectonic
 
 .PHONY: all help setup new inspect data tex narration plan video audio finish verify frames preview thumbnail voices fingerprint check clean
 all: tex narration video audio finish verify thumbnail
@@ -17,7 +18,7 @@ all: tex narration video audio finish verify thumbnail
 help:             ## list targets
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | sed -E 's/:.*## /\t/' | expand -t 14
 
-setup:            ## create .venv from uv.lock (rendering + narration) and enable the commit guard
+setup:            ## pixi install from pixi.lock, and enable the commit guard
 	./tools/setup.sh
 
 new:              ## scaffold projects/$(P) from the template: make new P=name TITLE="Paper Title"

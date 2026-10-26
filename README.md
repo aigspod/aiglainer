@@ -8,7 +8,7 @@ synthesizes the score and sound effects, Kokoro-82M ("Bella") narrates, Whisper 
 encodes.
 
 ```sh
-make setup                                   # once (macOS, Apple Silicon; needs uv, ffmpeg, tectonic)
+make setup                                   # once (macOS 14.5+, Apple Silicon; needs only pixi)
 make new P=mypaper TITLE="Paper Title"       # a new video from the template
 make P=mypaper                               # build + verify -> projects/mypaper/out/
 ```
@@ -39,7 +39,7 @@ aiglainer/           the engine (topic-agnostic); python -m aiglainer <command> 
   template/          a complete four-scene example video, copied by `make new`
 projects/
   lawful/            the LAWFUL video: settings, scenes, narration, data
-tools/setup.sh       uv sync (.venv from uv.lock, package editable), narration fixes, enables the commit guard
+tools/setup.sh       pixi install (Python, ffmpeg, tectonic, all libraries, package editable), commit guard
 tools/hooks/         pre-commit: refuses media files and anything over 1 MB
 ```
 

@@ -19,11 +19,12 @@ doesn't replace it).
 
 ## Setup and commands
 
-macOS on Apple Silicon only (mlx narration, SF Pro font fallback). Needs `uv`, `ffmpeg`, and `tectonic` for equations;
-on this machine ffmpeg and tectonic live in `~/.pixi/bin`, which the Makefile adds to PATH.
+macOS 14.5+ on Apple Silicon only (mlx narration, SF Pro font fallback). The only prerequisite is
+[pixi](https://pixi.sh): `pixi install` brings Python, ffmpeg, tectonic and every library into
+`.pixi/envs/default`, and the Makefile runs everything from there.
 
 ```sh
-make setup                      # once: .venv from uv.lock (+ espeak fix, + commit guard)
+make setup                      # once: pixi install (+ commit guard)
 make P=<name>                   # full build: tex, narration, video, audio, finish, verify, thumbnail (~4 min for LAWFUL)
 make plan P=<name>              # timing plan, instant: use it after every narration edit
 make preview P=<name> SCENE=X T="2 8 14"   # render one scene at authored times -> out/prev/X.png
@@ -33,7 +34,7 @@ make inspect PDF=... PAGE=N     # find data curves, images and tick labels in a 
 make help                       # everything else
 ```
 
-Everything also runs as `.venv/bin/aiglainer <command> -p <name>` (or `python -m aiglainer`).
+Everything also runs as `pixi run aiglainer <command> -p <name>` (or `pixi run python -m aiglainer ...`).
 
 ## How to work here
 
@@ -74,9 +75,11 @@ Everything also runs as `.venv/bin/aiglainer <command> -p <name>` (or `python -m
   something bypassed `text()`.
 - **Imports.** A project's folder is put on `sys.path`, so its modules import each other plainly (`import walker`)
   while engine modules are imported as `aiglainer.<module>`. Don't name project modules after engine modules.
-- **Environment.** `uv sync --extra tts` installs everything; spaCy's model comes from a URL source in
-  `pyproject.toml`, and espeak-ng needs the symlink fix in `tools/setup.sh`. Bump `uv.lock` deliberately: pixels
-  depend on skia and numpy versions.
+- **Environment.** pixi, configured in `pyproject.toml` under `[tool.pixi.*]`, locked in `pixi.lock`. Most packages
+  come from conda-forge; skia-python, mlx-whisper and pymupdf come from PyPI (see the comments there for why).
+  Keep PyTorch on conda-forge: a PyPI torch brings its own OpenMP runtime and crashes the process (`OMP: Error #15`).
+  Don't add `spacy-curated-transformers`: conda-forge's build breaks spaCy's plugin loading and we don't use it.
+  Bump the lock deliberately: pixels depend on skia and numpy versions, so run `make check` after.
 
 ## Git
 
