@@ -16,6 +16,10 @@ doesn't replace it).
 - `projects/<name>/` is one video: `project.py` (settings), `narration.py`, `scenes*.py`, `margin_notes.py`,
   `thumbnail.py`, `eqs.py`, `data/`. `projects/lawful/` is the complete reference video.
 - `aiglainer/template/` is the starter project copied by `make new`.
+- A project with `KIND = 'podcast'` is an audio-only episode (`episode.py` instead of scenes); see
+  [docs/PODCAST.md](docs/PODCAST.md). `projects/lawful-pod/` is the reference episode.
+- Hosts are roles in scripts, defined once in `aiglainer/hosts.py`; how every host pronounces words like "aigs"
+  ("aygs", rhyming with "plagues"; never spelled out) lives in `aiglainer/lexicon.py`. Don't respell those per project.
 
 ## Setup and commands
 

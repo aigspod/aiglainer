@@ -18,8 +18,11 @@ TTS    := $(PY)
 NPROC  ?= 15
 EX      = -m aiglainer -p $(P) --cut $(CUT)
 
-.PHONY: all help setup doctor new inspect data tex narration plan video audio finish verify frames preview thumbnail voices fingerprint check clean
-all: tex narration video audio finish verify thumbnail
+all:              ## build and verify $(P): the video, or the episode for a podcast project
+	@if grep -qs "^KIND *= *'podcast'" projects/$(P)/project.py; then $(MAKE) --no-print-directory podcast P=$(P); \
+	else $(MAKE) --no-print-directory tex narration video audio finish verify thumbnail P=$(P) CUT=$(CUT); fi
+
+.PHONY: all podcast help setup doctor new inspect data tex narration plan video audio finish verify frames preview thumbnail voices fingerprint check clean
 
 help:             ## list targets
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | sed -E 's/:.*## /\t/' | expand -t 14
@@ -68,6 +71,9 @@ preview:          ## contact sheet of one scene: make preview SCENE=Fig4a T="5 1
 
 thumbnail:        ## YouTube thumbnail -> out/thumbnail.png (+ thumbnail_sizes.png legibility check)
 	$(PY) $(EX) thumbnail
+
+podcast:          ## audio-only episode -> out/podcast/ (MP3 with chapters, transcript, show notes), then verify
+	$(TTS) -m aiglainer -p $(P) podcast
 
 voices:           ## audition narrator voices on voice_samples/sample.txt -> voice_samples/index.html
 	$(TTS) $(EX) voices $(VOICES)

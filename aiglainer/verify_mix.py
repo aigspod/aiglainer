@@ -29,10 +29,11 @@ def main(cut='narrated'):
         res = mlx_whisper.transcribe(audio[a:b].astype(np.float32), path_or_hf_repo='mlx-community/whisper-large-v3-turbo',
                                      language='en', word_timestamps=True, condition_on_previous_text=False)
         lead = p['t'] - a / sr
-        # keep words after the previous line ended (Whisper often stamps a first word early, into the silence)
+        # keep words after the previous line ended (Whisper often stamps a first word early, into the silence);
+        # with tight turn-taking (podcasts) the boundary is the middle of the gap, so the last word stays with its line
         k = placements.index(p)
-        prev_end = (placements[k - 1]['t'] + placements[k - 1]['dur'] - 0.2) if k else 0.0
-        cut = max(0.0, prev_end - a / sr)
+        prev_end = placements[k - 1]['t'] + placements[k - 1]['dur'] if k else 0.0
+        cut = max(0.0, max(prev_end - 0.2, min((prev_end + p['t']) / 2, p['t'])) - a / sr) if k else 0.0
         ws = [w for s in res['segments'] for w in s.get('words', []) if w['end'] > cut]
         heard = ''.join(w['word'] for w in ws).strip()
         off = (ws[0]['start'] - lead) if ws else float('nan')

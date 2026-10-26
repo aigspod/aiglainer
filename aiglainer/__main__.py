@@ -18,6 +18,7 @@ COMMANDS = {
     'preview':   'contact sheet of one scene: preview SCENE t1 t2 ...',
     'thumbnail': '1280x720 YouTube thumbnail -> out/thumbnail.png',
     'voices':    'audition Kokoro voices on a line -> voice_samples/index.html',
+    'podcast':   'audio-only episode: synthesize, mix, master to -16 LUFS, verify -> out/podcast/',
     'fingerprint': 'hash sampled frames/cues/placements; --compare after an engine change',
     'doctor':    'check this machine (tools, libraries, models) and fix espeak\'s data path',
 }
@@ -29,7 +30,7 @@ def main(argv=None):
     ap.add_argument('command', choices=COMMANDS, metavar='command')
     ap.add_argument('args', nargs='*')
     ap.add_argument('-p', '--project', default=os.environ.get('AIGLAINER_PROJECT'))
-    ap.add_argument('--cut', default='narrated', choices=['narrated', 'full'])
+    ap.add_argument('--cut', default='narrated', choices=['narrated', 'full', 'podcast'])
     ap.add_argument('--force', action='store_true', help='tex: rebuild even if unchanged')
     ap.add_argument('--compare', action='store_true', help='fingerprint: compare against the saved one')
     a = ap.parse_args(argv)
@@ -45,7 +46,8 @@ def main(argv=None):
     if a.project:
         os.environ['AIGLAINER_PROJECT'] = a.project    # inherited by render workers
     from . import project
-    project.get()
+    if getattr(project.get(), 'KIND', 'video') == 'podcast' and a.cut == 'narrated':
+        a.cut = 'podcast'
     c = a.command
     if c == 'tex':
         from . import build_tex; build_tex.main(a.force)
@@ -69,6 +71,8 @@ def main(argv=None):
         from . import thumbnail; thumbnail.main(*a.args)
     elif c == 'voices':
         from . import voices; voices.main(*a.args)
+    elif c == 'podcast':
+        from . import podcast; podcast.main()
     elif c == 'fingerprint':
         from . import fingerprint; fingerprint.main(a.compare)
 

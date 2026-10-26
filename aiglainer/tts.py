@@ -8,15 +8,23 @@ Exits non-zero if any line's word error rate exceeds MAX_WER, so a mispronunciat
 """
 import hashlib, json, os, re, sys
 import numpy as np
-from . import project
+from . import project, lexicon, hosts
 
 MAX_WER = 0.12
 WHISPER = 'mlx-community/whisper-large-v3-turbo'
 
 def spoken(text, SAY):
-    for k, v in SAY.items():
-        text = re.sub(rf'\b{re.escape(k)}\b', v, text)
-    return text
+    """What Kokoro is given: the project's SAY over the shared lexicon, in one pass (a replacement is never re-scanned)."""
+    say = dict(lexicon.SAY, **SAY)
+    if not say:
+        return text
+    pat = '|'.join(rf'\b{re.escape(k)}\b' for k in sorted(say, key=len, reverse=True))
+    return re.sub(pat, lambda m: say[m.group(0)], text)
+
+def heard_as_written(s):
+    for pat, rep in lexicon.HEARD.items():
+        s = re.sub(pat, rep, s, flags=re.I)
+    return s
 
 ONES = 'zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split()
 TENS = 'x x twenty thirty forty fifty sixty seventy eighty ninety'.split()
@@ -40,7 +48,7 @@ def words(s):
     return re.sub(r'[^a-z ]', ' ', s.replace("'", '')).split()
 
 def wer(ref, hyp):
-    r, h = words(ref), words(hyp)
+    r, h = words(ref), words(heard_as_written(hyp))
     d = list(range(len(h) + 1))
     for i in range(1, len(r) + 1):
         p, d[0] = d[0], i
@@ -49,25 +57,43 @@ def wer(ref, hyp):
     return d[-1] / max(1, len(r))
 
 def main():
-    import soundfile as sf
     P = project.get()
     N = P.narration()
-    os.makedirs(P.cache, exist_ok=True)
-    os.environ.setdefault('TOKENIZERS_PARALLELISM', 'false')
     lines = []
     for sc in N.SCENES:
         for i, (v, text) in enumerate(sc['beats']):
-            say = spoken(text, getattr(N, 'SAY', {}))
-            key = hashlib.sha1(f'{N.VOICE}|{N.SPEED}|{say}'.encode()).hexdigest()[:16]
-            lines.append(dict(scene=sc['scene'], i=i, v=v, text=text, say=say, file=os.path.join('cache', key + '.wav')))
+            lines.append(dict(scene=sc['scene'], i=i, v=v, text=text, say=spoken(text, getattr(N, 'SAY', {}))))
+    voice, speed, lang = N.VOICE, N.SPEED, N.LANG
+    if voice in hosts.HOSTS:                     # a host's key ('bella') rather than a raw Kokoro voice id
+        h = hosts.get(voice)
+        voice, speed, lang = h['voice'], getattr(N, 'SPEED', h['speed']), h['lang']
+    bad = synthesize(P, lines, voice, speed, lang)
+    sys.exit(1 if bad else 0)
+
+def synthesize(P, lines, voice, speed, lang):
+    """Synthesize (cached) and Whisper-check lines in place, write <project>/lines.json, return the number flagged.
+    Each line is a dict with scene, i, text and say; a line may carry its own 'voice', 'speed' and 'lang'
+    (another host)."""
+    import soundfile as sf
+    os.makedirs(P.cache, exist_ok=True)
+    os.environ.setdefault('TOKENIZERS_PARALLELISM', 'false')
+    for l in lines:
+        v, sp, lg = l.pop('voice', voice), l.pop('speed', speed), l.pop('lang', lang)
+        key = hashlib.sha1(f'{v}|{sp}|{l["say"]}'.encode()).hexdigest()[:16]
+        l['file'] = os.path.join('cache', key + '.wav')
+        l['_voice'] = (v, sp, lg)
     todo = [l for l in lines if not os.path.exists(P.path(l['file']))]
     if todo:
         from mlx_audio.tts.utils import load_model
         model = load_model('mlx-community/Kokoro-82M-bf16')
         for l in todo:
-            audio = np.concatenate([np.array(r.audio) for r in model.generate(text=l['say'], voice=N.VOICE, speed=N.SPEED, lang_code=N.LANG)])
+            audio = np.concatenate([np.array(r.audio) for r in model.generate(text=l['say'], voice=l['_voice'][0], speed=l['_voice'][1], lang_code=l['_voice'][2])])
             sf.write(P.path(l['file']), audio, model.sample_rate)
             print(f"  synthesized {l['scene']}[{l['i']}]")
+    for l in lines:
+        if l['_voice'][0] != voice:
+            l['voice'] = l['_voice'][0]
+        del l['_voice']
     # clips are named by content, so a transcript from the previous run is still valid for the same file
     prev = {}
     if os.path.exists(P.path('lines.json')):
@@ -85,4 +111,4 @@ def main():
     json.dump(lines, open(P.path('lines.json'), 'w'), indent=1)
     total = sum(l['dur'] for l in lines)
     print(f'{len(lines)} lines, {total:.1f}s of speech, {bad} flagged')
-    sys.exit(1 if bad else 0)
+    return bad

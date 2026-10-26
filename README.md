@@ -1,7 +1,7 @@
 # aiglainer
 
 *aigspod explainers*: narrated, 1080p60 motion-graphics explainer videos in the aigspod site's dark /mull/ style,
-about papers, books, or anything else worth a journal-club conversation. The first explains a research paper.
+and audio-only podcast episodes, about papers, books, or anything else worth a journal-club conversation.
 
 Everything is generated locally, in code: skia-python draws the frames, LaTeX typesets equations, numpy
 synthesizes the score and sound effects, Kokoro-82M ("Bella") narrates, Whisper checks every line, and ffmpeg
@@ -74,6 +74,7 @@ work on scenes. Narrated builds stop at `make narration` until the `tts` extra i
 Fonts ship with the repo. Papers aren't included: to re-extract figure data, put the PDF in the project's `paper/`
 folder (see the project's `extract_paper.py`). Run `make doctor` any time to see what's installed and what's missing.
 
+- **[docs/PODCAST.md](docs/PODCAST.md)**: audio-only episodes (`KIND = 'podcast'`): scripts, hosts, pronunciation, writing for the ear.
 - **[docs/NEW_VIDEO.md](docs/NEW_VIDEO.md)**: making a new video step by step (written for a paper; most steps apply to any topic).
 - **[AGENTS.md](AGENTS.md)**: orientation and ground rules for AI agents (and people) picking up the work.
 - **[docs/WORKFLOW.md](docs/WORKFLOW.md)**: the pipeline, changing lines, timing and visuals, the pre-upload
@@ -83,6 +84,7 @@ folder (see the project's `extract_paper.py`). Run `make doctor` any time to see
 
 | project | topic | video |
 |---|---|---|
+| [`lawful-pod`](projects/lawful-pod) | the same paper as a ~25-min audio episode (podcast) | `make P=lawful-pod`; `lawful-pod-solo` / `-duo` are 3-min pilots |
 | [`lawful`](projects/lawful) | *LAWFUL: Law-Aligned Witness for Faithful Use of Latents* (Chen, Parker & Arora, ICML 2026 MI workshop, [arXiv:2607.28672](https://arxiv.org/abs/2607.28672)) | 7:52, beginner-friendly; `make CUT=full` gives the original 9-min text-only cut |
 
 ## Layout
@@ -95,6 +97,8 @@ aiglainer/           the engine (topic-agnostic); python -m aiglainer <command> 
   narrated.py        time-warps scenes so their beats land on the narration
   render.py, audio.py, finish.py    frames → H.264; score + narration + ducking; loudness, captions, description
   tts.py, verify_mix.py, voices.py  Kokoro synthesis + Whisper checks; mix verification; voice auditions
+  podcast.py         audio-only episodes: lines end to end, theme/stings/chimes, -16 LUFS MP3 with chapters
+  hosts.py, lexicon.py              the hosts (voice, name, accent); how every host says words like "aigs"
   thumbnail.py, pdf.py, scaffold.py thumbnails; figure-data extraction helpers; `new`
   doctor.py, fingerprint.py         machine check (`make doctor`); regression check (`make fingerprint` / `make check`)
   fonts/             Fraunces, Inter, Space Mono, Caveat (OFL)
