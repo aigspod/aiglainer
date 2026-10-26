@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Refuse to commit media files or anything over 1 MB (renders, audio, papers belong outside git).
+# Enabled by tools/setup.sh (git config core.hooksPath tools/hooks). Override once with: git commit --no-verify
+limit=$((1024 * 1024))
+bad=0
+while IFS= read -r -d '' f; do
+  [ -f "$f" ] || continue
+  case "$f" in
+    *.mp4|*.mov|*.mkv|*.webm|*.wav|*.m4a|*.mp3|*.aac|*.flac|*.pdf)
+      echo "pre-commit: refusing media/PDF file: $f"; bad=1; continue;;
+  esac
+  size=$(wc -c < "$f")
+  if [ "$size" -gt "$limit" ]; then echo "pre-commit: refusing $f ($((size / 1024)) KB > 1 MB)"; bad=1; fi
+done < <(git diff --cached --name-only --diff-filter=AM -z)
+[ $bad -eq 0 ] || { echo "(unstage it, or add it to .gitignore)"; exit 1; }

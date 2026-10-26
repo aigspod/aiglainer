@@ -1,0 +1,1 @@
+Here is the law the network should have learned. The Doppler shift equals twice the radial velocity, divided by the radar's wavelength, lambda. Only motion along the line of sight counts. But the model never sees a velocity, only marker positions. So to obey this law, it has to compute velocity itself, from positions over time. LAWFUL asks whether it really does.

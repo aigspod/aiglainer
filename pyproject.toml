@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aiglainers"
+version = "0.1.0"
+description = "aigspod explainers: narrated motion-graphics videos about papers, books and more, built in code"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE", "explainer/fonts/OFL-*.txt"]
+# Ranges here; the exact versions the videos were built with are pinned in requirements*.txt.
+dependencies = ["skia-python>=144", "pymupdf>=1.24", "numpy>=2.0", "pillow>=10", "scipy>=1.13", "matplotlib>=3.9"]
+
+[project.optional-dependencies]
+# narration (Apple Silicon): Kokoro-82M via mlx-audio, Whisper via mlx-whisper. tools/setup.sh also installs
+# spaCy's en_core_web_sm wheel and fixes espeak-ng's data path, which pip alone cannot do.
+tts = ["mlx-audio>=0.6", "mlx>=0.30", "misaki[en]>=0.9", "spacy>=3.8", "mlx-whisper>=0.4", "soundfile>=0.12"]
+
+[project.urls]
+Repository = "https://github.com/aigspod/aiglainers"
+
+[project.scripts]
+explainer = "explainer.__main__:main"
+
+[tool.setuptools]
+packages = ["explainer"]
+
+[tool.setuptools.package-data]
+explainer = ["fonts/*", "template/*", "template/**/*", "template/paper/.gitkeep"]
