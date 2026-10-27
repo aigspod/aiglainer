@@ -4,6 +4,8 @@ An episode is a project with `KIND = 'podcast'` in `project.py` and a script in 
 synthesizes and checks every line, mixes, masters to −16 LUFS and writes `out/podcast/`: the MP3 (with chapters),
 `transcript.md`, `captions.srt`, `show_notes.txt`. It ends with a line-by-line Whisper check of the final mix.
 `projects/lawful-pod/` is the reference episode; `lawful-pod-solo` and `lawful-pod-duo` are 3-minute pilots.
+`MUSIC = dict(style='daylight')` in `project.py` picks the theme, outro and `BED` music from the score styles (see
+docs/WORKFLOW.md, **Music**); stings and chimes keep the original pads.
 
 ## The script
 

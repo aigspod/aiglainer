@@ -1,7 +1,8 @@
 # Score sketches
 
-Five standalone score prototypes, each after a piece of music the aigs pod loves. They aren't wired into the
-engine yet: the plan is to turn each into a `MUSIC['style']` in `aiglainer/audio.py` next to `night` and `dawn`.
+Five standalone score prototypes, each after a piece of music the aigs pod loves. Each is now a score style in the
+engine (`aiglainer/scores.py`), picked with `MUSIC = dict(style='encore')` like `night` and `dawn`; these 60-second
+versions stay as the reference for how each should sound.
 Everything here is original material (chords, melodies, voicings) written in the spirit of the pieces, not copied
 from them; the recordings themselves are under copyright and must not be used.
 
@@ -46,12 +47,16 @@ pixi run python sketches/scores/hammock.py mysterium sketches/scores/out/mysteri
 
 `out/` holds the approved renders as `.m4a` (local only).
 
-## Notes for wiring them in
+## How they became engine styles
 
-- Synthesis reuses `aiglainer.audio` helpers (`mtof`, `env_adsr`, filters, `stereo`, `reverb_ir`, its seeded `rng`).
+- `aiglainer/scores.py` loops each sketch to any length: the chord loop repeats, the layers enter as in the sketch,
+  and the video's arp window (`arp_on`) drives the moving part (daylight's piano figure, encore's eighth-note left
+  hand, analog's hook, silencia's piano, mysterium's violins). Encore keeps its coda for the last three bars.
+- Each style renders in its own room, seeds its own generator and is scaled to the RMS of `night` after its reverb,
+  so swapping styles keeps the voice/music balance; `build()` and the podcast mix skip their own reverb for them.
+- These sketches use `aiglainer.audio`'s shared `rng`, so their renders here can differ slightly from the engine's.
 - `tracks.py` has two pianos: `piano` (used by `analog`) and `grand` (used by `encore`), which dulls quickly
   after the strike so held notes don't sound like an organ. If `grand` still isn't convincing, the next step is a
   sampled piano (e.g. Salamander Grand; check its licence first).
-- The score engine ducks and mixes; these sketches master themselves. When porting, keep `music()`'s contract
-  (a stereo bed of `total` seconds) and run `make check P=lawful` before and after: existing videos must stay
-  `IDENTICAL`.
+- Adding them left existing outputs untouched: `make check P=lawful` printed `IDENTICAL`, and the night and dawn
+  scores and a podcast mix hashed the same before and after.

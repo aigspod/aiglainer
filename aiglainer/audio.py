@@ -66,10 +66,21 @@ STYLES = dict(
     # brighter and quicker: C6/9 - Am11 - Fmaj9 - G6sus4, eighth-note arpeggio at 112 bpm, a soft heartbeat on the beat
     dawn=dict(chords=[[48, 55, 62, 64, 69], [45, 52, 57, 60, 62], [41, 48, 57, 60, 64], [43, 50, 55, 60, 64]],
               ch_len=60 / 112 * 8, bpm=112, pattern=[0, 1, 2, 3, 2, 1, 3, 2], pulse=0.07, cutoff=6400),
+    # after music the pod loves, rendered by aiglainer/scores.py in their own rooms (see its docstring):
+    # Richter, Jarrett, Martin Roth, and Hammock's Silencia and Mysterium
+    daylight=dict(score='daylight'), encore=dict(score='encore'), analog=dict(score='analog'),
+    silencia=dict(score='silencia'), mysterium=dict(score='mysterium'),
 )
+
+def own_room(style):
+    """Styles from scores.py carry their own reverb, so build() and the podcast mix don't add theirs."""
+    return 'score' in STYLES[style]
 
 def music(total, arp_on, style='night'):
     S = STYLES[style]
+    if own_room(style):
+        from . import scores
+        return scores.render(S['score'], total, arp_on)
     CHORDS, CH_LEN = S['chords'], S['ch_len']
     n = int(total * SR) + SR * 4
     out = np.zeros((n, 2))
@@ -306,8 +317,11 @@ def build(out_wav, cut='narrated'):
     dr *= np.clip(T / 3, 0, 1) * np.clip((title_t + 0.3 - T) / 0.6, 0, 1)
     mus += stereo(dr)
     ir = reverb_ir()
-    wet = np.stack([fftconvolve(mus[:, i], ir[:, i])[:n] for i in range(2)], 1)
-    mix = mus * 0.75 + wet * 0.45
+    if own_room(M.get('style', 'night')):
+        mix = mus.copy()
+    else:
+        wet = np.stack([fftconvolve(mus[:, i], ir[:, i])[:n] for i in range(2)], 1)
+        mix = mus * 0.75 + wet * 0.45
     # sfx bus
     sfx = np.zeros((n + SR * 6, 2))
     # Kokoro clips start with ~0.4 s of silence; small UI sounds right on a word's onset can mask it.

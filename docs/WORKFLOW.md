@@ -111,7 +111,14 @@ narrated cut can warp it. To add a scene: write the class in a module listed in 
 title in `project.py`, and add an entry with beats to `narration.py`.
 
 **Music.** `MUSIC = dict(intro_until=..., arp_from=..., arp_until=...)` names the scenes that shape the generated
-score: a quiet drone and a riser before `intro_until`, a plucked arpeggio between the other two.
+score: a quiet drone and a riser before `intro_until`, a plucked arpeggio between the other two. `style` picks the
+score: 'night' (the default: minor ninths, 96 bpm), 'dawn' (brighter major progression, 112 bpm, soft
+  pulse), or one after music the pod loves: 'daylight' (strings over a lament bass, after Richter), 'encore' (soft
+  solo piano, after Jarrett), 'analog' (mellow piano house, after Martin Roth), 'silencia' (guitar swells and cello)
+  or 'mysterium' (strings and a wordless choir), both after Hammock. Every style
+fits any length and sits at the same loudness, so trying one is a one-word change (`make audio` to hear it). The
+last five live in `aiglainer/scores.py` and use the arp window for their moving part (the piano figure, the drums and
+hook, the violins); `sketches/scores/` has the 60-second prototypes they grew from.
 
 ## Before uploading
 

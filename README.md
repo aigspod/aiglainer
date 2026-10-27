@@ -76,7 +76,7 @@ folder (see the project's `extract_paper.py`). Run `make doctor` any time to see
 
 - **[docs/SHORTS.md](docs/SHORTS.md)**: 9:16 shorts for YouTube Shorts and TikTok (`KIND = 'short'`), reusing a video's scenes.
 - **[docs/PODCAST.md](docs/PODCAST.md)**: audio-only episodes (`KIND = 'podcast'`): scripts, hosts, pronunciation, writing for the ear.
-- **[sketches/scores/](sketches/scores/README.md)**: five score prototypes after music we love (Richter, Jarrett, Martin Roth, Hammock), not yet engine styles.
+- **[sketches/scores/](sketches/scores/README.md)**: the prototypes of five score styles after music we love (Richter, Jarrett, Martin Roth, Hammock), now `MUSIC['style']` options.
 - **[docs/NEW_VIDEO.md](docs/NEW_VIDEO.md)**: making a new video step by step (written for a paper; most steps apply to any topic).
 - **[AGENTS.md](AGENTS.md)**: orientation and ground rules for AI agents (and people) picking up the work.
 - **[docs/WORKFLOW.md](docs/WORKFLOW.md)**: the pipeline, changing lines, timing and visuals, the pre-upload

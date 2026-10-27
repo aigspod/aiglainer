@@ -25,7 +25,7 @@ import json, os, re, subprocess, wave
 import numpy as np
 from scipy.signal import oaconvolve, resample_poly
 from . import project, tts, hosts
-from .audio import SR, music, reverb_ir, stereo, hp, s_chime, env_adsr, pad_note, mtof, CHORDS
+from .audio import SR, music, own_room, reverb_ir, stereo, hp, s_chime, env_adsr, pad_note, mtof, CHORDS
 from .finish import ts, write_srt
 
 CUT = 'podcast'
@@ -136,21 +136,27 @@ def mix(P, E, placements, cues, total):
     for k in range(1, len(e)):
         env[k] = env[k - 1] + (0.45 if e[k] > env[k - 1] else 0.02) * (e[k] - env[k - 1])
     env = np.pad(np.repeat(env, blk), (0, n - len(e) * blk), mode='edge')
+    # MUSIC['style'] picks the theme and bed; a style with its own room (scores.py) goes on `dry`, past the reverb.
+    # Stings and chimes stay the original pads.
+    style = P.MUSIC.get('style', 'night')
     mus = np.zeros((n, 2), np.float32)
+    dry = np.zeros((n, 2), np.float32)
     for (t0, kind, length) in cues:
-        x = sting(length) if kind == 'sting' else chime(length) if kind == 'chime' else music(length, lambda tt: 1.0)
+        x = sting(length) if kind == 'sting' else chime(length) if kind == 'chime' else music(length, lambda tt: 1.0, style)
+        bus = dry if own_room(style) and kind not in ('sting', 'chime') else mus
         L = len(x); T = np.arange(L) / SR
         fade = np.clip(T / 0.6, 0, 1) * np.clip((length - T) / (5.0 if kind != 'sting' else 1.6), 0, 1)
         i = int(t0 * SR)
         x = (x * fade[:, None])[:n - i]
-        mus[i:i + len(x)] += x.astype(np.float32)
+        bus[i:i + len(x)] += x.astype(np.float32)
     mus *= (1 - 0.75 * env)[:, None] * 0.85
+    dry *= (1 - 0.75 * env)[:, None] * 0.85
     bed = float(getattr(P, 'BED', 0) or 0)
     if bed:     # a steady pad under everything; ducking it would make it swell in every pause
-        mus += music(total, lambda tt: 0.0)[:n].astype(np.float32) * bed * 0.85 * np.clip(np.arange(n) / SR / 4, 0, 1)[:, None]
+        (dry if own_room(style) else mus)[:] += music(total, lambda tt: 0.0, style)[:n].astype(np.float32) * bed * 0.85 * np.clip(np.arange(n) / SR / 4, 0, 1)[:, None]
     ir = reverb_ir()
     wet = np.stack([oaconvolve(mus[:, c], ir[:, c])[:n] for c in range(2)], 1)
-    out = mus * 0.75 + wet * 0.45 + voice
+    out = mus * 0.75 + wet * 0.45 + dry + voice
     out = np.tanh(out * 1.1) / 1.1
     return out / np.abs(out).max() * 0.89
 
