@@ -21,6 +21,9 @@ doesn't replace it).
 - A project with `KIND = 'short'` is a 9:16 YouTube Short / TikTok (see [docs/SHORTS.md](docs/SHORTS.md)): it borrows
   scenes and data from `SOURCES` projects and shows them as crops, or draws native vertical scenes. Check its
   `out/narrated/qa/safe_*.png`: nothing that matters may fall in the red (the apps' buttons cover it).
+- `sketches/scores/` holds standalone score prototypes (`daylight`, `encore`, `analog`, `silencia`, `mysterium`), each
+  after a piece the pod loves; see its README. They are meant to become `MUSIC['style']` options in `aiglainer/audio.py`.
+  Keep them separate tracks (never blend them), write original material only, and never use the recordings.
 - Hosts are roles in scripts, defined once in `aiglainer/hosts.py`; how every host pronounces words like "aigs"
   ("aygs", rhyming with "plagues"; never spelled out) lives in `aiglainer/lexicon.py`. Don't respell those per project.
 
