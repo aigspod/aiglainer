@@ -23,7 +23,7 @@ all:              ## build and verify $(P): a video, a 9:16 short, or a podcast 
 	elif grep -qs "^KIND *= *'short'" projects/$(P)/project.py; then $(MAKE) --no-print-directory narration video audio finish verify frames P=$(P); \
 	else $(MAKE) --no-print-directory tex narration video audio finish verify thumbnail P=$(P) CUT=$(CUT); fi
 
-.PHONY: all podcast help setup doctor new inspect data tex narration plan video audio finish verify frames preview thumbnail voices fingerprint check clean
+.PHONY: all podcast help setup doctor new inspect data tex narration plan video audio finish verify frames preview thumbnail voices listen fingerprint check clean
 
 help:             ## list targets
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | sed -E 's/:.*## /\t/' | expand -t 14
@@ -78,6 +78,9 @@ podcast:          ## audio-only episode -> out/podcast/ (MP3 with chapters, tran
 
 voices:           ## audition narrator voices on voice_samples/sample.txt -> voice_samples/index.html
 	$(TTS) $(EX) voices $(VOICES)
+
+listen:           ## ask Music Flamingo about audio: make listen F=file.m4a [Q="question"] [Q2=...] [START=s DUR=s]
+	$(PY) -I tools/listen.py "$(F)" $(if $(Q),"$(Q)") $(if $(Q2),"$(Q2)") $(if $(Q3),"$(Q3)") --start $(or $(START),0) $(if $(DUR),--dur $(DUR))
 
 fingerprint:      ## save hashes of sampled frames, cues, placements (before an engine change)
 	$(PY) -m aiglainer -p $(P) fingerprint

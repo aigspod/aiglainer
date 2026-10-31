@@ -25,6 +25,10 @@ doesn't replace it).
   pod loves in `aiglainer/scores.py` (`daylight`, `encore`, `analog`, `silencia`, `mysterium`), prototyped in
   `sketches/scores/` (its README says what each is after). Keep them separate tracks (never blend them), write
   original material only, and never use the recordings.
+- **Listen to scores you change.** `make listen F=<audio> Q="..."` asks NVIDIA Music Flamingo (`tools/listen.py`,
+  a dev tool, never in a build) about a render: key, chords, mood, timbre and coarse rhythm are useful; tempo
+  without a pulse is not. It is a check before a human listens, not instead of one. It may describe a reference
+  recording's character (which instrument leads, how phrases breathe), never extract notes to copy.
 - Hosts are roles in scripts, defined once in `aiglainer/hosts.py`; how every host pronounces words like "aigs"
   ("aygs", rhyming with "plagues"; never spelled out) lives in `aiglainer/lexicon.py`. Don't respell those per project.
 
