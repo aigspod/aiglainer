@@ -84,6 +84,12 @@ def main():
     for repo, size in (('mlx-community/Kokoro-82M-bf16', '~340 MB'), ('mlx-community/whisper-large-v3-turbo', '~1.5 GB')):
         line(OK if hf_cached(repo) else ' info', repo, 'downloaded' if hf_cached(repo) else f'downloads on first narration run ({size})')
 
+    print('listening (optional: make listen, a dev tool)')
+    ok, v = check_import('transformers')
+    line(OK if ok else ' info', 'transformers', v if ok else 'missing: only `make listen` needs it')
+    repo = 'nvidia/music-flamingo-2601-hf'
+    line(OK if hf_cached(repo) else ' info', repo, 'downloaded' if hf_cached(repo) else 'downloads on first `make listen` (~16 GB)')
+
     print()
     if bad:
         print('Rendering prerequisites are missing (marked !!).')

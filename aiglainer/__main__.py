@@ -21,9 +21,14 @@ COMMANDS = {
     'podcast':   'audio-only episode: synthesize, mix, master to -16 LUFS, verify -> out/podcast/',
     'fingerprint': 'hash sampled frames/cues/placements; --compare after an engine change',
     'doctor':    'check this machine (tools, libraries, models) and fix espeak\'s data path',
+    'listen':    'ask NVIDIA Music Flamingo about audio: listen FILE ["question" ...] [--start S] [--dur D] (dev tool, never in a build)',
 }
 
 def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    if argv[:1] == ['listen']:                 # has its own flags, and needs no project
+        from . import listen
+        return listen.main(argv[1:])
     ap = argparse.ArgumentParser(prog='python -m aiglainer', description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter,
                                  epilog='\n'.join(f'  {k:12s} {v}' for k, v in COMMANDS.items()))

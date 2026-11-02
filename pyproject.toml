@@ -17,6 +17,8 @@ dependencies = ["skia-python>=144", "pymupdf>=1.24", "numpy>=2.0", "pillow>=10",
 [project.optional-dependencies]
 # Narration: Kokoro-82M via mlx-audio, Whisper via mlx-whisper (Apple Silicon).
 tts = ["mlx-audio>=0.6", "mlx>=0.30", "misaki[en]>=0.9", "spacy>=3.8", "mlx-whisper>=0.4", "soundfile>=0.12"]
+# `make listen` (aiglainer/listen.py), a dev tool: NVIDIA Music Flamingo. The pixi environment already has both, through mlx-audio.
+listen = ["transformers>=5.14", "torch>=2.5"]
 
 [project.urls]
 Repository = "https://github.com/aigspod/aiglainer"

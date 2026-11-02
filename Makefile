@@ -80,7 +80,7 @@ voices:           ## audition narrator voices on voice_samples/sample.txt -> voi
 	$(TTS) $(EX) voices $(VOICES)
 
 listen:           ## ask Music Flamingo about audio: make listen F=file.m4a [Q="question"] [Q2=...] [START=s DUR=s]
-	$(PY) -I tools/listen.py "$(F)" $(if $(Q),"$(Q)") $(if $(Q2),"$(Q2)") $(if $(Q3),"$(Q3)") --start $(or $(START),0) $(if $(DUR),--dur $(DUR))
+	$(PY) -m aiglainer listen "$(F)" $(if $(Q),"$(Q)") $(if $(Q2),"$(Q2)") $(if $(Q3),"$(Q3)") --start $(or $(START),0) $(if $(DUR),--dur $(DUR))
 
 fingerprint:      ## save hashes of sampled frames, cues, placements (before an engine change)
 	$(PY) -m aiglainer -p $(P) fingerprint

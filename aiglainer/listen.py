@@ -4,7 +4,7 @@ Noncommercial licence: fine for aigs pod, which is non-commercial) downloads fro
 
   make listen F=sketches/scores/out/boundless.m4a
   make listen F=song.m4a Q="Which instrument carries the melody?" Q2="Is there a repeating motif?" START=60 DUR=90
-  python tools/listen.py FILE ["question" ...] [--start S] [--dur D] [--tokens N]
+  python -m aiglainer listen FILE ["question" ...] [--start S] [--dur D] [--tokens N]
 
 What to trust (checked on our own renders, whose content we know): key, chords (often spelled enharmonically: F#
 for Gb), mood and timbre are good; tempo is meaningless when there is no pulse; it misses quiet or synthetic voices;
@@ -37,12 +37,12 @@ def load(path, start, dur, sr=16000):
           ["-i", path, "-ac", "1", "-ar", str(sr), "-f", "f32le", "-"]
     return np.frombuffer(subprocess.run(cmd, capture_output=True, check=True).stdout, np.float32)
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+def main(argv=None):
+    ap = argparse.ArgumentParser(prog="python -m aiglainer listen", description=__doc__.split("\n")[0])
     ap.add_argument("audio"); ap.add_argument("questions", nargs="*")
     ap.add_argument("--start", type=float, default=0); ap.add_argument("--dur", type=float, default=None)
     ap.add_argument("--tokens", type=int, default=700)
-    a = ap.parse_args()
+    a = ap.parse_args(argv)
     dev = "mps" if torch.backends.mps.is_available() else "cpu"
     mf.apply_rotary_time_emb = rotary_f32
     t = time.time()
