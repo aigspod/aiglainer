@@ -5,7 +5,7 @@
 Most arXiv figures made with matplotlib keep their curves as vector paths: read the points with
 `path_points`, then map them to data units with two known tick positions (`axis_map`). Heatmaps and
 spectrograms are usually embedded rasters: pull them out by xref with `image` and turn the colours back into
-values with `invert_colormap`. projects/lawful/extract_paper.py is a worked example.
+values with `invert_colormap`. projects/lawful/videos/explainer/extract_paper.py is a worked example.
 """
 import numpy as np
 

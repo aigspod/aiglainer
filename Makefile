@@ -1,9 +1,9 @@
-# Paper explainer videos. Each video is a project under projects/; pick one with P=<name>.
+# Paper explainer videos. Each piece is a project, projects/<topic>/<kind>/<name>; pick one with P=<topic>/<kind>/<name>.
 #   make setup                     once: pixi install (+ the commit guard)
-#   make new P=mypaper             start a new video from the template
-#   make P=mypaper                 build and verify its narrated cut -> projects/mypaper/out/narrated/
+#   make new P=mypaper/videos/main       start a new video from the template (projects/AGENTS.md)
+#   make P=mypaper/videos/main           build and verify its narrated cut -> projects/mypaper/videos/main/out/narrated/
 #   make help                      every target
-P      ?= lawful
+P      ?= lawful/videos/explainer
 CUT    ?= narrated
 # Python: the pixi environment if `pixi install` has run, otherwise whatever python3 is active (a venv you made).
 # Override with `make PY=/path/to/python`.
@@ -34,7 +34,7 @@ setup:            ## pixi install from pixi.lock, and enable the commit guard
 doctor:           ## check this machine: tools, libraries, speech models (and fix espeak's data path)
 	$(PY) -m aiglainer doctor
 
-new:              ## scaffold projects/$(P) from the template: make new P=name TITLE="Paper Title"
+new:              ## scaffold projects/$(P) from the template: make new P=topic/videos/name TITLE="Paper Title"
 	$(PY) -m aiglainer new $(P) "$(TITLE)"
 
 inspect:          ## list vector paths and images on a PDF page: make inspect PDF=path PAGE=8

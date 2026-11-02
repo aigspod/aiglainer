@@ -5,7 +5,7 @@ Also installed as the `aiglainer` command. `tts`, `verify` and `voices` need the
 import argparse, os, sys
 
 COMMANDS = {
-    'new':       'scaffold projects/<name> from the template',
+    'new':       'scaffold projects/<topic>/<kind>/<name> from the template',
     'inspect':   'list a PDF page\'s vector paths and images, to find figure data to extract',
     'tex':       'typeset eqs.py into tex/*.png (skipped when unchanged)',
     'tts':       'synthesize narration lines (cached) and Whisper-check each one',

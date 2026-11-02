@@ -1,7 +1,7 @@
 """Regression check for engine changes: hash sampled frames, cues and narration placements of a project.
 
-  python -m aiglainer fingerprint -p lawful                 # write out/fingerprint.json (do this BEFORE a change)
-  python -m aiglainer fingerprint -p lawful --compare       # after the change: report anything that differs
+  python -m aiglainer fingerprint -p lawful/videos/explainer                 # write out/fingerprint.json (do this BEFORE a change)
+  python -m aiglainer fingerprint -p lawful/videos/explainer --compare       # after the change: report anything that differs
 
 Renders every 397th frame of each cut the project has (no encoding, a few seconds), so a refactor that should
 change nothing can be shown to change nothing. Audio is deterministic too: compare out/<cut>/audio.wav with cmp.

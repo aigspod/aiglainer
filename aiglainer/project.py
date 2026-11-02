@@ -1,13 +1,14 @@
 """Locating and loading a project (one paper / one video).
 
-A project is a folder under projects/ with a `project.py` (settings, see aiglainer/template/project.py),
-a narration script, scene modules, and its data. The engine never imports a specific paper's code; it
-asks `get()` for the current project, chosen by the AIGLAINER_PROJECT environment variable (a name under
-projects/ or a path). The project folder is put on sys.path, so its scene modules import each other plainly.
+A project is a folder projects/<topic>/<kind>/<name>/ (kind: videos, shorts or pods; see projects/AGENTS.md) with a `project.py` (settings, see
+aiglainer/template/project.py), a narration script, scene modules, and its data. The engine never imports a specific
+paper's code; it asks `get()` for the current project, chosen by the AIGLAINER_PROJECT environment variable (a name
+like lawful/videos/explainer, relative to projects/, or a path). The project folder is put on sys.path, so its scene modules
+import each other plainly.
 
 This module stays importable without skia, so the narration tools don't load the renderer.
 """
-import importlib, importlib.util, os, sys
+import glob, importlib, importlib.util, os, sys
 
 PACKAGE = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE = os.path.join(PACKAGE, 'template')
@@ -35,13 +36,14 @@ DEFAULTS = dict(
     MUSIC={},                   # style (audio.STYLES); intro_until / arp_from / arp_until: scene names that shape the score
     THUMBNAIL=None,             # optional: function(canvas) drawing a 1280x720 thumbnail
     KIND='video',               # 'video' (16:9), 'short' (9:16, aiglainer/short.py) or 'podcast' (aiglainer/podcast.py)
-    SOURCES=[],                 # other projects whose scenes, data/ and tex/ this one may use, e.g. ['lawful']
+    SOURCES=[],                 # other projects whose scenes, data/ and tex/ this one may use, e.g. ['lawful/videos/explainer']
 )
 
 class Project:
     def __init__(self, path):
         self.dir = os.path.abspath(path)
-        self.name = os.path.basename(self.dir.rstrip('/'))
+        rel = os.path.relpath(self.dir, projects_dir())
+        self.name = os.path.basename(self.dir.rstrip('/')) if rel.startswith('..') else rel      # e.g. lawful/videos/explainer
         spec = importlib.util.spec_from_file_location('_aiglainer_project_settings', os.path.join(self.dir, 'project.py'))
         if self.dir not in sys.path:
             sys.path.insert(0, self.dir)
@@ -99,7 +101,7 @@ def resolve(name):
     p = os.path.join(root, name or '')
     if name and os.path.exists(os.path.join(p, 'project.py')):
         return p
-    have = sorted(d for d in os.listdir(root) if os.path.exists(os.path.join(root, d, 'project.py'))) if os.path.isdir(root) else []
+    have = sorted(os.path.relpath(os.path.dirname(f), root) for f in glob.glob(os.path.join(glob.escape(root), '*', '*', '*', 'project.py')))
     raise SystemExit(f'unknown project {name!r}; set AIGLAINER_PROJECT or pass -p. Projects: {", ".join(have)}')
 
 def get():
