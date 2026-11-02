@@ -19,6 +19,7 @@ PAL = dict(
     bg0='#11121c', bg1='#1e1f30', ink='#efe5d6', muted='#aaa0ad', faint='#3d3c55', line='#2e2f45',
     f='#45c99a', g='#5aa6ec', c='#f07a4f', v='#a9a3b8', y='#e3a75a', x='#c3a6d8', r='#e0607a',
     panel='#1b1c2b', panel2='#25263a', pencil='#b9c2d3', sticky='#c9b53f', sticky_ink='#231d05',
+    ground='#161724', fade='#000000', shadow='#000000', sticky_tag='#5c4f12', pin='#d06a5a',
 )
 
 def col(name_or_hex, a=1.0):
@@ -88,7 +89,21 @@ def _var(path, **axes):
         _keep.append((base, coords, cobj, vp, arg))
     return _tf_cache[key]
 
+def custom_font(kind):
+    """The project's FONTS entry for this role, as a path: absolute, in the project, or a file in aiglainer/fonts/."""
+    fonts = getattr(project._current, 'FONTS', None) or {}
+    name = fonts.get('sans' if kind == 'heavy' else kind)
+    if not name:
+        return None
+    for p in (name, project._current.path(name), os.path.join(FONT_DIR, name)):
+        if os.path.exists(p):
+            return p
+    raise SystemExit(f'FONTS: no font file {name!r} (looked in the project and aiglainer/fonts/)')
+
 def typeface(weight=400, kind='sans', size=30):
+    path = custom_font(kind)
+    if path:                   # a variable font takes the weight; a static one ignores it
+        return _var(path, wght=clamp(weight, 100, 900))
     if kind == 'display':      # headings: light Fraunces, the site's h1/h2
         return _var(os.path.join(FONT_DIR, 'Fraunces.ttf'), wght=clamp(300 + (weight - 400) * 0.25, 300, 480), opsz=clamp(size, 9, 144), SOFT=0, WONK=0)
     if kind == 'italic':       # math-ish labels and emphasised display words

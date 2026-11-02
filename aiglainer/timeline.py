@@ -22,26 +22,40 @@ def scene_steps(s):
 
 # ---------------------------------------------------------------- background
 _bg = {}
+def ground(c, w, h):
+    """The base of the background: the `ground` colour, or BACKGROUND's image scaled to cover the frame."""
+    c.clear(col('ground'))
+    P = project.get()
+    image = P.BACKGROUND.get('image')
+    if image:
+        im = skia.Image.open(P.path(image))
+        k = max(w / im.width(), h / im.height())
+        iw, ih = im.width() * k, im.height() * k
+        c.drawImageRect(im, skia.Rect.MakeXYWH((w - iw) / 2, (h - ih) / 2, iw, ih), skia.SamplingOptions(skia.FilterMode.kLinear), skia.Paint(AntiAlias=True))
+
 def _bg_image():
-    """The site's night ground: ink-blue paper, a warm lamp glow upper right, a thin inset frame."""
+    """The site's night ground: ink-blue paper, a warm lamp glow upper right, a thin inset frame.
+    A project changes it with THEME's `ground` and BACKGROUND (see docs/STYLES.md)."""
     if 'img' in _bg:
         return _bg['img']
+    BG = project.get().BACKGROUND
     s = skia.Surface(W, H)
     c = s.getCanvas()
-    c.clear(col('#161724'))
+    ground(c, W, H)
     p = skia.Paint()
-    p.setShader(skia.GradientShader.MakeRadial((W * 0.8, H * 0.08), W * 0.55, [col('y', 0.11), col('y', 0.0)], [0.0, 1.0]))
+    p.setShader(skia.GradientShader.MakeRadial((W * 0.8, H * 0.08), W * 0.55, [col('y', 0.11 * BG.get('glow', 1.0)), col('y', 0.0)], [0.0, 1.0]))
     c.drawRect(skia.Rect.MakeWH(W, H), p)
     p = skia.Paint()
-    p.setShader(skia.GradientShader.MakeRadial((W / 2, H / 2), W * 0.75, [skia.Color(0, 0, 0, 0), skia.Color(0, 0, 0, 0), skia.Color(0, 0, 0, 110)], [0.0, 0.6, 1.0]))
+    p.setShader(skia.GradientShader.MakeRadial((W / 2, H / 2), W * 0.75, [skia.Color(0, 0, 0, 0), skia.Color(0, 0, 0, 0), skia.Color(0, 0, 0, int(110 * BG.get('vignette', 1.0)))], [0.0, 0.6, 1.0]))
     c.drawRect(skia.Rect.MakeWH(W, H), p)
-    c.drawRect(skia.Rect.MakeXYWH(16, 16, W - 32, H - 32), paint('faint', 0.9, stroke=1.2))
+    if BG.get('frame', True):
+        c.drawRect(skia.Rect.MakeXYWH(16, 16, W - 32, H - 32), paint('faint', 0.9, stroke=1.2))
     _bg['img'] = s.makeImageSnapshot()
     rng = np.random.default_rng(7)
     grains = []
     for _ in range(4):
         n = rng.integers(0, 255, (H // 2, W // 2), dtype=np.uint8)
-        rgba = np.stack([n, n, n, np.full_like(n, 9)], -1)
+        rgba = np.stack([n, n, n, np.full_like(n, int(9 * BG.get('grain', 1.0)))], -1)
         grains.append(skia.Image.fromarray(np.ascontiguousarray(rgba), colorType=skia.kRGBA_8888_ColorType))
     _bg['grain'] = grains
     return _bg['img']
@@ -174,7 +188,7 @@ class Timeline:
         draw_grain(c, frame)
         black = max(1 - ramp(T, 0.0, 0.9, e_io), ramp(T, self.total - 1.6, 1.5, e_io))
         if black > 0:
-            c.drawRect(skia.Rect.MakeWH(W, H), paint('#000000', black))
+            c.drawRect(skia.Rect.MakeWH(W, H), paint('fade', black))
 
     def cues(self):
         out = []

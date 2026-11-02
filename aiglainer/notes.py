@@ -60,14 +60,14 @@ def sticky(c, x, y, lines, a=1.0, rot=4.0, w=250, h=200, tag='todo'):
     c.save()
     c.translate(x, y)
     c.rotate(rot)
-    rrect(c, 4, 8, w, h, 4, fill='#000000', fa=a * 0.35)
+    rrect(c, 4, 8, w, h, 4, fill='shadow', fa=a * 0.35)
     pth = skia.Path()
     pth.moveTo(0, 0); pth.lineTo(w, 0); pth.lineTo(w, h - 26); pth.lineTo(w - 26, h); pth.lineTo(0, h); pth.close()
     c.drawPath(pth, paint('sticky', a))
-    text(c, tag, 20, 34, 15, 400, '#5c4f12', a, kind='mono', tracking=0.16)
+    text(c, tag, 20, 34, 15, 400, 'sticky_tag', a, kind='mono', tracking=0.16)
     for i, ln in enumerate(lines):
         text(c, ln, 20, 82 + i * 40, 34, 600, 'sticky_ink', a, kind='hand')
-    circle(c, w * 0.72, 4, 9, fill='#d06a5a', a=a)
+    circle(c, w * 0.72, 4, 9, fill='pin', a=a)
     c.restore()
 
 def lamp(c, x, y, s=1.0, a=1.0, on=1.0):

@@ -25,7 +25,7 @@ import json, os, re, subprocess, wave
 import numpy as np
 from scipy.signal import oaconvolve, resample_poly
 from . import project, tts, hosts
-from .audio import SR, music, own_room, reverb_ir, stereo, hp, s_chime, env_adsr, pad_note, mtof, CHORDS
+from .audio import SR, duck_depth, music, own_room, reverb_ir, stereo, hp, s_chime, env_adsr, pad_note, mtof, CHORDS
 from .finish import ts, write_srt
 
 CUT = 'podcast'
@@ -149,8 +149,9 @@ def mix(P, E, placements, cues, total):
         i = int(t0 * SR)
         x = (x * fade[:, None])[:n - i]
         bus[i:i + len(x)] += x.astype(np.float32)
-    mus *= (1 - 0.75 * env)[:, None] * 0.85
-    dry *= (1 - 0.75 * env)[:, None] * 0.85
+    duck = (1 - duck_depth(P.MUSIC, 0.75) * env)[:, None] * 0.85 * P.MUSIC.get('level', 1.0)
+    mus *= duck
+    dry *= duck
     bed = float(getattr(P, 'BED', 0) or 0)
     if bed:     # a steady pad under everything; ducking it would make it swell in every pause
         (dry if own_room(style) else mus)[:] += music(total, lambda tt: 0.0, style)[:n].astype(np.float32) * bed * 0.85 * np.clip(np.arange(n) / SR / 4, 0, 1)[:, None]

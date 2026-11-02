@@ -19,8 +19,9 @@ def FULL_CUT():
     import scenes
     return [scenes.Title(), scenes.Question(), scenes.Method(), scenes.Takeaway()]
 
+# style: a score name (default 'night'), 'none', or your own audio file. duck_db: how far music drops under the host.
 # Shape the score with scene names: a quiet drone until `intro_until`, an arpeggio between the other two.
-MUSIC = dict(intro_until='Question', arp_from='Method', arp_until='Takeaway')
+MUSIC = dict(duck_db=16, intro_until='Question', arp_from='Method', arp_until='Takeaway')
 
 # YouTube chapter titles (default: the scene class name) and description; {chapters}/{voice} are filled in.
 CHAPTER_TITLES = {'Title': '__TITLE__', 'Question': 'The question', 'Method': 'How it works', 'Takeaway': 'Takeaways'}
@@ -36,7 +37,11 @@ Notes
 {voice}• This is an unofficial explainer, not produced by the authors.
 """
 
-THEME = {}                           # override colour tokens from aiglainer/core.py PAL, e.g. {'y': '#e3a75a'}
+# The look and sound are yours to change: docs/STYLES.md. Every setting below is optional.
+THEME = {}                           # override colour tokens from aiglainer/core.py PAL, e.g. {'y': '#e3a75a', 'ground': '#f5efe3'}
+# BACKGROUND = dict(image='bg.png', glow=1.0, vignette=1.0, grain=1.0, frame=True)
+# FONTS = dict(display='MyFont.ttf', italic=..., sans=..., mono=..., hand=...)
+# SOUND_EFFECTS = False
 
 def THUMBNAIL(c):
     from thumbnail import draw

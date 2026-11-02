@@ -1,5 +1,5 @@
 """Procedural score + sound design, synced to the timeline cues."""
-import os, math
+import os, math, subprocess
 import numpy as np
 from scipy.signal import fftconvolve, butter, sosfilt
 from . import project
@@ -73,10 +73,53 @@ STYLES = dict(
 )
 
 def own_room(style):
-    """Styles from scores.py carry their own reverb, so build() and the podcast mix don't add theirs."""
-    return 'score' in STYLES[style]
+    """Styles from scores.py carry their own reverb, so build() and the podcast mix don't add theirs. Nor does your own track."""
+    return style == 'none' or is_file(style) or 'score' in STYLES[style]
+
+def is_file(style):
+    return '.' in style or '/' in style
+
+def track(path, total):
+    """A project's own music file (MUSIC['style'] = 'music/mine.m4a'): looped with a 2 s crossfade to fit, at the scores' loudness."""
+    P = project.get()
+    full = path if os.path.isabs(path) else P.path(path)
+    if not os.path.exists(full):
+        raise SystemExit(f"MUSIC style {path!r}: no such file, and not a style name ({', '.join(STYLES)}, none)")
+    raw = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', full, '-ac', '2', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
+    x = np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
+    n, fade = int(total * SR), 2 * SR
+    fade = min(fade, len(x) // 4)
+    out = x.copy()
+    ramp_in = np.linspace(0, 1, fade)[:, None]
+    while len(out) < n:
+        head = out[:-fade] if fade else out
+        joint = out[-fade:] * (1 - ramp_in) + x[:fade] * ramp_in
+        out = np.concatenate([head, joint, x[fade:]])
+    out = out[:n]
+    r = np.sqrt((out ** 2).mean())
+    return out * (0.085 / r) if r > 0 else out
+
+def line_envelope(placements, n):
+    """0..1, held at 1 for each whole spoken line: music set with duck_db stays down between words, and rises between lines."""
+    blk = SR // 100
+    on = np.zeros(n // blk + 1)
+    for p in placements:
+        on[int(p['t'] * SR) // blk:int((p['t'] + p['dur']) * SR) // blk] = 1
+    env = np.zeros_like(on)
+    for k in range(1, len(on)):
+        env[k] = env[k - 1] + (0.2 if on[k] > env[k - 1] else 0.03) * (on[k] - env[k - 1])
+    return np.repeat(env, blk)[:n]
+
+def duck_depth(M, default):
+    """How far music drops under the narrator, 0..1: MUSIC['duck_db'] in decibels, or the engine's default."""
+    db = M.get('duck_db')
+    return default if db is None else 1 - 10 ** (-db / 20)
 
 def music(total, arp_on, style='night'):
+    if style == 'none':
+        return np.zeros((int(total * SR), 2))
+    if is_file(style):
+        return track(style, total)
     S = STYLES[style]
     if own_room(style):
         from . import scores
@@ -308,8 +351,11 @@ def build(out_wav, cut='narrated'):
     lvl *= np.clip(T / 2.0, 0, 1)
     lvl *= np.clip((total - T) / 4.0, 0, 1)
     voice, env = voice_track(tl.placements, n) if tl.placements else (None, np.zeros(n))
-    lvl *= 1 - 0.6 * env          # duck the score ~8 dB under the narrator
-    mus *= lvl[:, None] * 0.85
+    # duck the score under the narrator. By default it follows the voice's waveform and averages about 6 dB, breathing
+    # back up between words; with duck_db it holds down for whole lines, so the number is what you get.
+    held = line_envelope(tl.placements, n) if M.get('duck_db') is not None and tl.placements else env
+    lvl *= 1 - duck_depth(M, 0.6) * held
+    mus *= lvl[:, None] * 0.85 * M.get('level', 1.0)
     # cold-open drone
     dr = np.zeros(n)
     m = (T < title_t + 1) if title_t > 0 else np.zeros(n, bool)
@@ -326,7 +372,7 @@ def build(out_wav, cut='narrated'):
     sfx = np.zeros((n + SR * 6, 2))
     # Kokoro clips start with ~0.4 s of silence; small UI sounds right on a word's onset can mask it.
     onsets = np.array([p['t'] + 0.4 for p in tl.placements]) if tl.placements else np.array([])
-    for (tt, name) in tl.cues():
+    for (tt, name) in (tl.cues() if project.get().SOUND_EFFECTS else ()):
         if name in ('pop', 'tick', 'blip') and len(onsets) and np.min(np.abs(onsets - tt)) < 0.45:
             continue
         f = SFX.get(name)

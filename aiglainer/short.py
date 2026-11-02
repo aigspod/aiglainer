@@ -20,7 +20,7 @@ import numpy as np
 import skia
 from .core import *
 from .notes import swash
-from .timeline import Timeline, rdur, to_visual
+from .timeline import Timeline, ground, rdur, to_visual
 from . import project, tts
 
 SW, SH = 1080, 1920
@@ -107,16 +107,17 @@ def _background():
     if 'bg' not in _cache:
         s = skia.Surface(SW, SH)
         c = s.getCanvas()
-        c.clear(col('#161724'))
+        BG = project.get().BACKGROUND
+        ground(c, SW, SH)
         p = skia.Paint()
-        p.setShader(skia.GradientShader.MakeRadial((SW * 0.85, SH * 0.06), SW * 0.9, [col('y', 0.12), col('y', 0.0)], [0.0, 1.0]))
+        p.setShader(skia.GradientShader.MakeRadial((SW * 0.85, SH * 0.06), SW * 0.9, [col('y', 0.12 * BG.get('glow', 1.0)), col('y', 0.0)], [0.0, 1.0]))
         c.drawRect(skia.Rect.MakeWH(SW, SH), p)
         _cache['bg'] = s.makeImageSnapshot()
         rng = np.random.default_rng(7)
         _cache['grain'] = []
         for _ in range(4):
             n = rng.integers(0, 255, (SH // 2, SW // 2), dtype=np.uint8)
-            rgba = np.stack([n, n, n, np.full_like(n, 9)], -1)
+            rgba = np.stack([n, n, n, np.full_like(n, int(9 * BG.get('grain', 1.0)))], -1)
             _cache['grain'].append(skia.Image.fromarray(np.ascontiguousarray(rgba), colorType=skia.kRGBA_8888_ColorType))
     return _cache['bg']
 
@@ -277,7 +278,7 @@ class ShortTimeline(Timeline):
         c.drawImageRect(g, skia.Rect.MakeWH(SW, SH), skia.SamplingOptions(), p)
         black = ramp(T, self.total - 0.4, 0.4, e_io)
         if black > 0:
-            c.drawRect(skia.Rect.MakeWH(SW, SH), paint('#000000', black))
+            c.drawRect(skia.Rect.MakeWH(SW, SH), paint('fade', black))
 
 def make_timeline():
     from . import narrated
