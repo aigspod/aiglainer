@@ -75,6 +75,7 @@ work on scenes. Narrated builds stop at `make narration` until the `tts` extra i
 Fonts ship with the repo. Papers aren't included: to re-extract figure data, put the PDF in the project's `paper/`
 folder (see the project's `extract_paper.py`). Run `make doctor` any time to see what's installed and what's missing.
 
+- **[docs/STYLES.md](docs/STYLES.md)**: make it your own: colours, background, typefaces, voices, your own music. The pod's look is only the default.
 - **[docs/SHORTS.md](docs/SHORTS.md)**: 9:16 shorts for YouTube Shorts and TikTok (`KIND = 'short'`), reusing a video's scenes.
 - **[docs/PODCAST.md](docs/PODCAST.md)**: audio-only episodes (`KIND = 'podcast'`): scripts, hosts, pronunciation, writing for the ear.
 - **[sketches/scores/](sketches/scores/README.md)**: the prototypes of five score styles after music we love (Richter, Jarrett, Martin Roth, Hammock), now `MUSIC['style']` options.
@@ -92,6 +93,7 @@ it's organized and how to commit; each folder has its own `AGENTS.md`. Build any
 |---|---|---|
 | [`lawful`](projects/lawful/AGENTS.md) | *LAWFUL: Law-Aligned Witness for Faithful Use of Latents* (Chen, Parker & Arora, ICML 2026 MI workshop, [arXiv:2607.28672](https://arxiv.org/abs/2607.28672)) | a 7:52 video (`videos/explainer`, `make CUT=full` gives the original 9-min cut), a ~27-min episode and two pilots (`pods/`), five shorts |
 | [`errors`](projects/errors/AGENTS.md) | *Rethinking Circuit Evaluation: Do Circuits Explain Model Errors?* (Zhang, Geng et al., 2026, [arXiv:2609.35686](https://arxiv.org/abs/2609.35686)) | three standalone videos and a six-minute cut, a ~24-min episode, seven shorts |
+| [`examples`](projects/examples/AGENTS.md) | how to use the engine | `videos/light`: a different look from settings alone |
 
 ## Layout
 

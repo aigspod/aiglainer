@@ -33,10 +33,12 @@ Add the piece to the lists in its kind's `AGENTS.md` when you add it.
 
 ## House rules for what we make
 
+These are the pod's. The dark /mull/ look and our scores are the default; [docs/STYLES.md](../docs/STYLES.md) says how to change them.
+
 - **Endings:** leave 1-2 s after the last line for the picture and music to fade out; set the last scene's `hold`.
 - **Short titles:** 5-6 words at most, on screen (`headline`) and in the upload title.
-- **Music sits well under the host.** Raise it only rarely, on purpose: a title card, a turn, the outro. The engine
-  ducks about 8 dB under narration (`aiglainer/audio.py`), which can be too little for fuller scores: listen for it.
+- **Music sits well under the host.** Raise it only rarely, on purpose: a title card, a turn, the outro. Set
+  `MUSIC['duck_db']` (`make new` starts at 16); without it, music averages only about 6 dB under speech and swells between words.
 - **Accuracy:** never draw data by eye; label illustrations on screen; say so when a paper's text and tables disagree;
   note it in the topic's `AGENTS.md`. Have scripts reviewed against the source before synthesizing (docs/PODCAST.md).
 

@@ -22,7 +22,7 @@ doesn't replace it).
 - A project with `KIND = 'short'` is a 9:16 YouTube Short / TikTok (see [docs/SHORTS.md](docs/SHORTS.md)): it borrows
   scenes and data from `SOURCES` projects and shows them as crops, or draws native vertical scenes. Check its
   `out/narrated/qa/safe_*.png`: nothing that matters may fall in the red (the apps' buttons cover it).
-- Score styles are picked with `MUSIC['style']`: `night` and `dawn` in `aiglainer/audio.py`, and five after music the
+- Score styles are picked with `MUSIC['style']` (or your own file, or `'none'`: docs/STYLES.md): `night` and `dawn` in `aiglainer/audio.py`, and five after music the
   pod loves in `aiglainer/scores.py` (`daylight`, `encore`, `analog`, `silencia`, `mysterium`), prototyped in
   `sketches/scores/` (its README says what each is after). Keep them separate tracks (never blend them), write
   original material only, and never use the recordings.
@@ -72,7 +72,8 @@ Everything also runs as `pixi run aiglainer <command> -p <name>` (or `pixi run p
   to `SAY`) rather than loosening the check.
 - **Animate from time.** Every scene draws from `ramp`/`window` of its authored time `t`, never from frame counters
   or state, so the narrated cut can time-warp it.
-- **Keep the style.** The aigspod site's dark /mull/ look: Fraunces headings with one `*amber italic*` word and a
+- **The style is a default.** The pod's own pieces keep the aigspod site's dark /mull/ look; anyone can change look, voice and
+  music with settings: [docs/STYLES.md](docs/STYLES.md). The default: Fraunces headings with one `*amber italic*` word and a
   swash, Inter body text, lowercase Space Mono labels, Caveat handwriting only for asides (at most one per scene),
   the lamp and sticky-note doodles, colour tokens from `aiglainer/core.py` `PAL`. Data colours follow the source
   figure's colours.

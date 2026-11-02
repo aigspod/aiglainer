@@ -97,7 +97,7 @@ each scene's speed range; anything above ~2× in the tail column is content flas
 (`header(..., 'The plan: *three* steps')`), Inter body text, lowercase Space Mono labels, Caveat handwriting for
 asides, the lamp and sticky-note doodles. Fonts are bundled in `aiglainer/fonts/` (OFL); any glyph a face lacks
 (Greek, arrows) falls back per character to Inter, then SF Pro. Colours are tokens in `aiglainer/core.py` `PAL`
-(override per project with `THEME`); data colours should follow the paper's figures. Keep margin notes to one
+(override per project with `THEME`, and see [STYLES.md](STYLES.md) for background and fonts); data colours should follow the paper's figures. Keep margin notes to one
 aside per scene, never the explanation itself.
 
 **Story spine.** A project can set `STEPS` (e.g. `['behavior', 'cause', 'mechanism']`) and `CHAPTER_STEPS`; a tracker
@@ -110,7 +110,7 @@ icon) and `notes.py` (handwriting, sticky, lamp). Build every animation from `ra
 narrated cut can warp it. To add a scene: write the class in a module listed in `SCENE_MODULES`, give it a chapter
 title in `project.py`, and add an entry with beats to `narration.py`.
 
-**Music.** `MUSIC = dict(intro_until=..., arp_from=..., arp_until=...)` names the scenes that shape the generated
+**Music.** (To change level, or use your own track: [STYLES.md](STYLES.md).) `MUSIC = dict(intro_until=..., arp_from=..., arp_until=...)` names the scenes that shape the generated
 score: a quiet drone and a riser before `intro_until`, a plucked arpeggio between the other two. `style` picks the
 score: 'night' (the default: minor ninths, 96 bpm), 'dawn' (brighter major progression, 112 bpm, soft
   pulse), or one after music the pod loves: 'daylight' (strings over a lament bass, after Richter), 'encore' (soft

@@ -1,0 +1,101 @@
+[
+ {
+  "scene": "Title",
+  "i": 0,
+  "v": 0.6,
+  "text": "This is the same engine, in a different look.",
+  "say": "This is the same engine, in a different look.",
+  "file": "cache/c8bd1bfeb2bf0dd8.wav",
+  "dur": 3.375,
+  "heard": "This is the same engine in a different look.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Question",
+  "i": 0,
+  "v": 0.6,
+  "text": "Everything here comes from a few settings in one file.",
+  "say": "Everything here comes from a few settings in one file.",
+  "file": "cache/77c0257b9cbf3e5f.wav",
+  "dur": 4.05,
+  "heard": "Everything here comes from a few settings in one file.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Question",
+  "i": 1,
+  "v": 2.0,
+  "text": "The colors come from a theme.",
+  "say": "The colors come from a theme.",
+  "file": "cache/a478a17dbfa7f1b9.wav",
+  "dur": 2.475,
+  "heard": "The colors come from a theme.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Question",
+  "i": 2,
+  "v": 4.0,
+  "text": "The headings use a different typeface.",
+  "say": "The headings use a different typeface.",
+  "file": "cache/20ffec98057a2d6c.wav",
+  "dur": 3.0,
+  "heard": "The headings use a different typeface.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Question",
+  "i": 3,
+  "v": 6.0,
+  "text": "And the voice and the music are one word each.",
+  "say": "And the voice and the music are one word each.",
+  "file": "cache/09995b24a3d5f625.wav",
+  "dur": 3.4,
+  "heard": "and the voice and the music are one word each.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Method",
+  "i": 0,
+  "v": 0.8,
+  "text": "Equations are typeset to match.",
+  "say": "Equations are typeset to match.",
+  "file": "cache/5509bbe5024fb6e9.wav",
+  "dur": 2.725,
+  "heard": "Equations are typeset to match.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Method",
+  "i": 1,
+  "v": 4.0,
+  "text": "And charts still come from numbers in the data folder, not traced by eye.",
+  "say": "And charts still come from numbers in the data folder, not traced by eye.",
+  "file": "cache/667159326a520de2.wav",
+  "dur": 5.2,
+  "heard": "And charts still come from numbers in the data folder, not traced by eye.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Method",
+  "i": 2,
+  "v": 9.0,
+  "text": "The music sits lower under the host than the default, because that is one setting too.",
+  "say": "The music sits lower under the host than the default, because that is one setting too.",
+  "file": "cache/cc3d22e836944670.wav",
+  "dur": 5.9,
+  "heard": "The music sits lower under the host than the default, because that is one setting too.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Takeaway",
+  "i": 0,
+  "v": 0.6,
+  "text": "Take what you like, and leave the rest. The guide is in docs slash styles.",
+  "say": "Take what you like, and leave the rest. The guide is in docs slash styles.",
+  "file": "cache/ec44fb345b8fd341.wav",
+  "dur": 5.175,
+  "heard": "Take what you like and leave the rest. The guide is in Docs slash styles.",
+  "wer": 0.0
+ }
+]
