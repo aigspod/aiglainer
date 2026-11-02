@@ -1,0 +1,46 @@
+[
+ {
+  "scene": "Faithful",
+  "i": 0,
+  "v": 0.3,
+  "text": "Can an explanation be more faithful than the thing it explains?",
+  "say": "Can an explanation be more faithful than the thing it explains?",
+  "file": "cache/4b141e442d9b4429.wav",
+  "dur": 4.25,
+  "heard": "Can an explanation be more faithful than the thing it explains?",
+  "wer": 0.0
+ },
+ {
+  "scene": "Faithful",
+  "i": 1,
+  "v": 3.0,
+  "text": "Circuits are scored by faithfulness: does the small circuit prefer the right answer as strongly as the full model? One is perfect.",
+  "say": "Circuits are scored by faithfulness: does the small circuit prefer the right answer as strongly as the full model? One is perfect.",
+  "file": "cache/e394ebaf8c1da434.wav",
+  "dur": 8.525,
+  "heard": "Circuits are scored by faithfulness. Does the small circuit prefer the right answer as strongly as the full model? One is perfect.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Faithful",
+  "i": 2,
+  "v": 9.0,
+  "text": "One automated circuit scores almost one and a half. It is more sure of the right answer than the model itself.",
+  "say": "One automated circuit scores almost one and a half. It is more sure of the right answer than the model itself.",
+  "file": "cache/343726d57fe09cbf.wav",
+  "dur": 7.375,
+  "heard": "One automated circuit scores almost one and a half. It is more sure of the right answer than the model itself.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Faithful",
+  "i": 3,
+  "v": 14.0,
+  "text": "And it reproduces only eleven percent of the model's mistakes. Too right to be faithful.",
+  "say": "And it reproduces only eleven percent of the model's mistakes. Too right to be faithful.",
+  "file": "cache/487b55c1133f2fc5.wav",
+  "dur": 6.025,
+  "heard": "And it reproduces only 11% of the model's mistakes. Too right to be faithful.",
+  "wer": 0.0
+ }
+]

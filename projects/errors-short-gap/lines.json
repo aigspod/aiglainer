@@ -1,0 +1,46 @@
+[
+ {
+  "scene": "GapBars",
+  "i": 0,
+  "v": 0.3,
+  "text": "Here's a strange number about how we explain neural networks.",
+  "say": "Here's a strange number about how we explain neural networks.",
+  "file": "cache/33d645cb40e130be.wav",
+  "dur": 4.45,
+  "heard": "Here's a strange number about how we explain neural networks.",
+  "wer": 0.0
+ },
+ {
+  "scene": "GapBars",
+  "i": 1,
+  "v": 3.0,
+  "text": "A famous circuit inside GPT-2 agrees with the model ninety-nine point five percent of the time, when the model is right.",
+  "say": "A famous circuit inside G P T two agrees with the model ninety-nine point five percent of the time, when the model is right.",
+  "file": "cache/f747be57e1a77dab.wav",
+  "dur": 9.475,
+  "heard": "A famous circuit inside GPT-2 agrees with the model 99.5% of the time, when the model is right.",
+  "wer": 0.0
+ },
+ {
+  "scene": "GapBars",
+  "i": 2,
+  "v": 8.0,
+  "text": "When the model is wrong, it makes the same mistake only fifteen percent of the time.",
+  "say": "When the model is wrong, it makes the same mistake only fifteen percent of the time.",
+  "file": "cache/615a64f6bb024b54.wav",
+  "dur": 5.75,
+  "heard": "When the model is wrong, it makes the same mistake only 15% of the time.",
+  "wer": 0.0
+ },
+ {
+  "scene": "GapBars",
+  "i": 3,
+  "v": 13.0,
+  "text": "By the usual average score, it looks very faithful. But an explanation that skips the mistakes can't tell you why they happen.",
+  "say": "By the usual average score, it looks very faithful. But an explanation that skips the mistakes can't tell you why they happen.",
+  "file": "cache/1e2df3ba3bb3c8b7.wav",
+  "dur": 8.6,
+  "heard": "By the usual average score, it looks very faithful, but an explanation that skips the mistakes can't tell you why they happen.",
+  "wer": 0.0
+ }
+]

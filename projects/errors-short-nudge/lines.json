@@ -1,0 +1,57 @@
+[
+ {
+  "scene": "NudgeGrid",
+  "i": 0,
+  "v": 0.3,
+  "text": "Two systems can be wrong equally often, and still be wrong about completely different things.",
+  "say": "Two systems can be wrong equally often, and still be wrong about completely different things.",
+  "file": "cache/eee41fa93f37c692.wav",
+  "dur": 6.125,
+  "heard": "Two systems can be wrong equally often and still be wrong about completely different things.",
+  "wer": 0.0
+ },
+ {
+  "scene": "NudgeGrid",
+  "i": 1,
+  "v": 5.0,
+  "text": "Here is a model that gets four of these twenty-four sentences wrong.",
+  "say": "Here is a model that gets four of these twenty-four sentences wrong.",
+  "file": "cache/b97c289deec661ec.wav",
+  "dur": 4.55,
+  "heard": "Here is a model that gets four of these 24 sentences wrong.",
+  "wer": 0.0
+ },
+ {
+  "scene": "NudgeGrid",
+  "i": 2,
+  "v": 9.0,
+  "text": "Nudge a circuit toward the wrong answer, and it gets four wrong too. Same error rate.",
+  "say": "Nudge a circuit toward the wrong answer, and it gets four wrong too. Same error rate.",
+  "file": "cache/59b323b8138e8dad.wav",
+  "dur": 5.575,
+  "heard": "Nudge a circuit toward the wrong answer, and it gets four wrong too. Same error rate.",
+  "wer": 0.0
+ },
+ {
+  "scene": "NudgeGrid",
+  "i": 3,
+  "v": 14.0,
+  "text": "But only one of those mistakes is shared. Matching how often is not matching where.",
+  "say": "But only one of those mistakes is shared. Matching how often is not matching where.",
+  "file": "cache/b5185a38c503d5ee.wav",
+  "dur": 5.525,
+  "heard": "But only one of those mistakes is shared. Matching how often is not matching where.",
+  "wer": 0.0
+ },
+ {
+  "scene": "NudgeGrid",
+  "i": 4,
+  "v": 19.0,
+  "text": "And that is why circuits that look faithful can still miss the mistakes.",
+  "say": "And that is why circuits that look faithful can still miss the mistakes.",
+  "file": "cache/97160cbdfda5c805.wav",
+  "dur": 4.7,
+  "heard": "And that is why circuits that look faithful can still miss the mistakes.",
+  "wer": 0.0
+ }
+]

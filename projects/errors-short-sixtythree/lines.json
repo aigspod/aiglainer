@@ -1,0 +1,57 @@
+[
+ {
+  "scene": "Extension",
+  "i": 0,
+  "v": 0.3,
+  "text": "What did a famous circuit inside GPT-2 leave out?",
+  "say": "What did a famous circuit inside G P T two leave out?",
+  "file": "cache/58201ded3ed5482f.wav",
+  "dur": 4.45,
+  "heard": "What did a famous circuit inside GPT-2 leave out?",
+  "wer": 0.0
+ },
+ {
+  "scene": "Extension",
+  "i": 1,
+  "v": 3.0,
+  "text": "It reproduces only about fourteen percent of the model's mistakes.",
+  "say": "It reproduces only about fourteen percent of the model's mistakes.",
+  "file": "cache/64025dc82f466953.wav",
+  "dur": 5.0,
+  "heard": "It reproduces only about 14% of the model's mistakes.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Extension",
+  "i": 2,
+  "v": 6.0,
+  "text": "Researchers searched for missing pieces, and added sixty-three of them. Now it reproduces about seventy-five percent.",
+  "say": "Researchers searched for missing pieces, and added sixty-three of them. Now it reproduces about seventy-five percent.",
+  "file": "cache/cddb16adb818b5e1.wav",
+  "dur": 8.375,
+  "heard": "Researchers searched for missing pieces and added 63 of them. Now it reproduces about 75%.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Extension",
+  "i": 3,
+  "v": 12.0,
+  "text": "A blanket nudge, or random extras of the same size, do far worse.",
+  "say": "A blanket nudge, or random extras of the same size, do far worse.",
+  "file": "cache/12afe787935b1726.wav",
+  "dur": 5.25,
+  "heard": "A blanket nudge or random extras of the same size do far worse.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Extension",
+  "i": 4,
+  "v": 16.0,
+  "text": "And on the sentences the model gets right, almost nothing changes. Missing pieces, found.",
+  "say": "And on the sentences the model gets right, almost nothing changes. Missing pieces, found.",
+  "file": "cache/cea1c92ee32a52d4.wav",
+  "dur": 6.5,
+  "heard": "And on the sentences the model gets right, almost nothing changes. Missing pieces found.",
+  "wer": 0.0
+ }
+]

@@ -1,0 +1,46 @@
+[
+ {
+  "scene": "Fig1",
+  "i": 0,
+  "v": 12.4,
+  "text": "Maybe circuits miss a model's mistakes because mistakes are rare. Nothing to learn from.",
+  "say": "Maybe circuits miss a model's mistakes because mistakes are rare. Nothing to learn from.",
+  "file": "cache/27947bcc836f477e.wav",
+  "dur": 6.325,
+  "heard": "Maybe circuits miss a model's mistakes because mistakes are rare, nothing to learn from.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig1",
+  "i": 1,
+  "v": 15.5,
+  "text": "So test models that make lots of them. Solid line: agreement where the model is right. Dashed: the same mistake where it's wrong.",
+  "say": "So test models that make lots of them. Solid line: agreement where the model is right. Dashed: the same mistake where it's wrong.",
+  "file": "cache/8b81b6dc9f3229d6.wav",
+  "dur": 9.3,
+  "heard": "So test models that make lots of them. Solid line, agreement where the model is right. Dashed, the same mistake where it's wrong.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig1",
+  "i": 2,
+  "v": 21.5,
+  "text": "For Gemma on hard science questions, thirty-eight percent of the examples used to find the circuit are its own mistakes.",
+  "say": "For Gemma on hard science questions, thirty-eight percent of the examples used to find the circuit are its own mistakes.",
+  "file": "cache/af47c5724af201a9.wav",
+  "dur": 8.325,
+  "heard": "For Gemma on hard science questions, 38% of the examples used to find the circuit are its own mistakes.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Fig1",
+  "i": 3,
+  "v": 27.0,
+  "text": "And the dashed line still sits below the solid one, at every size. Rarity is part of the story, not all of it.",
+  "say": "And the dashed line still sits below the solid one, at every size. Rarity is part of the story, not all of it.",
+  "file": "cache/6fc4b6276df5781a.wav",
+  "dur": 8.075,
+  "heard": "And the dashed line still sits below the solid one, at every size. Rarity is part of the story, not all of it.",
+  "wer": 0.0
+ }
+]

@@ -1,0 +1,46 @@
+[
+ {
+  "scene": "Sentence",
+  "i": 0,
+  "v": 0.3,
+  "text": "Sara and Courtney went to the hospital. Courtney gave a bone to... whom?",
+  "say": "Sara and Courtney went to the hospital. Courtney gave a bone to... whom?",
+  "file": "cache/0a0b4512c17c984b.wav",
+  "dur": 5.125,
+  "heard": "Sarah and Courtney went to the hospital. Courtney gave a bone to whom?",
+  "wer": 0.077
+ },
+ {
+  "scene": "Sentence",
+  "i": 1,
+  "v": 4.5,
+  "text": "Sara. But GPT-2, a small language model, sometimes says Courtney.",
+  "say": "Sara. But G P T two, a small language model, sometimes says Courtney.",
+  "file": "cache/7591071dce23c9b3.wav",
+  "dur": 5.425,
+  "heard": "Sarah, but GPT-2, a small language model, sometimes says Courtney.",
+  "wer": 0.091
+ },
+ {
+  "scene": "Sentence",
+  "i": 2,
+  "v": 9.5,
+  "text": "Researchers found a circuit that's supposed to explain how GPT-2 picks the name. On that same sentence, the circuit says Sara.",
+  "say": "Researchers found a circuit that's supposed to explain how G P T two picks the name. On that same sentence, the circuit says Sara.",
+  "file": "cache/ef839f88edc663cc.wav",
+  "dur": 8.925,
+  "heard": "Researchers found a circuit that's supposed to explain how GPT-2 picks the name. On that same sentence, the circuit says Sarah.",
+  "wer": 0.045
+ },
+ {
+  "scene": "Sentence",
+  "i": 3,
+  "v": 14.0,
+  "text": "It's right, where the model is wrong. So does it really explain the model? A new paper says: often, no.",
+  "say": "It's right, where the model is wrong. So does it really explain the model? A new paper says: often, no.",
+  "file": "cache/fbe7333765f25380.wav",
+  "dur": 6.95,
+  "heard": "It's right where the model is wrong. So does it really explain the model? A new paper says, often no.",
+  "wer": 0.0
+ }
+]

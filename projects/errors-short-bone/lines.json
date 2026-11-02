@@ -1,0 +1,46 @@
+[
+ {
+  "scene": "PathOne",
+  "i": 0,
+  "v": 5.2,
+  "text": "Why does GPT-2 sometimes give the bone to the wrong person?",
+  "say": "Why does G P T two sometimes give the bone to the wrong person?",
+  "file": "cache/6545c19192702e45.wav",
+  "dur": 4.95,
+  "heard": "Why does GPT, too, sometimes give the bone to the wrong person?",
+  "wer": 0.083
+ },
+ {
+  "scene": "PathOne",
+  "i": 1,
+  "v": 10.0,
+  "text": "Part of the answer is the bone itself. Context from the object changes where an inhibition head looks. It looks at the repeated name far less.",
+  "say": "Part of the answer is the bone itself. Context from the object changes where an inhibition head looks. It looks at the repeated name far less.",
+  "file": "cache/b648f49a948b903f.wav",
+  "dur": 9.35,
+  "heard": "Part of the answer is the bone itself. Context from the object changes where an inhibition head looks. It looks at the repeated name far less.",
+  "wer": 0.0
+ },
+ {
+  "scene": "PathOne",
+  "i": 2,
+  "v": 21.0,
+  "text": "So a name mover looks back at Courtney, and copies the wrong name.",
+  "say": "So a name mover looks back at Courtney, and copies the wrong name.",
+  "file": "cache/99fc8605d2100de4.wav",
+  "dur": 4.575,
+  "heard": "So a name mover looks back at Courtney and copies the wrong name.",
+  "wer": 0.0
+ },
+ {
+  "scene": "PathOne",
+  "i": 3,
+  "v": 33.0,
+  "text": "Swap the bone for a snack, and the right answer comes back in most of the cases studied. Which feature of the bone matters is still open.",
+  "say": "Swap the bone for a snack, and the right answer comes back in most of the cases studied. Which feature of the bone matters is still open.",
+  "file": "cache/7be5c92861ce780b.wav",
+  "dur": 8.8,
+  "heard": "Swap the bone for a snack, and the right answer comes back in most of the cases studied. Which feature of the bone matters is still open?",
+  "wer": 0.0
+ }
+]
