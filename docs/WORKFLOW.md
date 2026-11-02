@@ -5,10 +5,10 @@ Apple Silicon Mac; nothing is sent to a service. To start a video for a new pape
 
 ## Layout
 
-The engine in `aiglainer/` knows nothing about any one paper. Each video is a project in `projects/<name>/`:
+The engine in `aiglainer/` knows nothing about any one paper. Each video is a project in `projects/<topic>/videos/<name>/` ([projects/AGENTS.md](../projects/AGENTS.md) has the layout and how to commit):
 
 ```
-projects/<name>/
+projects/<topic>/videos/<name>/
   project.py        settings: HUD label, chapters, story steps, music shape, chapter titles, description, thumbnail
   narration.py      the narrated cut: scene order, (visual time, line) beats, VOICE/SPEED, pronunciations
   scenes*.py        scene classes (draw(c, t) on a 1920x1080 skia canvas)
@@ -22,7 +22,7 @@ projects/<name>/
   cache/  out/      synthesized clips and build outputs (not committed)
 ```
 
-`aiglainer/template/` is a complete four-scene example (copied by `make new`); `projects/lawful/` is the full LAWFUL video.
+`aiglainer/template/` is a complete four-scene example (copied by `make new`); `projects/lawful/videos/explainer/` is the full LAWFUL video.
 
 ## Pipeline
 
@@ -52,25 +52,25 @@ out/narrated/<OUTPUT_NAME>
 
 ## Commands
 
-Every target takes `P=<project>` (default `lawful`).
+Every target takes `P=<topic>/<kind>/<name>` (default `lawful`).
 
 ```sh
 make setup                       # once: pixi install (rendering, Kokoro, Whisper, ffmpeg, tectonic)
-make P=lawful                    # tex → narration → video → audio → finish → verify → thumbnail
-make plan P=lawful               # scene timings and speeds, without rendering
-make frames P=lawful             # contact sheets of every narration line → out/narrated/qa/
-make preview P=lawful SCENE=Fig4a T="5 12 20"    # one scene at authored times → out/prev/
-make thumbnail P=lawful
-make voices P=lawful VOICES="af_bella bm_george" # audition voices on voice_samples/sample.txt
-make CUT=full P=lawful           # the project's un-narrated cut, if it defines FULL_CUT
+make P=lawful/videos/explainer                    # tex → narration → video → audio → finish → verify → thumbnail
+make plan P=lawful/videos/explainer               # scene timings and speeds, without rendering
+make frames P=lawful/videos/explainer             # contact sheets of every narration line → out/narrated/qa/
+make preview P=lawful/videos/explainer SCENE=Fig4a T="5 12 20"    # one scene at authored times → out/prev/
+make thumbnail P=lawful/videos/explainer
+make voices P=lawful/videos/explainer VOICES="af_bella bm_george" # audition voices on voice_samples/sample.txt
+make CUT=full P=lawful/videos/explainer           # the project's un-narrated cut, if it defines FULL_CUT
 make help                        # everything
 ```
 
 The Makefile calls `python -m aiglainer <command> -p <project>`; you can run that directly too.
 
-Outputs for upload are in `projects/<name>/out/narrated/`: the MP4 (captions embedded as a soft track),
+Outputs for upload are in `projects/<topic>/<kind>/<name>/out/narrated/`: the MP4 (captions embedded as a soft track),
 `captions.srt` (upload to YouTube as English captions too), `youtube_description.txt` (chapters included), and
-`projects/<name>/out/thumbnail.png`.
+`projects/<topic>/<kind>/<name>/out/thumbnail.png`.
 
 ## Changing things
 

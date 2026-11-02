@@ -91,5 +91,5 @@ pixi run python sketches/scores/sleep.py brass sketches/scores/out/brass.wav
 - `tracks.py` has two pianos: `piano` (used by `analog`) and `grand` (used by `encore`), which dulls quickly
   after the strike so held notes don't sound like an organ. If `grand` still isn't convincing, the next step is a
   sampled piano (e.g. Salamander Grand; check its licence first).
-- Adding them left existing outputs untouched: `make check P=lawful` printed `IDENTICAL`, and the night and dawn
+- Adding them left existing outputs untouched: `make check P=lawful/videos/explainer` printed `IDENTICAL`, and the night and dawn
   scores and a podcast mix hashed the same before and after.

@@ -8,9 +8,9 @@ synthesizes the score and sound effects, Kokoro-82M ("Bella") narrates, Whisper 
 encodes.
 
 ```sh
-make setup                                   # once: see Install below
-make new P=mypaper TITLE="Paper Title"       # a new video from the template
-make P=mypaper                               # build + verify -> projects/mypaper/out/
+make setup                                           # once: see Install below
+make new P=mypaper/videos/main TITLE="Paper Title"   # a new video from the template
+make P=mypaper/videos/main                           # build + verify -> projects/mypaper/videos/main/out/
 ```
 
 ## Install
@@ -35,7 +35,7 @@ Then:
 git clone https://github.com/aigspod/aiglainer.git
 cd aiglainer
 make setup          # pixi install, enable the commit guard, run `make doctor`
-make P=lawful       # build the LAWFUL video to check everything works (~4 min)
+make P=lawful/videos/explainer       # build the LAWFUL video to check everything works (~4 min)
 ```
 
 `make` uses the pixi environment automatically; `pixi run aiglainer ...` and `pixi shell` work too.
@@ -69,6 +69,7 @@ work on scenes. Narrated builds stop at `make narration` until the `tts` extra i
 | pixi environment (Python, PyTorch, ffmpeg, ...) | ~2.1 GB | `make setup` | `.pixi/` in the repo |
 | Kokoro-82M voice model | ~340 MB | first narration run | Hugging Face cache (`~/.cache/huggingface`) |
 | Whisper large-v3-turbo | ~1.5 GB | first narration run | Hugging Face cache |
+| Music Flamingo (optional) | ~16 GB | first `make listen` | Hugging Face cache |
 | TeX packages | ~60 MB | first `make tex` | tectonic's cache |
 
 Fonts ship with the repo. Papers aren't included: to re-extract figure data, put the PDF in the project's `paper/`
@@ -82,13 +83,15 @@ folder (see the project's `extract_paper.py`). Run `make doctor` any time to see
 - **[docs/WORKFLOW.md](docs/WORKFLOW.md)**: the pipeline, changing lines, timing and visuals, the pre-upload
   checklist, and the decisions behind it.
 
-## Videos
+## Projects
 
-| project | topic | video |
+Everything we've made, under `projects/<topic>/{videos,shorts,pods}/<name>/`. [projects/AGENTS.md](projects/AGENTS.md) says how
+it's organized and how to commit; each folder has its own `AGENTS.md`. Build any of them with `make P=<path>`.
+
+| topic | source | what's there |
 |---|---|---|
-| [`lawful-pod`](projects/lawful-pod) | the same paper as a ~25-min audio episode (podcast) | `make P=lawful-pod`; `lawful-pod-solo` / `-duo` are 3-min pilots |
-| [`lawful-short-*`](projects) | three ~45 s vertical shorts from the same paper | `make P=lawful-short-radar` (also `-twice`, `-pattern`) |
-| [`lawful`](projects/lawful) | *LAWFUL: Law-Aligned Witness for Faithful Use of Latents* (Chen, Parker & Arora, ICML 2026 MI workshop, [arXiv:2607.28672](https://arxiv.org/abs/2607.28672)) | 7:52, beginner-friendly; `make CUT=full` gives the original 9-min text-only cut |
+| [`lawful`](projects/lawful/AGENTS.md) | *LAWFUL: Law-Aligned Witness for Faithful Use of Latents* (Chen, Parker & Arora, ICML 2026 MI workshop, [arXiv:2607.28672](https://arxiv.org/abs/2607.28672)) | a 7:52 video (`videos/explainer`, `make CUT=full` gives the original 9-min cut), a ~27-min episode and two pilots (`pods/`), five shorts |
+| [`errors`](projects/errors/AGENTS.md) | *Rethinking Circuit Evaluation: Do Circuits Explain Model Errors?* (Zhang, Geng et al., 2026, [arXiv:2609.35686](https://arxiv.org/abs/2609.35686)) | three standalone videos and a six-minute cut, a ~24-min episode, seven shorts |
 
 ## Layout
 
@@ -107,20 +110,13 @@ aiglainer/           the engine (topic-agnostic); python -m aiglainer <command> 
   doctor.py, fingerprint.py         machine check (`make doctor`); regression check (`make fingerprint` / `make check`)
   fonts/             Fraunces, Inter, Space Mono, Caveat (OFL)
   template/          a complete four-scene example video, copied by `make new`
-projects/
-  lawful/            the LAWFUL video: settings, scenes, narration, data
+  listen.py          `make listen`: ask NVIDIA Music Flamingo about a render (a dev tool, never in a build)
+projects/            <topic>/{videos,shorts,pods}/<name>/, an AGENTS.md at each level (see projects/AGENTS.md)
 tools/setup.sh       pixi install (Python, ffmpeg, tectonic, all libraries, package editable), commit guard, doctor
 tools/hooks/         pre-commit: refuses media files and anything over 1 MB
 ```
 
-## Accuracy notes (LAWFUL)
-
-- Fig. 4 curves come from the PDF's vector paths. Fig. 3 spectrograms and Fig. 5 attention maps are the embedded
-  viridis rasters inverted back to values (mean colour error < 1/255). Numbers come from Tables 1, 2 and 5.
-- The walker, radar, trajectory and attention-head diagrams are illustrations and are labelled as such on screen.
-- The paper's text says "six of the seven temporal heads" are more QK-sufficient. Its Table 2 gives 5 of 6
-  temporal heads in C† (T.h4 is the exception). The video follows the table and says so.
-- Paper explainers here are unofficial, not produced by the papers' authors.
+Paper explainers here are unofficial, not produced by the papers' authors. Each topic's `AGENTS.md` keeps its accuracy notes.
 
 ## License
 

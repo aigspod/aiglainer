@@ -5,14 +5,16 @@ Written for a paper explainer, since that's what we've made so far. For a book o
 motivate first, give beginners the background they lack, follow a story spine, end with questions for the meeting.
 
 The recipe that produced the LAWFUL video, as steps. Budget a few hours of iteration; the build itself takes
-minutes. `projects/lawful/` is the worked example for every step.
+minutes. `projects/lawful/videos/explainer/` is the worked example for every step.
 
 ## 1. Start the project
 
+A video lives in `projects/<topic>/videos/<name>/`; [projects/AGENTS.md](../projects/AGENTS.md) has the layout and how to commit.
+
 ```sh
-make new P=sparse-probing TITLE="Sparse Probing"      # copies aiglainer/template
-cp ~/Downloads/paper.pdf projects/sparse-probing/paper/
-make P=sparse-probing                                # builds the template video: a smoke test of the toolchain
+make new P=sparse-probing/videos/main TITLE="Sparse Probing"      # copies aiglainer/template
+cp ~/Downloads/paper.pdf projects/sparse-probing/videos/main/paper/
+make P=sparse-probing/videos/main                                # builds the template video: a smoke test of the toolchain
 ```
 
 ## 2. Read the paper for the audience
@@ -34,12 +36,12 @@ Our journal club is mostly beginners. Before drawing anything, write down in `pr
 Charts are redrawn from data, never traced by eye.
 
 ```sh
-make inspect PDF=projects/sparse-probing/paper/paper.pdf PAGE=6
+make inspect PDF=projects/sparse-probing/videos/main/paper/paper.pdf PAGE=6
 ```
 
 lists the page's coloured vector paths (data curves), embedded images (heatmaps, spectrograms) and numeric tick
 labels. Write `extract_paper.py` with the helpers in `aiglainer/pdf.py` (`path_points`, `axis_map`, `image`,
-`invert_colormap`) to save `data/*.json`; see `projects/lawful/extract_paper.py`. Numbers from tables can be typed
+`invert_colormap`) to save `data/*.json`; see `projects/lawful/videos/explainer/extract_paper.py`. Numbers from tables can be typed
 straight into the scene code with a comment naming the table.
 
 ## 4. Equations

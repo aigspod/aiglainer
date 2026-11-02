@@ -1,13 +1,13 @@
 # Making a short (YouTube Shorts, TikTok)
 
-A short is a project with `KIND = 'short'`: a 1080×1920, 60 fps video of about 30–60 s, built with `make P=<name>`
+A short is a project with `KIND = 'short'`: a 1080×1920, 60 fps video of about 30–60 s, built with `make P=<topic>/<kind>/<name>`
 (narration, video, audio at −14 LUFS, line-by-line verify, and safe-zone sheets in `out/narrated/qa/safe_*.png`).
-`projects/lawful-short-*` are the reference samples (radar, twice, pattern with Bella; probes, forbids with Michael).
+`projects/lawful/shorts/*` are the reference samples (radar, twice, pattern with Bella; probes, forbids with Michael).
 
 ```python
 # project.py
 KIND = 'short'
-SOURCES = ['lawful']                      # reuse that project's scenes, data/ and tex/
+SOURCES = ['lawful/videos/explainer']                      # reuse that project's scenes, data/ and tex/
 SCENE_MODULES = ['shortscenes', 'scenes3']
 HUD = 'the aigs pod  ·  lawful'           # small line at the top
 CITE = 'chen, parker & arora · arxiv 2607.28672'
@@ -33,8 +33,8 @@ SCENES = [
   - `stack=[rect, rect]` shows regions together, side by side or stacked, whichever is bigger (radar vs model,
     circuit vs complement).
   - `vstart` starts a scene partway in, so the first frame of a short already shows something (the hook frame).
-  - `make preview P=lawful SCENE=Fig4a T="20"` shows the coordinates. Give each reuse of a scene its own `id`.
-- **Native scenes** (`vertical = True`) draw in a 720×700 box with their own origin (see `projects/lawful-short-*/shortscenes.py`).
+  - `make preview P=lawful/videos/explainer SCENE=Fig4a T="20"` shows the coordinates. Give each reuse of a scene its own `id`.
+- **Native scenes** (`vertical = True`) draw in a 720×700 box with their own origin (see `projects/lawful/shorts/*/shortscenes.py`).
   Use them when an idea has no good 16:9 picture (a horizontal bar chart, for instance, becomes columns). Big type:
   labels ≥ 19 px, numbers ≥ 28 px. Label illustrations as such.
 - **Voice and music.** `VOICE = 'michael'` (any host in `aiglainer/hosts.py`). `MUSIC = dict(style='dawn')` picks the

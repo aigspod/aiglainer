@@ -13,11 +13,12 @@ as they appear, and ends with questions to think about *before* the meeting (the
 doesn't replace it).
 
 - `aiglainer/` is the engine (a Python package and the `aiglainer` command). It knows nothing about any one video.
-- `projects/<name>/` is one video: `project.py` (settings), `narration.py`, `scenes*.py`, `margin_notes.py`,
-  `thumbnail.py`, `eqs.py`, `data/`. `projects/lawful/` is the complete reference video.
+- `projects/<topic>/{videos,shorts,pods}/<name>/` is one piece, and **[projects/AGENTS.md](projects/AGENTS.md) says how to organize
+  and commit them**. Every level has an `AGENTS.md`: read the ones on your path. A video has `project.py` (settings), `narration.py`, `scenes*.py`, `margin_notes.py`,
+  `thumbnail.py`, `eqs.py`, `data/`. `projects/lawful/videos/explainer/` is the complete reference video.
 - `aiglainer/template/` is the starter project copied by `make new`.
 - A project with `KIND = 'podcast'` is an audio-only episode (`episode.py` instead of scenes); see
-  [docs/PODCAST.md](docs/PODCAST.md). `projects/lawful-pod/` is the reference episode.
+  [docs/PODCAST.md](docs/PODCAST.md). `projects/lawful/pods/episode/` is the reference episode.
 - A project with `KIND = 'short'` is a 9:16 YouTube Short / TikTok (see [docs/SHORTS.md](docs/SHORTS.md)): it borrows
   scenes and data from `SOURCES` projects and shows them as crops, or draws native vertical scenes. Check its
   `out/narrated/qa/safe_*.png`: nothing that matters may fall in the red (the apps' buttons cover it).
@@ -25,8 +26,8 @@ doesn't replace it).
   pod loves in `aiglainer/scores.py` (`daylight`, `encore`, `analog`, `silencia`, `mysterium`), prototyped in
   `sketches/scores/` (its README says what each is after). Keep them separate tracks (never blend them), write
   original material only, and never use the recordings.
-- **Listen to scores you change.** `make listen F=<audio> Q="..."` asks NVIDIA Music Flamingo (`tools/listen.py`,
-  a dev tool, never in a build) about a render: key, chords, mood, timbre and coarse rhythm are useful; tempo
+- **Listen to scores you change.** `make listen F=<audio> Q="..."` asks NVIDIA Music Flamingo (`aiglainer/listen.py`, also
+  `python -m aiglainer listen`; a dev tool, never in a build) about a render: key, chords, mood, timbre and coarse rhythm are useful; tempo
   without a pulse is not. It is a check before a human listens, not instead of one. It may describe a reference
   recording's character (which instrument leads, how phrases breathe), never extract notes to copy.
 - Hosts are roles in scripts, defined once in `aiglainer/hosts.py`; how every host pronounces words like "aigs"
@@ -45,11 +46,11 @@ First narration run downloads Kokoro (~340 MB) and Whisper (~1.5 GB) from Huggin
 ```sh
 make setup                      # once: pixi install (+ commit guard, + doctor)
 make doctor                     # what's installed / missing on this machine
-make P=<name>                   # full build: tex, narration, video, audio, finish, verify, thumbnail (~4 min for LAWFUL)
-make plan P=<name>              # timing plan, instant: use it after every narration edit
-make preview P=<name> SCENE=X T="2 8 14"   # render one scene at authored times -> out/prev/X.png
-make frames P=<name>            # one captioned frame per narration line -> out/narrated/qa/sheet_*.png
-make new P=<name> TITLE="..."   # new project from the template
+make P=<topic>/<kind>/<name>                   # full build: tex, narration, video, audio, finish, verify, thumbnail (~4 min for LAWFUL)
+make plan P=<topic>/<kind>/<name>              # timing plan, instant: use it after every narration edit
+make preview P=<topic>/<kind>/<name> SCENE=X T="2 8 14"   # render one scene at authored times -> out/prev/X.png
+make frames P=<topic>/<kind>/<name>            # one captioned frame per narration line -> out/narrated/qa/sheet_*.png
+make new P=<topic>/videos/<name> TITLE="..."   # new project from the template
 make inspect PDF=... PAGE=N     # find data curves, images and tick labels in a paper's figure
 make help                       # everything else
 ```
@@ -62,7 +63,7 @@ Everything also runs as `pixi run aiglainer <command> -p <name>` (or `pixi run p
   `make thumbnail`) and open the PNGs. Most bugs in this repo were visual (overlaps, text off-canvas, a beat landing
   before its visual, glyph boxes) and no test catches them.
 - **Never draw data by eye.** Charts are redrawn from numbers extracted from the source (`aiglainer/pdf.py`,
-  `projects/lawful/extract_paper.py`) or typed from tables with a comment naming the table. Label anything that is
+  `projects/lawful/videos/explainer/extract_paper.py`) or typed from tables with a comment naming the table. Label anything that is
   only an illustration as `illustration` on screen. Cross-check the paper's text against its tables and say so on
   screen when they disagree.
 - **Narration is the spine.** Edit `narration.py`; beats are `(authored_time, text)`, pointed at the moment the
@@ -76,9 +77,9 @@ Everything also runs as `pixi run aiglainer <command> -p <name>` (or `pixi run p
   the lamp and sticky-note doodles, colour tokens from `aiglainer/core.py` `PAL`. Data colours follow the source
   figure's colours.
 - **Engine changes must not change existing videos** unless that's the point. Before touching `aiglainer/`, run
-  `make fingerprint P=lawful`; after, `make check P=lawful` must print `IDENTICAL`. For audio, compare
+  `make fingerprint P=lawful/videos/explainer`; after, `make check P=lawful/videos/explainer` must print `IDENTICAL`. For audio, compare
   `out/narrated/audio.wav` with `cmp` before and after.
-- **Done means verified.** A build is done when `make P=<name>` ends with `0 flagged` (narration) and a mix WER
+- **Done means verified.** A build is done when `make P=<topic>/<kind>/<name>` ends with `0 flagged` (narration) and a mix WER
   near zero (verify), the `make frames` sheets show each line's visual, and `out/thumbnail_sizes.png` still reads
   at the smallest size. Report anything you could not check: nobody has *listened* unless a human did.
 
