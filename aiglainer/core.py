@@ -69,8 +69,13 @@ def window(t, t_in, t_out, d_in=0.6, d_out=0.5, ease=e_out):
 # The aigspod site's type: Fraunces (display), Inter (text), Space Mono (labels), Caveat (handwriting).
 # Glyphs a face lacks (Greek, arrows, ticks) fall back to Inter, then SF Pro, per character.
 FONT_DIR = os.path.join(HERE, 'fonts')
-SFNS = '/System/Library/Fonts/SFNS.ttf'
-SFNS_I = '/System/Library/Fonts/SFNSItalic.ttf'
+def _first(*paths):
+    return next((p for p in paths if p and os.path.exists(p)), paths[-1])
+# SF Pro on a Mac; elsewhere a system face with Greek and arrows (or AIGLAINER_FALLBACK_FONT[_ITALIC])
+SFNS = _first(os.environ.get('AIGLAINER_FALLBACK_FONT'), '/System/Library/Fonts/SFNS.ttf',
+              '/usr/share/fonts/truetype/LiberationSans-Regular.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')
+SFNS_I = _first(os.environ.get('AIGLAINER_FALLBACK_FONT_ITALIC'), '/System/Library/Fonts/SFNSItalic.ttf',
+                '/usr/share/fonts/truetype/LiberationSans-Italic.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf')
 _VP = skia.FontArguments.VariationPosition
 _AX = dict(wght=0x77676874, opsz=0x6f70737a, SOFT=0x534f4654, WONK=0x574f4e4b)
 _tf_cache = {}
