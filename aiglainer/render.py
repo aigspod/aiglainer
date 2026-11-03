@@ -42,7 +42,7 @@ def worker(args):
     for fr in range(f0, f1):
         c.clear(skia.ColorBLACK)
         tl.render(c, fr)
-        p.stdin.write(surf.makeImageSnapshot().toarray().tobytes())
+        p.stdin.write(surf.makeImageSnapshot().toarray(colorType=skia.kRGBA_8888_ColorType).tobytes())
     p.stdin.close()
     p.wait()
     return idx, f1 - f0
