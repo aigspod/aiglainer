@@ -30,7 +30,7 @@ def main(name, times):
     for t in times or [tl.scenes[0].dur / 2]:
         s = skia.Surface(W, H)
         tl.render(s.getCanvas(), int(round(t * FPS)))
-        imgs.append(s.makeImageSnapshot().toarray()[:, :, :3])
+        imgs.append(s.makeImageSnapshot().toarray(colorType=skia.kRGBA_8888_ColorType)[:, :, :3])
     out = P.path('out', 'prev', f'{name}.png')
     save_rgb(frames_sheet(imgs), out)
     print(out)

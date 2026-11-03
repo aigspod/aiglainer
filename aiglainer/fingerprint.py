@@ -26,7 +26,7 @@ def take():
         for f in range(0, tl.nframes, STEP):
             s.getCanvas().clear(skia.ColorBLACK)
             tl.render(s.getCanvas(), f)
-            frames.append(hashlib.md5(s.makeImageSnapshot().toarray().tobytes()).hexdigest())
+            frames.append(hashlib.md5(s.makeImageSnapshot().toarray(colorType=skia.kRGBA_8888_ColorType).tobytes()).hexdigest())
         res[cut] = dict(nframes=tl.nframes, frames=frames, cues=[[round(t, 4), n] for t, n in tl.cues()],
                         placements=[[round(p['t'], 4), p['text']] for p in tl.placements])
     return res

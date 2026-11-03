@@ -303,7 +303,7 @@ def qa():
         x0, y0, x1, y1 = SAFE
         for r in ((0, 0, SW, y0), (0, y1, SW, SH - y1), (0, y0, x0, y1 - y0), (x1, y0, SW - x1, y1 - y0)):
             cv.drawRect(skia.Rect.MakeXYWH(*r), paint('#ff3030', 0.25))
-        imgs.append(s.makeImageSnapshot().toarray()[::3, ::3, :3])
+        imgs.append(s.makeImageSnapshot().toarray(colorType=skia.kRGBA_8888_ColorType)[::3, ::3, :3])
     cols, h, w = 4, imgs[0].shape[0], imgs[0].shape[1]
     from .preview import save_rgb
     for k in range(0, len(imgs), 8):
