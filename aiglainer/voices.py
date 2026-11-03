@@ -15,8 +15,7 @@ GENDER = dict(f='female', m='male')
 
 def main(*voices):
     import soundfile as sf
-    import mlx_whisper
-    from mlx_audio.tts.utils import load_model
+    from . import backend
     P = project.get()
     D = P.path('voice_samples')
     os.makedirs(D, exist_ok=True)
@@ -24,18 +23,17 @@ def main(*voices):
     if not os.path.exists(sample):
         raise SystemExit(f'write one representative narration line to {sample} first')
     text = open(sample).read().strip()
-    model = load_model('mlx-community/Kokoro-82M-bf16')
     rows = []
     for v in voices or DEFAULT:
-        a = np.concatenate([np.array(r.audio) for r in model.generate(text=text, voice=kokoro_voice(v), speed=1.0, lang_code=v[0])])
+        a, sr = backend.synth(text, kokoro_voice(v), 1.0, v[0])
         wav = os.path.join(D, f'kokoro_{v}.wav')
-        sf.write(wav, a, model.sample_rate)
+        sf.write(wav, a, sr)
         m4a = wav[:-4] + '.m4a'
         subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', wav, '-c:a', 'aac', '-b:a', '160k', m4a], check=True)
-        heard = mlx_whisper.transcribe(wav, path_or_hf_repo='mlx-community/whisper-large-v3-turbo', language='en')['text'].strip()
+        heard = backend.transcribe(wav)['text'].strip()
         os.remove(wav)
         e = wer(text, heard)
-        rows.append(dict(voice=v, dur=round(len(a) / model.sample_rate, 1), wer=round(e, 3), heard=heard))
+        rows.append(dict(voice=v, dur=round(len(a) / sr, 1), wer=round(e, 3), heard=heard))
         print(f'{v:12s} {rows[-1]["dur"]:5.1f}s  word errors {e * 100:3.0f}%  {heard}')
     json.dump(rows, open(os.path.join(D, 'voices.json'), 'w'), indent=1)
     items = ''

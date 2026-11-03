@@ -5,9 +5,8 @@ Transcribes each line's window of the mix on its own, then reports word error ra
 heard word is from the planned start. Lines that look wrong are listed.
 """
 import json, os, sys
-import mlx_whisper
 from .tts import words, wer
-from . import project
+from . import project, backend
 
 def main(cut='narrated'):
     """Whisper each line's window of the final mix separately: long-form transcription over music can
@@ -26,8 +25,7 @@ def main(cut='narrated'):
     def listen(p, lead_s):
         a = int(max(0, p['t'] - lead_s) * sr)
         b = int((p['t'] + p['dur'] + 0.15) * sr)
-        res = mlx_whisper.transcribe(audio[a:b].astype(np.float32), path_or_hf_repo='mlx-community/whisper-large-v3-turbo',
-                                     language='en', word_timestamps=True, condition_on_previous_text=False)
+        res = backend.transcribe(audio[a:b].astype(np.float32), word_timestamps=True, condition_on_previous_text=False)
         lead = p['t'] - a / sr
         # keep words after the previous line ended (Whisper often stamps a first word early, into the silence);
         # with tight turn-taking (podcasts) the boundary is the middle of the gap, so the last word stays with its line
