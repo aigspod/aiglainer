@@ -1,0 +1,23 @@
+\documentclass[border=1pt,multi=preview]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{fourier}
+\definecolor{W}{HTML}{EFE5D6}
+\definecolor{Y}{HTML}{E3A75A}
+\definecolor{G}{HTML}{5AA6EC}
+\definecolor{F}{HTML}{45C99A}
+\definecolor{C}{HTML}{F07A4F}
+\definecolor{M}{HTML}{AAA0AD}
+\begin{document}
+\color{W}
+\begin{preview}$\displaystyle X_t = H\big(X_1, X_2, \ldots, X_{t-1}\big)$\end{preview}
+\begin{preview}$\displaystyle p({\color{Y}z}\,|\,X)\;\propto\;p(X\,|\,{\color{Y}z})\;p({\color{Y}z})$\end{preview}
+\begin{preview}$\displaystyle P({\color{Y}z}_{0:T}) = P({\color{Y}z}_0)\prod_{t=1}^{T} P\big({\color{Y}z}_t \,|\, {\color{Y}z}_{t-1}\big)$\end{preview}
+\begin{preview}$\displaystyle P\big({\color{Y}z}_t \,|\, {\color{G}z_0, z_1, \ldots, z_{t-1}}\big)$\end{preview}
+\begin{preview}$\displaystyle {\color{Y}z}_0 \rightarrow {\color{Y}z}_1 \rightarrow \cdots \rightarrow {\color{Y}z}_T$\end{preview}
+\begin{preview}$\displaystyle {\color{C}z}_T \rightarrow {\color{C}z}_{T-1} \rightarrow \cdots \rightarrow {\color{C}z}_0$\end{preview}
+\begin{preview}$\displaystyle X \;\rightarrow\; {\color{Y}z} \;\rightarrow\; {\color{F}y}$\end{preview}
+\begin{preview}$\displaystyle \mathcal{L}_{\mathrm{reg}} = \big|\,\hat{{\color{F}y}}({\color{Y}z}) - {\color{F}y}\,\big|^2$\end{preview}
+\begin{preview}$\displaystyle {\color{F}y}^{*} = \arg\min_{{\color{F}y}\,\in\,\mathbb{R}^{p}} J({\color{F}y})$\end{preview}
+\begin{preview}$\displaystyle {\color{Y}z}^{*} = \arg\min_{{\color{Y}z}\,\in\,\mathbb{R}^{d}} J\big(g_\psi({\color{Y}z})\big), \quad d \ll p$\end{preview}
+\end{document}
