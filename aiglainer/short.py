@@ -67,12 +67,12 @@ def align(script, heard):
 
 def word_times(P, lines):
     """Whisper word timestamps for every clip, aligned to the script's own words (cached next to the clip)."""
-    import mlx_whisper
+    from . import backend
     for l in lines:
         path = P.path(l['file'])[:-4] + '.words.json'
         if os.path.exists(path):
             continue
-        res = mlx_whisper.transcribe(P.path(l['file']), path_or_hf_repo=tts.WHISPER, language='en', word_timestamps=True)
+        res = backend.transcribe(P.path(l['file']), word_timestamps=True)
         heard = [w for s in res['segments'] for w in s.get('words', [])]
         json.dump(align(l['text'], heard), open(path, 'w'))
     print(f'word timings for {len(lines)} lines')

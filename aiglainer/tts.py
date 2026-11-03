@@ -8,7 +8,7 @@ Exits non-zero if any line's word error rate exceeds MAX_WER, so a mispronunciat
 """
 import hashlib, json, os, re, sys
 import numpy as np
-from . import project, lexicon, hosts
+from . import project, lexicon, hosts, backend
 
 MAX_WER = 0.12
 WHISPER = 'mlx-community/whisper-large-v3-turbo'
@@ -89,11 +89,9 @@ def synthesize(P, lines, voice, speed, lang):
         l['_voice'] = (v, sp, lg)
     todo = [l for l in lines if not os.path.exists(P.path(l['file']))]
     if todo:
-        from mlx_audio.tts.utils import load_model
-        model = load_model('mlx-community/Kokoro-82M-bf16')
         for l in todo:
-            audio = np.concatenate([np.array(r.audio) for r in model.generate(text=l['say'], voice=l['_voice'][0], speed=l['_voice'][1], lang_code=l['_voice'][2])])
-            sf.write(P.path(l['file']), audio, model.sample_rate)
+            audio, sr = backend.synth(l['say'], *l['_voice'])
+            sf.write(P.path(l['file']), audio, sr)
             print(f"  synthesized {l['scene']}[{l['i']}]")
     for l in lines:
         if l['_voice'][0] != voice:
@@ -103,12 +101,11 @@ def synthesize(P, lines, voice, speed, lang):
     prev = {}
     if os.path.exists(P.path('lines.json')):
         prev = {l['file']: l.get('heard') for l in json.load(open(P.path('lines.json')))}
-    import mlx_whisper
     bad = 0
     for l in lines:
         a, sr = sf.read(P.path(l['file']))
         l['dur'] = round(len(a) / sr, 3)
-        l['heard'] = prev.get(l['file']) or mlx_whisper.transcribe(P.path(l['file']), path_or_hf_repo=WHISPER, language='en')['text'].strip()
+        l['heard'] = prev.get(l['file']) or backend.transcribe(P.path(l['file']))['text'].strip()
         l['wer'] = round(wer(l['text'], l['heard']), 3)
         flag = '  <-- CHECK' if l['wer'] > MAX_WER else ''
         bad += bool(flag)
