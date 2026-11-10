@@ -77,7 +77,7 @@ def main(cut='narrated'):
     subs = ['-i', os.path.join(od, 'captions.srt')] if tl.placements else []
     cmd += subs + ['-map', '0:v', '-map', '1:a'] + (['-map', '2:s', '-c:s', 'mov_text', '-metadata:s:s:0', 'language=eng'] if subs else [])
     cmd += ['-c:v', 'copy', '-af', loudnorm_filter(lim) + ',aresample=48000',
-            '-c:a', 'aac', '-b:a', '320k', '-shortest', '-movflags', '+faststart', out]
+            '-c:a', 'aac', '-b:a', '320k', '-t', f'{tl.total:.3f}', '-movflags', '+faststart', out]
     subprocess.run(cmd, check=True)
     r = subprocess.run(['ffmpeg', '-hide_banner', '-i', out, '-af', 'ebur128=peak=true', '-f', 'null', '-'], capture_output=True, text=True)
     summary = r.stderr[r.stderr.rindex('Integrated loudness'):]
