@@ -9,7 +9,7 @@ Reads <project>/out/<cut>/video_noaudio.mp4 and audio.wav, writes to the same fo
 """
 import json, os, re, subprocess
 from .render import make_timeline
-from . import project
+from . import project, hosts
 
 def ts(t, sep=','):
     ms = int(round(t * 1000))
@@ -61,8 +61,9 @@ def main(cut='narrated'):
         chapters.append(f'{t // 60}:{t % 60:02d} {P.CHAPTER_TITLES.get(type(s).__name__, type(s).__name__)}')
     voice = ''
     if tl.placements:
-        vname = P.narration().VOICE.split('_', 1)[-1].title()      # af_bella -> Bella
-        voice = f'• Narration: Kokoro-82M ("{vname}"), a synthetic voice generated locally.\n'
+        v = P.narration().VOICE                                    # a host key ('bella') or a Kokoro id or blend
+        vname = hosts.credit(hosts.get(v)['voice'] if v in hosts.HOSTS else v)   # '"Bella"', or '"Bella" blended 70/30 with "Nicole"'
+        voice = f'• Narration: Kokoro-82M ({vname}), a synthetic voice generated locally.\n'
     open(os.path.join(od, 'youtube_description.txt'), 'w').write(P.DESCRIPTION.format(chapters='\n'.join(chapters), voice=voice))
     if tl.placements:
         write_srt(tl.placements, os.path.join(od, 'captions.srt'))

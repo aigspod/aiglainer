@@ -81,7 +81,9 @@ always follow the waveform, and set their bed with `BED`. `SOUND_EFFECTS = False
 ## Voices
 
 `VOICE = 'michael'` picks a host from `aiglainer/hosts.py`; a Kokoro voice id (`VOICE = 'af_nicole'`) also works, with `SPEED` and
-`LANG` beside it. Audition with `make voices`. To add a host for everyone, add an entry to `hosts.py`. How words like "aigs" are
+`LANG` beside it. Audition with `make voices`. `VOICE = 'bella-nicole'` is Bella blended 70/30 with Nicole: softer and
+closer, still called Bella on air. Any blend works as a voice id, `'af_bella:0.6,af_nicole:0.4'`, and descriptions credit it as
+a blend. To add a host for everyone, add an entry to `hosts.py`. How words like "aigs" are
 said is in `aiglainer/lexicon.py`; pronunciations for one piece go in its own `SAY`.
 
 ## What stays the same, whatever the look

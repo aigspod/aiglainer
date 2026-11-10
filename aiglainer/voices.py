@@ -7,7 +7,7 @@ player per voice. Open the page, listen, then set VOICE in the project's narrati
 import html, json, os, re, subprocess
 import numpy as np
 from . import project
-from .tts import wer
+from .tts import wer, kokoro_voice
 
 DEFAULT = ['af_heart', 'af_bella', 'af_nicole', 'af_kore', 'am_michael', 'am_fenrir', 'am_puck', 'bf_emma', 'bm_george', 'bm_fable']
 ACCENT = dict(a='American', b='British')
@@ -27,7 +27,7 @@ def main(*voices):
     model = load_model('mlx-community/Kokoro-82M-bf16')
     rows = []
     for v in voices or DEFAULT:
-        a = np.concatenate([np.array(r.audio) for r in model.generate(text=text, voice=v, speed=1.0, lang_code=v[0])])
+        a = np.concatenate([np.array(r.audio) for r in model.generate(text=text, voice=kokoro_voice(v), speed=1.0, lang_code=v[0])])
         wav = os.path.join(D, f'kokoro_{v}.wav')
         sf.write(wav, a, model.sample_rate)
         m4a = wav[:-4] + '.m4a'

@@ -229,7 +229,7 @@ def main():
     open(os.path.join(od, 'transcript.md'), 'w').write('\n'.join(md))
     write_srt(placements, os.path.join(od, 'captions.srt'))
     json.dump(placements, open(os.path.join(od, 'placements.json'), 'w'), indent=1)
-    voices = ', '.join(f'{v["name"]} (Kokoro-82M {v["voice"]})' for v in H.values())
+    voices = ', '.join(f'{v["name"]} (Kokoro-82M {hosts.label(v["voice"])})' for v in H.values())
     notes = getattr(P, 'DESCRIPTION', '{chapters}\n').format(
         chapters='\n'.join(f'{mmss(t)} {title}' for t, title in chapters),
         voice=f'• Voices: {voices}, synthetic voices generated locally.\n',

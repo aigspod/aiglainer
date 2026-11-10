@@ -12,6 +12,22 @@ from . import project, lexicon, hosts
 
 MAX_WER = 0.12
 WHISPER = 'mlx-community/whisper-large-v3-turbo'
+KOKORO = 'mlx-community/Kokoro-82M-bf16'
+
+def kokoro_voice(spec):
+    """What to hand Kokoro for a voice: the id itself, or for a blend ('af_bella:0.7,af_nicole:0.3') the path of a
+    voice file mixed from Kokoro's own, made once under ~/.cache/aiglainer/voices. Clips stay cached by the spec."""
+    if ',' not in spec and ':' not in spec:
+        return spec
+    out = os.path.join(os.path.expanduser('~/.cache/aiglainer/voices'), hashlib.sha1(spec.encode()).hexdigest()[:16] + '.safetensors')
+    if not os.path.exists(out):
+        import mlx.core as mx
+        from huggingface_hub import hf_hub_download
+        packs = [(mx.load(hf_hub_download(KOKORO, f'voices/{v}.safetensors'))['voice'], w) for v, w in hosts.mix(spec)]
+        mixed = sum(w * p.astype(mx.float32) for p, w in packs).astype(packs[0][0].dtype)
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        mx.save_safetensors(out, {'voice': mixed})
+    return out
 
 def spoken(text, SAY):
     """What Kokoro is given: the project's SAY over the shared lexicon, in one pass (a replacement is never re-scanned)."""
@@ -90,9 +106,9 @@ def synthesize(P, lines, voice, speed, lang):
     todo = [l for l in lines if not os.path.exists(P.path(l['file']))]
     if todo:
         from mlx_audio.tts.utils import load_model
-        model = load_model('mlx-community/Kokoro-82M-bf16')
+        model = load_model(KOKORO)
         for l in todo:
-            audio = np.concatenate([np.array(r.audio) for r in model.generate(text=l['say'], voice=l['_voice'][0], speed=l['_voice'][1], lang_code=l['_voice'][2])])
+            audio = np.concatenate([np.array(r.audio) for r in model.generate(text=l['say'], voice=kokoro_voice(l['_voice'][0]), speed=l['_voice'][1], lang_code=l['_voice'][2])])
             sf.write(P.path(l['file']), audio, model.sample_rate)
             print(f"  synthesized {l['scene']}[{l['i']}]")
     for l in lines:
