@@ -1,0 +1,79 @@
+[
+ {
+  "scene": "AvgMix",
+  "i": 0,
+  "v": 0.3,
+  "text": "Why can't one attention head predict a soft spring? Because attention can only average.",
+  "say": "Why can't one attention head predict a soft spring? Because attention can only average.",
+  "file": "cache/b584acabb43b4dee.wav",
+  "dur": 6.025,
+  "heard": "Why can't one attention head predict a soft spring? Because attention can only average.",
+  "wer": 0.0
+ },
+ {
+  "scene": "AvgMix",
+  "i": 1,
+  "v": 3.5,
+  "text": "Its weights on the last two positions come from a softmax: positive, adding up to one.",
+  "say": "Its weights on the last two positions come from a softmax: positive, adding up to one.",
+  "file": "cache/5b8afacf757203dd.wav",
+  "dur": 6.05,
+  "heard": "Its weights on the last two positions come from a softmax, positive adding up to one.",
+  "wer": 0.0
+ },
+ {
+  "scene": "AvgMix",
+  "i": 2,
+  "v": 12.0,
+  "text": "One output number scales both, so both coefficients share its sign.",
+  "say": "One output number scales both, so both coefficients share its sign.",
+  "file": "cache/0d0b617133b0ab52.wav",
+  "dur": 4.875,
+  "heard": "One output number scales both, so both coefficients share its sign.",
+  "wer": 0.0
+ },
+ {
+  "scene": "AvgPlane",
+  "i": 0,
+  "v": 0.4,
+  "text": "A stiff spring needs two negative coefficients. That works.",
+  "say": "A stiff spring needs two negative coefficients. That works.",
+  "file": "cache/130db33c309fbb6e.wav",
+  "dur": 4.4,
+  "heard": "A stiff spring needs two negative coefficients. That works.",
+  "wer": 0.0
+ },
+ {
+  "scene": "AvgPlane",
+  "i": 1,
+  "v": 5.0,
+  "text": "A softer spring needs a plus and a minus: out of reach.",
+  "say": "A softer spring needs a plus and a minus: out of reach.",
+  "file": "cache/f3107429e3e95ff7.wav",
+  "dur": 4.15,
+  "heard": "A softer spring needs a plus and a minus, out of reach.",
+  "wer": 0.0
+ },
+ {
+  "scene": "AvgPlane",
+  "i": 2,
+  "v": 9.5,
+  "text": "In the paper, that head comes out too smooth.",
+  "say": "In the paper, that head comes out too smooth.",
+  "file": "cache/0046f25a3e15ec66.wav",
+  "dur": 3.35,
+  "heard": "In the paper, that head comes out too smooth.",
+  "wer": 0.0
+ },
+ {
+  "scene": "AvgPlane",
+  "i": 3,
+  "v": 13.0,
+  "text": "That's one head alone. Where else could a minus come from?",
+  "say": "That's one head alone. Where else could a minus come from?",
+  "file": "cache/5528f228e9f1e0de.wav",
+  "dur": 3.95,
+  "heard": "That's one head alone. Where else could a minus come from?",
+  "wer": 0.0
+ }
+]

@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "LoopsV",
+  "i": 0,
+  "v": 0.3,
+  "text": "Two small transformers watch flow past a cylinder, through one sensor.",
+  "say": "Two small transformers watch flow past a cylinder, through one sensor.",
+  "file": "cache/98b7c9217198a54f.wav",
+  "dur": 5.4,
+  "heard": "Two small transformers watch flow past a cylinder through one sensor.",
+  "wer": 0.0
+ },
+ {
+  "scene": "LoopsV",
+  "i": 1,
+  "v": 4.5,
+  "text": "The first is never told the Reynolds number, which sets the regime. Inside, its runs overlap.",
+  "say": "The first is never told the Reynolds number, which sets the regime. Inside, its runs overlap.",
+  "file": "cache/1c0f41a3cf2143bc.wav",
+  "dur": 6.9,
+  "heard": "The first is never told the Reynolds number, which sets the regime. Inside, its runs overlap.",
+  "wer": 0.0
+ },
+ {
+  "scene": "LoopsV",
+  "i": 2,
+  "v": 11.5,
+  "text": "The second gets the Reynolds number as an input, and the runs separate, in order.",
+  "say": "The second gets the Reynolds number as an input, and the runs separate, in order.",
+  "file": "cache/b076824b716abd01.wav",
+  "dur": 5.75,
+  "heard": "The second gets the Reynolds number as an input, and the runs separate in order.",
+  "wer": 0.0
+ },
+ {
+  "scene": "ReconV",
+  "i": 0,
+  "v": 0.4,
+  "text": "Now rebuild the full field of one velocity component from each model's inner state.",
+  "say": "Now rebuild the full field of one velocity component from each model's inner state.",
+  "file": "cache/e5b072d5a4cf006e.wav",
+  "dur": 6.225,
+  "heard": "Now rebuild the full field of one velocity component from each model's inner state.",
+  "wer": 0.0
+ },
+ {
+  "scene": "ReconV",
+  "i": 1,
+  "v": 6.0,
+  "text": "Without the Reynolds number, the error is about seventy times worse.",
+  "say": "Without the Reynolds number, the error is about seventy times worse.",
+  "file": "cache/ceca97bfa46b1ba5.wav",
+  "dur": 4.85,
+  "heard": "Without the Reynolds number, the error is about 70 times worse.",
+  "wer": 0.0
+ },
+ {
+  "scene": "ReconV",
+  "i": 2,
+  "v": 11.0,
+  "text": "Both predict the next reading well. So what is your model not being told?",
+  "say": "Both predict the next reading well. So what is your model not being told?",
+  "file": "cache/c5468d61db51c330.wav",
+  "dur": 5.375,
+  "heard": "Both predict the next reading well. So what is your model not being told?",
+  "wer": 0.0
+ }
+]

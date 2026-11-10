@@ -1,0 +1,90 @@
+[
+ {
+  "scene": "SensorWindow",
+  "i": 0,
+  "v": 0.3,
+  "text": "Can time stand in for a missing sensor?",
+  "say": "Can time stand in for a missing sensor?",
+  "file": "cache/c3c3b11d44789710.wav",
+  "dur": 2.975,
+  "heard": "Can time stand in for a missing sensor?",
+  "wer": 0.0
+ },
+ {
+  "scene": "SensorWindow",
+  "i": 1,
+  "v": 3.0,
+  "text": "Two coupled masses ring in two modes at once, slow and fast.",
+  "say": "Two coupled masses ring in two modes at once, slow and fast.",
+  "file": "cache/37fe93a9f3f99e40.wav",
+  "dur": 4.625,
+  "heard": "Two coupled masses ring in two modes at once, slow and fast.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SensorWindow",
+  "i": 2,
+  "v": 8.5,
+  "text": "Given both positions and three steps, the transformer finds both modes.",
+  "say": "Given both positions and three steps, the transformer finds both modes.",
+  "file": "cache/8a3a4c239fdf45b5.wav",
+  "dur": 5.3,
+  "heard": "Given both positions and three steps, the transformer finds both modes.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SensorWindow",
+  "i": 3,
+  "v": 14.0,
+  "text": "With only the first mass, three steps fail. The modes are lost.",
+  "say": "With only the first mass, three steps fail. The modes are lost.",
+  "file": "cache/0f15a3c9da0c9449.wav",
+  "dur": 4.65,
+  "heard": "With only the first mass, three steps fail. The modes are lost.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SensorWindow",
+  "i": 4,
+  "v": 19.5,
+  "text": "Give it four steps, and both modes come back.",
+  "say": "Give it four steps, and both modes come back.",
+  "file": "cache/ab2776b3c0632dc9.wav",
+  "dur": 3.4,
+  "heard": "Give it four steps and both modes come back.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SensorCount",
+  "i": 0,
+  "v": 0.4,
+  "text": "Our rough count: the state is four numbers, two positions and two velocities.",
+  "say": "Our rough count: the state is four numbers, two positions and two velocities.",
+  "file": "cache/e4897d16292eb7e7.wav",
+  "dur": 5.625,
+  "heard": "Our rough count. The state is four numbers, two positions, and two velocities.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SensorCount",
+  "i": 1,
+  "v": 6.5,
+  "text": "One sensor adds one number per step. Four steps cover it.",
+  "say": "One sensor adds one number per step. Four steps cover it.",
+  "file": "cache/7bfab9f41bb59bab.wav",
+  "dur": 4.35,
+  "heard": "One sensor adds one number per step. Four steps cover it.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SensorCount",
+  "i": 2,
+  "v": 12.0,
+  "text": "What can't your model see, and how much history would it need?",
+  "say": "What can't your model see, and how much history would it need?",
+  "file": "cache/dc7029a67aacdf89.wav",
+  "dur": 4.0,
+  "heard": "What can't your model see, and how much history would it need?",
+  "wer": 0.0
+ }
+]

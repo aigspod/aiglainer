@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "FoldV",
+  "i": 0,
+  "v": 0.3,
+  "text": "A model can have all the information it needs, and still not have room to use it.",
+  "say": "A model can have all the information it needs, and still not have room to use it.",
+  "file": "cache/25d22bcd62447f9f.wav",
+  "dur": 5.35,
+  "heard": "A model can have all the information it needs and still not have room to use it.",
+  "wer": 0.0
+ },
+ {
+  "scene": "FoldV",
+  "i": 1,
+  "v": 5.5,
+  "text": "Here is our simulation of a rod whose shapes settle onto a surface with two mirror halves.",
+  "say": "Here is our simulation of a rod whose shapes settle onto a surface with two mirror halves.",
+  "file": "cache/e6fe5ba6f2040658.wav",
+  "dur": 6.15,
+  "heard": "Here is our simulation of a rod whose shapes settle onto a surface with two mirror halves.",
+  "wer": 0.0
+ },
+ {
+  "scene": "FoldV",
+  "i": 2,
+  "v": 11.0,
+  "text": "Through one sensor, that surface folds. States far apart nearly touch.",
+  "say": "Through one sensor, that surface folds. States far apart nearly touch.",
+  "file": "cache/3133c88e65969c5c.wav",
+  "dur": 5.175,
+  "heard": "Through one sensor, that surface folds, states far apart nearly touch.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RoomV",
+  "i": 0,
+  "v": 0.4,
+  "text": "Give a small transformer a latent of two numbers, and it squashes the surface into a thick curve.",
+  "say": "Give a small transformer a latent of two numbers, and it squashes the surface into a thick curve.",
+  "file": "cache/9cab649429808990.wav",
+  "dur": 6.35,
+  "heard": "Give a small transformer a latent of two numbers, and it squashes the surface into a thick curve.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RoomV",
+  "i": 1,
+  "v": 8.5,
+  "text": "Give it three, and the surface unfolds.",
+  "say": "Give it three, and the surface unfolds.",
+  "file": "cache/dd082956e8a6b74d.wav",
+  "dur": 3.2,
+  "heard": "Give it three, and the surface unfolds.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RoomV",
+  "i": 2,
+  "v": 12.0,
+  "text": "Five readings held the information. What it lacked was room. How much room does your model have?",
+  "say": "Five readings held the information. What it lacked was room. How much room does your model have?",
+  "file": "cache/4fa7794c94939fd1.wav",
+  "dur": 6.55,
+  "heard": "Five readings held the information. What it lacked was room. How much room does your model have?",
+  "wer": 0.0
+ }
+]

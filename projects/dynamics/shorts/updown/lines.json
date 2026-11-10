@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "UpDownGauge",
+  "i": 0,
+  "v": 0.3,
+  "text": "This dot moves up and down. All you see is its height.",
+  "say": "This dot moves up and down. All you see is its height.",
+  "file": "cache/aae620cdf09bafba.wav",
+  "dur": 4.05,
+  "heard": "This dot moves up and down. All you see is its height.",
+  "wer": 0.0
+ },
+ {
+  "scene": "UpDownGauge",
+  "i": 1,
+  "v": 4.5,
+  "text": "Right now it's at one. Is it rising, or falling? From one snapshot, you can't tell.",
+  "say": "Right now it's at one. Is it rising, or falling? From one snapshot, you can't tell.",
+  "file": "cache/c29d3ed0bffeadf2.wav",
+  "dur": 6.2,
+  "heard": "Right now it's at 1. Is it rising or falling from one snapshot you can't tell?",
+  "wer": 0.0
+ },
+ {
+  "scene": "UpDownGauge",
+  "i": 2,
+  "v": 11.0,
+  "text": "But the last five snapshots can. One window climbs toward one, the other falls toward it.",
+  "say": "But the last five snapshots can. One window climbs toward one, the other falls toward it.",
+  "file": "cache/445f5a512899c7ed.wav",
+  "dur": 6.775,
+  "heard": "But the last five snapshots can. One window climbs toward one, the other falls toward it.",
+  "wer": 0.0
+ },
+ {
+  "scene": "UpDownBars",
+  "i": 0,
+  "v": 0.3,
+  "text": "Hide the velocity, and a network that sees only the current position does worst.",
+  "say": "Hide the velocity, and a network that sees only the current position does worst.",
+  "file": "cache/39eed502d43b8d4f.wav",
+  "dur": 5.85,
+  "heard": "Hide the velocity, and a network that sees only the current position does worst.",
+  "wer": 0.0
+ },
+ {
+  "scene": "UpDownBars",
+  "i": 1,
+  "v": 6.0,
+  "text": "A one-layer transformer reading the last five samples does about three orders of magnitude better.",
+  "say": "A one-layer transformer reading the last five samples does about three orders of magnitude better.",
+  "file": "cache/58a083bbf67f32e6.wav",
+  "dur": 7.25,
+  "heard": "A one-layer transformer reading the last five samples does about three orders of magnitude better.",
+  "wer": 0.0
+ },
+ {
+  "scene": "UpDownBars",
+  "i": 2,
+  "v": 12.5,
+  "text": "So how much history does a model need, to see what is hidden?",
+  "say": "So how much history does a model need, to see what is hidden?",
+  "file": "cache/7d97c48dd235175e.wav",
+  "dur": 4.625,
+  "heard": "So how much history does a model need to see what is hidden?",
+  "wer": 0.0
+ }
+]

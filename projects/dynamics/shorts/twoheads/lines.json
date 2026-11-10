@@ -1,0 +1,79 @@
+[
+ {
+  "scene": "TwoHeadsMix",
+  "i": 0,
+  "v": 0.3,
+  "text": "One attention head can't model a soft spring. Two heads can, with a subtraction.",
+  "say": "One attention head can't model a soft spring. Two heads can, with a subtraction.",
+  "file": "cache/0abe2b6658aa897b.wav",
+  "dur": 6.05,
+  "heard": "One attention head can't model a soft spring. Two heads can with a subtraction.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwoHeadsMix",
+  "i": 1,
+  "v": 5.0,
+  "text": "Each head still averages, with positive weights.",
+  "say": "Each head still averages, with positive weights.",
+  "file": "cache/4a42551aea2931eb.wav",
+  "dur": 3.775,
+  "heard": "Each head still averages with positive weights.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwoHeadsMix",
+  "i": 2,
+  "v": 10.0,
+  "text": "But each has its own output number. In the paper: one point zero eight seven, and minus one point two four four.",
+  "say": "But each has its own output number. In the paper: one point zero eight seven, and minus one point two four four.",
+  "file": "cache/7e921dffbb14ccff.wav",
+  "dur": 8.475,
+  "heard": "but each has its own output number. In the paper, 1.087 and minus 1.244.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwoHeadsMix",
+  "i": 3,
+  "v": 17.5,
+  "text": "Opposite signs: one average minus the other.",
+  "say": "Opposite signs: one average minus the other.",
+  "file": "cache/d49d6a2a9357b0f5.wav",
+  "dur": 3.875,
+  "heard": "Opposite signs, one average minus the other.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwoHeadsSpec",
+  "i": 0,
+  "v": 0.4,
+  "text": "In our simulation, one head flattens the resonance.",
+  "say": "In our simulation, one head flattens the resonance.",
+  "file": "cache/8e553602f4befbfb.wav",
+  "dur": 4.1,
+  "heard": "In our simulation, one head flattens the resonance.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwoHeadsSpec",
+  "i": 1,
+  "v": 3.6,
+  "text": "Our two-head version brings it back.",
+  "say": "Our two-head version brings it back.",
+  "file": "cache/5f323e8c253d801d.wav",
+  "dur": 2.725,
+  "heard": "Our two-head version brings it back.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TwoHeadsSpec",
+  "i": 2,
+  "v": 8.0,
+  "text": "So is the limit attention, or just one head?",
+  "say": "So is the limit attention, or just one head?",
+  "file": "cache/0f355de568d5cd61.wav",
+  "dur": 3.625,
+  "heard": "So is the limit attention, or just one head.",
+  "wer": 0.0
+ }
+]

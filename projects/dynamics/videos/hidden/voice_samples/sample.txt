@@ -1,0 +1,1 @@
+Here is a dot moving up and down. Takens' theorem says the last five samples of x rebuild the hidden velocity.

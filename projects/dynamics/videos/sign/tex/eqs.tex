@@ -1,0 +1,17 @@
+\documentclass[border=1pt,multi=preview]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{fourier}
+\definecolor{W}{HTML}{EFE5D6}
+\definecolor{Y}{HTML}{E3A75A}
+\definecolor{G}{HTML}{5AA6EC}
+\definecolor{F}{HTML}{45C99A}
+\definecolor{C}{HTML}{F07A4F}
+\definecolor{M}{HTML}{AAA0AD}
+\begin{document}
+\color{W}
+\begin{preview}$\displaystyle x(t{+}1) = {\color{Y}a_1}\,x(t) + {\color{Y}a_2}\,x(t{-}1)$\end{preview}
+\begin{preview}$\displaystyle \hat x(t{+}1) = {\color{G}w_o}\,\big[\,{\color{F}\alpha}\,x(t) + ({\color{F}1-\alpha})\,x(t{-}1)\,\big]$\end{preview}
+\begin{preview}$\displaystyle {\color{Y}a_1} = {\color{F}\alpha}\,{\color{G}w_o} \qquad {\color{Y}a_2} = ({\color{F}1-\alpha})\,{\color{G}w_o}$\end{preview}
+\begin{preview}$\displaystyle \hat x(t{+}1) = {\color{F}w_{o,1}}\,[\,\mathrm{head\ 1}\,] + {\color{C}w_{o,2}}\,[\,\mathrm{head\ 2}\,]$\end{preview}
+\end{document}
