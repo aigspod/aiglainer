@@ -39,6 +39,8 @@ These are the pod's. The dark /mull/ look and our scores are the default; [docs/
 - **Short titles:** 5-6 words at most, on screen (`headline`) and in the upload title.
 - **Music sits well under the host.** Raise it only rarely, on purpose: a title card, a turn, the outro. Set
   `MUSIC['duck_db']` (`make new` starts at 16); without it, music averages only about 6 dB under speech and swells between words.
+  Keep the changes gentle so the music always feels like background: `duck_ramp` (about 1.2 s) with a `duck_db` of 8-10
+  fades smoothly and stays down through short pauses, where `duck_db` alone steps 16 dB at every line.
 - **Accuracy:** never draw data by eye; label illustrations on screen; say so when a paper's text and tables disagree;
   note it in the topic's `AGENTS.md`. Have scripts reviewed against the source before synthesizing (docs/PODCAST.md).
 

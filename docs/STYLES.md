@@ -75,7 +75,9 @@ file out of git: media is refused by the commit guard, so say in the piece's `AG
 **`duck_db`** is how far music drops under the host, and it applies to videos and shorts. With it set, music holds down for
 each whole spoken line and rises between lines, so the number is what you get. Without it, music follows the voice's waveform
 and breathes back up between words, averaging about 6 dB under speech: pieces built before this setting existed sound that way.
-`make new` starts you at 16. **`level`** scales all the music (`0.7` is about 3 dB quieter). Podcasts honour both numbers but
+`make new` starts you at 16. For music that stays in the background without stepping, add **`duck_ramp`** (seconds,
+about 1.2): the drop then fades in and out on a smooth curve that finishes as a line starts, and gaps shorter than
+**`duck_bridge`** (default 2 s) stay down; pair it with a smaller `duck_db` (8-10). **`level`** scales all the music (`0.7` is about 3 dB quieter). Podcasts honour both numbers but
 always follow the waveform, and set their bed with `BED`. `SOUND_EFFECTS = False` removes a video's whooshes and pops.
 
 ## Voices

@@ -110,6 +110,26 @@ def line_envelope(placements, n):
         env[k] = env[k - 1] + (0.2 if on[k] > env[k - 1] else 0.03) * (on[k] - env[k - 1])
     return np.repeat(env, blk)[:n]
 
+def smooth_line_envelope(placements, n, ramp, bridge):
+    """0..1 like line_envelope, but gentle: gaps between lines shorter than `bridge` seconds stay down, and every change
+    is a raised-cosine ramp of `ramp` seconds that finishes as a line starts and begins as it ends (no reacting to the voice)."""
+    blk = SR // 100
+    on = np.zeros(n // blk + 1)
+    spans = sorted((p['t'], p['t'] + p['dur']) for p in placements)
+    merged = []
+    for a, b in spans:
+        if merged and a - merged[-1][1] < bridge:
+            merged[-1][1] = max(merged[-1][1], b)
+        else:
+            merged.append([a, b])
+    half = ramp / 2
+    for a, b in merged:
+        on[max(0, int((a - half) * 100)):int((b + half) * 100)] = 1
+    k = max(1, int(ramp * 100))
+    w = np.hanning(k + 2)[1:-1]
+    env = np.clip(np.convolve(on, w / w.sum(), mode='same'), 0, 1)
+    return np.repeat(env, blk)[:n]
+
 def duck_depth(M, default):
     """How far music drops under the narrator, 0..1: MUSIC['duck_db'] in decibels, or the engine's default."""
     db = M.get('duck_db')
@@ -353,8 +373,13 @@ def build(out_wav, cut='narrated'):
     voice, env = voice_track(tl.placements, n) if tl.placements else (None, np.zeros(n))
     # duck the score under the narrator. By default it follows the voice's waveform and averages about 6 dB, breathing
     # back up between words; with duck_db it holds down for whole lines, so the number is what you get.
-    held = line_envelope(tl.placements, n) if M.get('duck_db') is not None and tl.placements else env
-    lvl *= 1 - duck_depth(M, 0.6) * held
+    if M.get('duck_ramp') and M.get('duck_db') is not None and tl.placements:
+        # gentle: smooth ramps, short gaps bridged, and the drop applied in decibels so it sounds even
+        held = smooth_line_envelope(tl.placements, n, M['duck_ramp'], M.get('duck_bridge', 2.0))
+        lvl *= 10 ** (-M['duck_db'] * held / 20)
+    else:
+        held = line_envelope(tl.placements, n) if M.get('duck_db') is not None and tl.placements else env
+        lvl *= 1 - duck_depth(M, 0.6) * held
     mus *= lvl[:, None] * 0.85 * M.get('level', 1.0)
     # cold-open drone
     dr = np.zeros(n)
