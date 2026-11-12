@@ -16,6 +16,13 @@ None. A line ('~', 'chime') plays a soft two-note cue mid-segment (used before e
 the line after a question a long pause, e.g. ('H', 'text', 2.5), so listeners can think. The outro theme follows
 the last line. Talk sits on silence unless the project sets BED (a faint pad, 0..1).
 
+Pacing (opt-in, for a host who rests rather than rushes): set PACE in episode.py, e.g.
+  PACE = dict(sentence=0.45, same=0.7, turn=0.35, segment=1.8, question=0.5, rest=1.2)
+Each line is then voiced sentence by sentence with `sentence` seconds between them (Kokoro barely pauses inside a line);
+`same`, `turn` and `segment` replace the default gaps; a line ending in '?' is followed by `question` seconds more; and a
+line ('~', 'rest') (or ('~', 'rest', 2.0)) leaves that much extra silence where one idea ends and the next begins.
+Episodes without PACE are laid out exactly as before.
+
 Steps: synthesize + Whisper-check every line (cached, same as videos), trim each clip's silences and lay the lines
 end to end with conversational gaps, score the music, master to -16 LUFS (the podcast norm), then write to
 out/podcast/: <OUTPUT_NAME> (MP3 with chapters), transcript.md, captions.srt, show_notes.txt, placements.json.
@@ -33,6 +40,24 @@ GAP = dict(same=0.38, turn=0.22, segment=0.9)    # silence before a line: same h
 THEME = dict(theme=(11.0, 3.2), sting=(4.2, 2.4), chime=(2.4, 1.2), outro=(13.0, 0.0))   # length, how much of it the voice overlaps
 CUE = '~'                                        # a line ('~', 'chime') plays a cue mid-segment
 PAN = 0.12                                       # two hosts sit slightly left and right of centre
+
+_ABBR = {'e.g', 'i.e', 'vs', 'al', 'dr', 'mr', 'ms', 'mrs', 'st', 'etc', 'fig', 'eq', 'no', 'approx', 'cf'}
+
+def sentences(text):
+    """Split a line into sentences for PACE: at . ! ? followed by space and a capital, digit or quote; not after an
+    abbreviation ('e.g.', 'et al.') or inside an ellipsis followed by lower case."""
+    out, start = [], 0
+    for m in re.finditer(r'[.!?]["\u201d\u2019)]*\s+', text):
+        nxt = text[m.end():m.end() + 1]
+        word = re.findall(r'[\w.]+$', text[start:m.start()])
+        if not nxt or not (nxt.isupper() or nxt.isdigit() or nxt in '"\u201c\u2018('):
+            continue
+        if word and word[0].lower().rstrip('.') in _ABBR:
+            continue
+        out.append(text[start:m.end()].strip())
+        start = m.end()
+    out.append(text[start:].strip())
+    return [x for x in out if x]
 
 def trim(a, sr, floor_db=-42, pre=0.03, post=0.10):
     """Cut a clip's leading and trailing silence (Kokoro leaves ~0.4-0.7 s), keeping a little air."""
@@ -75,6 +100,8 @@ def chime(dur):
 def plan(P, E, lines):
     """Place every line and music cue on one timeline. Returns placements, cues [(t, kind, dur)], chapters, total."""
     rng = np.random.default_rng(7)               # a little variation in the gaps, so the rhythm isn't metronomic
+    pace = getattr(E, 'PACE', None) or {}
+    gap = dict(GAP, **{key: v for key, v in pace.items() if key in GAP})
     t, k, prev = 0.0, 0, None
     placements, cues, chapters = [], [], []
     for si, seg in enumerate(E.SEGMENTS):
@@ -89,24 +116,39 @@ def plan(P, E, lines):
         else:
             chapters.append((t, seg['title']))
             if si:
-                t += GAP['segment']
+                t += gap['segment']
         for line in seg['lines']:
             host = line[0].rstrip('?')
+            if host == CUE and line[1] == 'rest':   # a breath between ideas: silence, nothing played
+                t += line[2] if len(line) > 2 else pace.get('rest', 1.2)
+                continue
             if host == CUE:                      # an inline music cue, e.g. the chime before a question for the room
                 length, overlap = THEME[line[1]]
                 cues.append((t + 0.45, line[1], length))
                 t += 0.45 + length - overlap
                 prev = None
                 continue
-            l = lines[k]; k += 1
-            text = l['text']
-            a, sr = load(P.path(l['file']))
             if len(line) > 2:
                 t += line[2]
             elif prev is not None:
-                t += GAP['same' if host == prev else 'turn'] + rng.uniform(-0.05, 0.05)
-            placements.append(dict(t=round(t, 3), dur=round(len(a) / sr, 3), text=text, host=host, file=l['file'], seg=seg['title']))
-            t += len(a) / sr
+                t += gap['same' if host == prev else 'turn'] + rng.uniform(-0.05, 0.05)
+            group = lines[k].get('grp')          # with PACE, one script line was voiced as several sentence clips
+            first = True
+            while True:
+                l = lines[k]; k += 1
+                if not first:
+                    t += pace['sentence'] + rng.uniform(-0.04, 0.04)
+                a, sr = load(P.path(l['file']))
+                p = dict(t=round(t, 3), dur=round(len(a) / sr, 3), text=l['text'], host=host, file=l['file'], seg=seg['title'])
+                if group is not None:
+                    p['grp'] = group
+                placements.append(p)
+                t += len(a) / sr
+                first = False
+                if group is None or k >= len(lines) or lines[k].get('grp') != group:
+                    break
+            if pace.get('question') and line[1].rstrip().endswith('?'):
+                t += pace['question']
             prev = host
     cues.append((t + 0.8, 'outro', THEME['outro'][0]))
     return placements, cues, chapters, t + 0.8 + THEME['outro'][0]
@@ -198,14 +240,21 @@ def main():
     names = {role: h['name'] for role, h in H.items()}
     first = H[next(iter(H))]
     lines, questions = [], []
+    split = 'sentence' in (getattr(E, 'PACE', None) or {})
+    grp = 0
     for seg in E.SEGMENTS:
         for i, line in enumerate(l for l in seg['lines'] if l[0] != CUE):
             host, text = line[0].rstrip('?'), line[1].format(**names)
             if line[0].endswith('?'):
                 questions.append(text)
-            l = dict(scene=seg['title'][:14], i=i, v=host, text=text, say=tts.spoken(text, say))
-            l.update({k: H[host][k] for k in ('voice', 'speed', 'lang') if H[host][k] != first[k]})
-            lines.append(l)
+            parts = sentences(text) if split else [text]
+            for j, part in enumerate(parts):
+                l = dict(scene=seg['title'][:14], i=f'{i}.{j}' if split else i, v=host, text=part, say=tts.spoken(part, say))
+                if split:
+                    l['grp'] = grp
+                l.update({k: H[host][k] for k in ('voice', 'speed', 'lang') if H[host][k] != first[k]})
+                lines.append(l)
+            grp += 1
     if tts.synthesize(P, lines, first['voice'], first['speed'], first['lang']):
         raise SystemExit('fix the flagged lines (rephrase, or add a respelling to SAY) and run again')
     placements, cues, chapters, total = plan(P, E, lines)
@@ -220,11 +269,15 @@ def main():
                 genre='Podcast', comment=getattr(P, 'SUMMARY', ''))
     I, TP = master(wav, os.path.join(od, P.OUTPUT_NAME), meta, chapters, total)
     # transcript, captions, show notes
-    md, seg = [f'# {meta["title"]}\n'], None
+    md, seg, grp = [f'# {meta["title"]}\n'], None, None
     for p in placements:
         if p['seg'] != seg:
             seg = p['seg']
             md.append(f'\n## {seg}\n')
+        if p.get('grp') is not None and p['grp'] == grp:      # sentences of one script line stay one paragraph
+            md[-1] = md[-1][:-1] + f' {p["text"]}\n'
+            continue
+        grp = p.get('grp')
         md.append(f'**[{mmss(p["t"])}] {names[p["host"]]}:** {p["text"]}\n' if len(names) > 1 else f'[{mmss(p["t"])}] {p["text"]}\n')
     open(os.path.join(od, 'transcript.md'), 'w').write('\n'.join(md))
     write_srt(placements, os.path.join(od, 'captions.srt'))
