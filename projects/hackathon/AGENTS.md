@@ -8,7 +8,7 @@ sections 0, 1, 3 and 4.2; read-only). Layout and commit rules: [../AGENTS.md](..
 
 | kind | what |
 |---|---|
-| [videos/](videos/AGENTS.md) | a 98-second hype invitation |
+| [videos/](videos/AGENTS.md) | the hype invitation (98 s) and its calmer jazz edition (2:02) |
 
 ## Facts the pieces may use, and nothing else
 

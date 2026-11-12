@@ -1,0 +1,123 @@
+[
+ {
+  "scene": "Hook",
+  "i": 0,
+  "v": 3.0,
+  "text": "Machine-learned climate emulators can carry a whole planet forward in time.",
+  "say": "Machine-learned climate emulators can carry a whole planet forward in time.",
+  "file": "cache/90d8ba77b9be9bfb.wav",
+  "dur": 6.075,
+  "heard": "Machine-learned climate emulators can carry a whole planet forward in time.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Hook",
+  "i": 1,
+  "v": 11.0,
+  "text": "But what is really going on, inside them?",
+  "say": "But what is really going on, inside them?",
+  "file": "cache/253af53bec182b25.wav",
+  "dur": 3.425,
+  "heard": "But what is really going on inside them?",
+  "wer": 0.0
+ },
+ {
+  "scene": "Title",
+  "i": 0,
+  "v": 7.0,
+  "text": "So here's an invitation.",
+  "say": "So here's an invitation.",
+  "file": "cache/f3ba046a5acdee3d.wav",
+  "dur": 2.45,
+  "heard": "So here's an invitation.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Title",
+  "i": 1,
+  "v": 10.0,
+  "text": "The aigs pod journal club is throwing a hackathon.",
+  "say": "The [aigs](/\u02c8A\u0261z/) pod journal club is throwing a hackathon.",
+  "file": "cache/42d3f0bc4f437369.wav",
+  "dur": 4.2,
+  "heard": "The Eggspod Journal Club is throwing a hackathon.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Models",
+  "i": 0,
+  "v": 0.9,
+  "text": "Together, let's open up emulators of the ocean and the atmosphere.",
+  "say": "Together, let's open up emulators of the ocean and the atmosphere.",
+  "file": "cache/acfdaa4abb4f8506.wav",
+  "dur": 5.35,
+  "heard": "Together, let's open up emulators of the ocean and the atmosphere.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Tools",
+  "i": 0,
+  "v": 0.9,
+  "text": "We'll bring our own toolkit, and ideas from four journal club papers.",
+  "say": "We'll bring our own toolkit, and ideas from four journal club papers.",
+  "file": "cache/e1e06d61f8474cb8.wav",
+  "dur": 5.525,
+  "heard": "We'll bring our own toolkit and ideas from four Journal Club papers.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Questions",
+  "i": 0,
+  "v": 0.7,
+  "text": "And here's the best part. Nobody knows the answers yet.",
+  "say": "And here's the best part. Nobody knows the answers yet.",
+  "file": "cache/d30e73394ca31bf2.wav",
+  "dur": 4.525,
+  "heard": "And here's the best part. Nobody knows the answers yet.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Tracks",
+  "i": 0,
+  "v": 0.9,
+  "text": "There are six tracks, from the ocean, to the atmosphere, to the code.",
+  "say": "There are six tracks, from the ocean, to the atmosphere, to the code.",
+  "file": "cache/e037e88d0c2d3d63.wav",
+  "dur": 4.875,
+  "heard": "There are six tracks, from the ocean, to the atmosphere, to the code.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Welcome",
+  "i": 0,
+  "v": 0.7,
+  "text": "New to interpretability? A climate scientist? A total beginner?",
+  "say": "New to interpretability? A climate scientist? A total beginner?",
+  "file": "cache/bac4c5f5d6868b77.wav",
+  "dur": 5.75,
+  "heard": "New to interpretability, a climate scientist, a total beginner.",
+  "wer": 0.0
+ },
+ {
+  "scene": "Welcome",
+  "i": 1,
+  "v": 6.75,
+  "text": "You are so welcome here.",
+  "say": "You are so welcome here.",
+  "file": "cache/8377707de74d9bc6.wav",
+  "dur": 2.3,
+  "heard": "You are so welcome here.",
+  "wer": 0.0
+ },
+ {
+  "scene": "End",
+  "i": 0,
+  "v": 1.0,
+  "text": "So come and join us. Week of November 16th. Details soon.",
+  "say": "So come and join us. Week of November 16th. Details soon.",
+  "file": "cache/cc1a1e39c1e04b29.wav",
+  "dur": 5.3,
+  "heard": "So come and join us. Week of November 16th. Details soon.",
+  "wer": 0.0
+ }
+]
