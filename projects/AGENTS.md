@@ -37,10 +37,11 @@ These are the pod's. The dark /mull/ look and our scores are the default; [docs/
 
 - **Endings:** leave 1-2 s after the last line for the picture and music to fade out; set the last scene's `hold`.
 - **Short titles:** 5-6 words at most, on screen (`headline`) and in the upload title.
-- **Music sits well under the host.** Raise it only rarely, on purpose: a title card, a turn, the outro. Set
-  `MUSIC['duck_db']` (`make new` starts at 16); without it, music averages only about 6 dB under speech and swells between words.
-  Keep the changes gentle so the music always feels like background: `duck_ramp` (about 1.2 s) with a `duck_db` of 8-10
-  fades smoothly and stays down through short pauses, where `duck_db` alone steps 16 dB at every line.
+- **Music sits well under the host, and moves gently.** Raise it only rarely, on purpose: a title card, a turn, the
+  outro. Set `MUSIC['duck_db']` to 8-10 with `duck_ramp` of about 1.2 s, so the music fades smoothly and stays down
+  through short pauses. Without `duck_db` it averages only about 6 dB under speech and swells between words; `duck_db`
+  without `duck_ramp` steps the full depth at every line. The template (`make new`) still starts at `duck_db=16` with
+  no ramp: lower it and add the ramp.
 - **Accuracy:** never draw data by eye; label illustrations on screen; say so when a paper's text and tables disagree;
   note it in the topic's `AGENTS.md`. Have scripts reviewed against the source before synthesizing (docs/PODCAST.md).
 
