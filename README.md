@@ -16,8 +16,9 @@ make P=mypaper/videos/main                           # build + verify -> project
 ## Install
 
 **You need** a Mac with Apple Silicon (M1 or later) on macOS 14.5+, `git` and `make` (Xcode's command-line tools:
-`xcode-select --install`), and about 6 GB of disk. Narration runs on Apple's MLX, so it's Apple Silicon only;
-rendering may work elsewhere but is untested.
+`xcode-select --install`), and about 6 GB of disk. That's the reference setup: narration runs on Apple's MLX.
+**On Linux** use Option B with the `tts-torch` extra: narration then runs on the reference PyTorch Kokoro and
+faster-whisper (on an NVIDIA GPU when there is one), and its audio is close to, not identical with, a Mac build.
 
 ### Option A: pixi (recommended)
 
@@ -56,6 +57,11 @@ make doctor                                            # checks everything; fixe
 ```
 
 With the virtual environment active, `make` uses its `python3` (or pass `make PY=/path/to/python`).
+
+On Linux, install `ffmpeg`, `tectonic` and a font with Greek and arrows (`fonts-liberation` or `fonts-dejavu`) from
+your package manager, and replace the `pip install` line with `pip install -e ".[tts-torch]"`. The engine picks its
+backend by itself; force one with `AIGLAINER_BACKEND=mlx|torch`, or another glyph font with
+`AIGLAINER_FALLBACK_FONT=/path/to/font.ttf`.
 
 ### Option C: rendering only
 

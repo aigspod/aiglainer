@@ -29,13 +29,10 @@ def espeak_fix():
     data = os.path.join(pkg, 'espeak-ng-data')
     if not os.path.isdir(data) or os.path.exists(os.path.join(pkg, 'phontab')):
         return True, 'nothing to fix'
-    try:
-        from misaki import espeak
-        class T: text = 'Xyzzqrth'; tag = 'NN'
-        espeak.EspeakFallback(british=False)(T())
+    # in a child process: when its data is missing, espeak-ng's C library exits the whole process
+    probe = "from misaki import espeak\nclass T: text = 'Xyzzqrth'; tag = 'NN'\nespeak.EspeakFallback(british=False)(T())"
+    if subprocess.run([sys.executable, '-c', probe], capture_output=True).returncode == 0:
         return True, 'works as installed'
-    except Exception:                                # noqa: BLE001
-        pass
     for f in os.listdir(data):
         dst = os.path.join(pkg, f)
         if not os.path.exists(dst):
@@ -50,7 +47,8 @@ def main():
     bad = False
     print('platform')
     mac = sys.platform == 'darwin' and platform.machine() == 'arm64'
-    line(OK if mac else WARN, 'macOS on Apple Silicon', platform.platform() + ('' if mac else '  (narration needs mlx: Apple Silicon only)'))
+    line(OK if mac else WARN, 'macOS on Apple Silicon', platform.platform() + ('' if mac else
+         '  (narration uses PyTorch Kokoro + faster-whisper: the tts-torch extra; close to, not identical with, a Mac build)'))
     py = sys.version_info
     line(OK if py >= (3, 11) else BAD, 'Python >= 3.11', sys.version.split()[0] + f'  ({sys.executable})')
     bad |= py < (3, 11)
@@ -66,12 +64,21 @@ def main():
         ok, v = check_import(m)
         line(OK if ok else BAD, m, v)
         bad |= not ok
-    fonts = os.path.exists('/System/Library/Fonts/SFNS.ttf')
-    line(OK if fonts else WARN, 'SF Pro (glyph fallback)', 'found' if fonts else 'missing: Greek/arrows may not render')
+    try:
+        from . import core
+        fallback = core.SFNS
+    except Exception:                                # noqa: BLE001 - skia missing is reported above
+        fallback = ''
+    fonts = os.path.exists(fallback)
+    line(OK if fonts else WARN, 'glyph fallback font', fallback if fonts else
+         'missing: Greek/arrows may not render (install Liberation Sans or DejaVu Sans, or set AIGLAINER_FALLBACK_FONT)')
 
     print('narration')
     narr = True
-    for m in ('mlx', 'mlx_audio', 'mlx_whisper', 'misaki', 'spacy', 'soundfile', 'torch'):
+    from . import backend
+    mlx = backend.name() == 'mlx'
+    line(' info', 'backend', 'MLX' if mlx else 'PyTorch (set AIGLAINER_BACKEND=mlx|torch to force one)')
+    for m in (('mlx', 'mlx_audio', 'mlx_whisper') if mlx else ('kokoro', 'faster_whisper')) + ('misaki', 'spacy', 'soundfile', 'torch'):
         ok, v = check_import(m)
         line(OK if ok else WARN, m, v)
         narr &= ok
@@ -81,7 +88,9 @@ def main():
     if narr:
         ok, detail = espeak_fix()
         line(OK if ok else WARN, 'espeak-ng data', detail)
-    for repo, size in (('mlx-community/Kokoro-82M-bf16', '~340 MB'), ('mlx-community/whisper-large-v3-turbo', '~1.5 GB')):
+    models = ((backend.MLX_KOKORO, '~340 MB'), (backend.MLX_WHISPER, '~1.5 GB')) if mlx else \
+             ((backend.TORCH_KOKORO, '~330 MB'), ('mobiuslabsgmbh/faster-whisper-large-v3-turbo', '~1.6 GB'))
+    for repo, size in models:
         line(OK if hf_cached(repo) else ' info', repo, 'downloaded' if hf_cached(repo) else f'downloads on first narration run ({size})')
 
     print('listening (optional: make listen, a dev tool)')

@@ -16,17 +16,27 @@ KOKORO = 'mlx-community/Kokoro-82M-bf16'
 
 def kokoro_voice(spec):
     """What to hand Kokoro for a voice: the id itself, or for a blend ('af_bella:0.7,af_nicole:0.3') the path of a
-    voice file mixed from Kokoro's own, made once under ~/.cache/aiglainer/voices. Clips stay cached by the spec."""
+    voice file mixed from Kokoro's own, made once under ~/.cache/aiglainer/voices (a .safetensors for MLX, a .pt for
+    PyTorch Kokoro: see backend.py). Clips stay cached by the spec."""
     if ',' not in spec and ':' not in spec:
         return spec
-    out = os.path.join(os.path.expanduser('~/.cache/aiglainer/voices'), hashlib.sha1(spec.encode()).hexdigest()[:16] + '.safetensors')
+    from huggingface_hub import hf_hub_download
+    stem = os.path.join(os.path.expanduser('~/.cache/aiglainer/voices'), hashlib.sha1(spec.encode()).hexdigest()[:16])
+    os.makedirs(os.path.dirname(stem), exist_ok=True)
+    if backend.name() == 'mlx':
+        out = stem + '.safetensors'
+        if not os.path.exists(out):
+            import mlx.core as mx
+            packs = [(mx.load(hf_hub_download(KOKORO, f'voices/{v}.safetensors'))['voice'], w) for v, w in hosts.mix(spec)]
+            mixed = sum(w * p.astype(mx.float32) for p, w in packs).astype(packs[0][0].dtype)
+            mx.save_safetensors(out, {'voice': mixed})
+        return out
+    out = stem + '.pt'
     if not os.path.exists(out):
-        import mlx.core as mx
-        from huggingface_hub import hf_hub_download
-        packs = [(mx.load(hf_hub_download(KOKORO, f'voices/{v}.safetensors'))['voice'], w) for v, w in hosts.mix(spec)]
-        mixed = sum(w * p.astype(mx.float32) for p, w in packs).astype(packs[0][0].dtype)
-        os.makedirs(os.path.dirname(out), exist_ok=True)
-        mx.save_safetensors(out, {'voice': mixed})
+        import torch
+        packs = [(torch.load(hf_hub_download(backend.TORCH_KOKORO, f'voices/{v}.pt'), weights_only=True), w) for v, w in hosts.mix(spec)]
+        mixed = sum(w * p.float() for p, w in packs).to(packs[0][0].dtype)
+        torch.save(mixed, out)
     return out
 
 def spoken(text, SAY):

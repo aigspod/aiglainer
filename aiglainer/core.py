@@ -72,10 +72,11 @@ FONT_DIR = os.path.join(HERE, 'fonts')
 def _first(*paths):
     return next((p for p in paths if p and os.path.exists(p)), paths[-1])
 # SF Pro on a Mac; elsewhere a system face with Greek and arrows (or AIGLAINER_FALLBACK_FONT[_ITALIC])
+_LIB = ('/usr/share/fonts/truetype/liberation/LiberationSans-{}.ttf', '/usr/share/fonts/liberation-sans/LiberationSans-{}.ttf')
 SFNS = _first(os.environ.get('AIGLAINER_FALLBACK_FONT'), '/System/Library/Fonts/SFNS.ttf',
-              '/usr/share/fonts/truetype/LiberationSans-Regular.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')
+              *(p.format('Regular') for p in _LIB), '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')
 SFNS_I = _first(os.environ.get('AIGLAINER_FALLBACK_FONT_ITALIC'), '/System/Library/Fonts/SFNSItalic.ttf',
-                '/usr/share/fonts/truetype/LiberationSans-Italic.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf')
+                *(p.format('Italic') for p in _LIB), '/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf')
 _VP = skia.FontArguments.VariationPosition
 _AX = dict(wght=0x77676874, opsz=0x6f70737a, SOFT=0x534f4654, WONK=0x574f4e4b)
 _tf_cache = {}
