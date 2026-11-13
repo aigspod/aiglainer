@@ -1,0 +1,2 @@
+# the paper's figures, cropped from the PDF by extract_paper.py: local only, like the PDF (arXiv non-exclusive licence)
+data/fig*.png

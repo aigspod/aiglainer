@@ -2,7 +2,7 @@
 
 `figcard` shows a crop of one of the paper's own figures (data/<name>.png, made by extract_paper.py) on a light card
 with its figure number. Native drawings that are not data carry an `illustration` label on screen."""
-import functools, math
+import functools, math, os
 import numpy as np
 import skia
 from aiglainer.core import *
@@ -17,7 +17,11 @@ def illus(c, x, y, a=1.0, align='left', s='illustration'):
 
 @functools.lru_cache(maxsize=32)
 def fig(name):
-    return skia.Image.open(project.get().find('data', name + '.png'))
+    path = project.get().find('data', name + '.png')
+    if not os.path.exists(path):
+        raise SystemExit(f'missing {path}: the figure crops are not in git. Put the paper (arXiv:2502.18684) at '
+                         'projects/cldiff/videos/explainer/paper/paper.pdf and run `make data P=cldiff/videos/explainer`.')
+    return skia.Image.open(path)
 
 def fig_aspect(name):
     im = fig(name)

@@ -13,7 +13,8 @@ Shared code: `videos/explainer/cldkit.py` (`figcard` for paper-figure crops, bea
 ## Accuracy notes
 
 - The paper's figures are raster images. `videos/explainer/extract_paper.py` crops them from the PDF into `data/fig*.png`
-  (300 dpi, captions excluded); scenes show them as crops labelled "Fig. N", never redrawn.
+  (300 dpi, captions excluded; kept out of git like the PDF, as the paper is under arXiv's non-exclusive licence);
+  scenes show them as crops labelled "Fig. N", never redrawn.
 - The `Errors` bars are typed from the **legends of Fig. 8** (mean absolute % error, train/test): VAE 15.67/15.55,
   latent diffusion 8.07/14.05 (on latents, not images), full chain 16.53/23.79. Narration rounds to 16 / 17 / 24 %.
 - The beam currents `b_m` are computed by summing the simulated (z, pz) projection (Eq. 2), not read from real

@@ -2,6 +2,7 @@
 
 | name | what | length | voice, score |
 |---|---|---|---|
-| `explainer` | data and signals, VAE + latent diffusion, the physics-informed label, results, adaptive tracking, limits | 8:41 | Bella, default |
+| `explainer` | data and signals, VAE + latent diffusion, the physics-informed label, results, adaptive tracking, limits | 8:45 | Bella, default |
 
-Rebuilding the figure crops needs the PDF in `explainer/paper/` (not committed): `python projects/cldiff/videos/explainer/extract_paper.py`.
+Building needs the figure crops, which aren't in git: put the paper at `explainer/paper/paper.pdf` and run
+`make data P=cldiff/videos/explainer` (they go to `explainer/data/`, ignored by `explainer/.gitignore`).
