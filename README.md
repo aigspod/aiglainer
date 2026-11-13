@@ -60,8 +60,10 @@ With the virtual environment active, `make` uses its `python3` (or pass `make PY
 
 On Linux, install from your package manager `ffmpeg`, the libraries skia needs and a font with Greek and arrows:
 `libegl1 libgl1 libfontconfig1 fonts-liberation` on Debian/Ubuntu, `mesa-libEGL mesa-libGL fontconfig
-liberation-sans-fonts ffmpeg-free` on Fedora. Then replace the `pip install` line with `pip install -e ".[tts-torch]"`.
-`tectonic` is only needed when an `eqs.py` changes (the rendered equations are committed); most distributions don't
+liberation-sans-fonts` on Fedora, `Mesa-libEGL1 Mesa-libGL1 fontconfig liberation-fonts` on openSUSE. Then replace the `pip install` line with `pip install -e ".[tts-torch]"`.
+Videos are encoded with `libx264`, which some distributions' own ffmpeg leaves out (openSUSE's, Fedora's
+`ffmpeg-free`): there, take ffmpeg from Packman, RPM Fusion or conda-forge (`conda install -c conda-forge ffmpeg`, which
+also works without root on HPC systems); `make doctor` checks. `tectonic` is only needed when an `eqs.py` changes (the rendered equations are committed); most distributions don't
 package it, so get it from [its site](https://tectonic-typesetting.github.io) if you need it. The engine picks its
 backend by itself; force one with `AIGLAINER_BACKEND=mlx|torch`, or another glyph font with
 `AIGLAINER_FALLBACK_FONT=/path/to/font.ttf`. Linux renders text with FreeType, so frames differ from a Mac's at the

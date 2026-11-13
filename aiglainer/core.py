@@ -75,13 +75,14 @@ def _first(*paths, style=''):
     if not found:
         import subprocess
         try:
-            found = subprocess.run(['fc-match', '-f', '%{file}', f'sans-serif{style}:charset=3b1 2192'],
+            found = subprocess.run(['fc-match', '-f', '%{file}', f'sans-serif{style}:spacing=proportional:charset=3b1 2192'],
                                    capture_output=True, text=True, timeout=10).stdout.strip()
         except (OSError, subprocess.SubprocessError):
             pass
     return found if found and os.path.exists(found) else ''
-# SF Pro on a Mac; elsewhere Liberation Sans (Debian/Ubuntu, Fedora) or DejaVu Sans, or AIGLAINER_FALLBACK_FONT[_ITALIC]
-_LIB = ('/usr/share/fonts/truetype/liberation/LiberationSans-{}.ttf', '/usr/share/fonts/liberation-sans-fonts/LiberationSans-{}.ttf')
+# SF Pro on a Mac; elsewhere Liberation Sans (Debian/Ubuntu, Fedora, openSUSE) or DejaVu Sans, or AIGLAINER_FALLBACK_FONT[_ITALIC]
+_LIB = ('/usr/share/fonts/truetype/liberation/LiberationSans-{}.ttf', '/usr/share/fonts/liberation-sans-fonts/LiberationSans-{}.ttf',
+        '/usr/share/fonts/truetype/LiberationSans-{}.ttf')
 SFNS = _first(os.environ.get('AIGLAINER_FALLBACK_FONT'), '/System/Library/Fonts/SFNS.ttf',
               *(p.format('Regular') for p in _LIB), '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')
 SFNS_I = _first(os.environ.get('AIGLAINER_FALLBACK_FONT_ITALIC'), '/System/Library/Fonts/SFNSItalic.ttf',

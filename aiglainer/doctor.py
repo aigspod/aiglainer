@@ -58,6 +58,12 @@ def main():
         p = shutil.which(tool)
         line(OK if p else (BAD if tool == 'ffmpeg' else WARN), tool, p or f'not found ({why})')
         bad |= tool == 'ffmpeg' and not p
+        if tool == 'ffmpeg' and p:                   # videos are encoded with libx264; some distributions' ffmpeg lacks it
+            enc = subprocess.run([p, '-hide_banner', '-encoders'], capture_output=True, text=True).stdout
+            x264 = ' libx264 ' in enc
+            line(OK if x264 else BAD, 'ffmpeg with libx264', 'yes' if x264 else
+                 'missing: use an ffmpeg built with it (conda-forge, Packman on openSUSE, RPM Fusion on Fedora)')
+            bad |= not x264
 
     print('rendering')
     for m in ('aiglainer', 'skia', 'numpy', 'scipy', 'pymupdf', 'PIL', 'matplotlib'):
