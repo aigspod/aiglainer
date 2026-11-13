@@ -68,10 +68,10 @@ def main():
         from . import core
         fallback = core.SFNS
     except Exception:                                # noqa: BLE001 - skia missing is reported above
-        fallback = ''
-    fonts = os.path.exists(fallback)
-    line(OK if fonts else WARN, 'glyph fallback font', fallback if fonts else
-         'missing: Greek/arrows may not render (install Liberation Sans or DejaVu Sans, or set AIGLAINER_FALLBACK_FONT)')
+        fallback = None
+    fonts = bool(fallback) and os.path.exists(fallback)
+    line(OK if fonts else WARN, 'glyph fallback font', fallback if fonts else 'not checked: skia did not load' if fallback is None
+         else 'missing: install Liberation Sans or DejaVu Sans, or set AIGLAINER_FALLBACK_FONT')
 
     print('narration')
     narr = True

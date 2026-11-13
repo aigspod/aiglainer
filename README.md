@@ -58,10 +58,14 @@ make doctor                                            # checks everything; fixe
 
 With the virtual environment active, `make` uses its `python3` (or pass `make PY=/path/to/python`).
 
-On Linux, install `ffmpeg`, `tectonic` and a font with Greek and arrows (`fonts-liberation` or `fonts-dejavu`) from
-your package manager, and replace the `pip install` line with `pip install -e ".[tts-torch]"`. The engine picks its
+On Linux, install from your package manager `ffmpeg`, the libraries skia needs and a font with Greek and arrows:
+`libegl1 libgl1 libfontconfig1 fonts-liberation` on Debian/Ubuntu, `mesa-libEGL mesa-libGL fontconfig
+liberation-sans-fonts ffmpeg-free` on Fedora. Then replace the `pip install` line with `pip install -e ".[tts-torch]"`.
+`tectonic` is only needed when an `eqs.py` changes (the rendered equations are committed); most distributions don't
+package it, so get it from [its site](https://tectonic-typesetting.github.io) if you need it. The engine picks its
 backend by itself; force one with `AIGLAINER_BACKEND=mlx|torch`, or another glyph font with
-`AIGLAINER_FALLBACK_FONT=/path/to/font.ttf`.
+`AIGLAINER_FALLBACK_FONT=/path/to/font.ttf`. Linux renders text with FreeType, so frames differ from a Mac's at the
+edges of glyphs: `make check` compares a machine with itself, not with a Mac.
 
 ### Option C: rendering only
 
