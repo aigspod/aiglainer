@@ -1,0 +1,90 @@
+[
+ {
+  "scene": "RulesGrow",
+  "i": 0,
+  "v": 0.3,
+  "text": "Here are three tiny rules, each short enough to fit on one line.",
+  "say": "Here are three tiny rules, each short enough to fit on one line.",
+  "file": "cache/ea5d704d2f6cc2d5.wav",
+  "dur": 4.9,
+  "heard": "Here are three tiny rules, each short enough to fit on one line.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RulesGrow",
+  "i": 1,
+  "v": 5.0,
+  "text": "Rule fifteen just repeats. Rule thirty looks like static.",
+  "say": "Rule fifteen just repeats. Rule thirty looks like static.",
+  "file": "cache/1c43a18bf8a2ee45.wav",
+  "dur": 4.7,
+  "heard": "Rule 15 just repeats. Rule 30 looks like static.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RulesGrow",
+  "i": 2,
+  "v": 9.2,
+  "text": "And rule fifty-four sends out gliders that travel and collide.",
+  "say": "And rule fifty-four sends out gliders that travel and collide.",
+  "file": "cache/8fdb080a526d040d.wav",
+  "dur": 4.525,
+  "heard": "And Rule 54 sends out gliders that travel and collide.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RulesFig3",
+  "i": 0,
+  "v": 0.3,
+  "text": "The paper trained models to look forty-eight steps ahead, for each rule.",
+  "say": "The paper trained models to look forty-eight steps ahead, for each rule.",
+  "file": "cache/2063274e0b756c97.wav",
+  "dur": 5.1,
+  "heard": "The paper trained models to look 48 steps ahead for each rule.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RulesFig3",
+  "i": 1,
+  "v": 5.6,
+  "text": "Rule fifteen is learned fast, and holds little.",
+  "say": "Rule fifteen is learned fast, and holds little.",
+  "file": "cache/a7f1cea3322d4c44.wav",
+  "dur": 3.875,
+  "heard": "Rule 15 is learned fast and holds little.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RulesFig3",
+  "i": 2,
+  "v": 9.2,
+  "text": "Rule thirty stays random. The model never finds a pattern.",
+  "say": "Rule thirty stays random. The model never finds a pattern.",
+  "file": "cache/8bb1aaf248e541f1.wav",
+  "dur": 4.8,
+  "heard": "Rule 30 stays random. The model never finds a pattern.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RulesFig3",
+  "i": 3,
+  "v": 13.2,
+  "text": "Rule fifty-four keeps paying off: more compute, more structure found.",
+  "say": "Rule fifty-four keeps paying off: more compute, more structure found.",
+  "file": "cache/c81dfea0a84d372f.wav",
+  "dur": 5.2,
+  "heard": "Rule 54 keeps paying off. More compute, more structure found.",
+  "wer": 0.0
+ },
+ {
+  "scene": "RulesFig3",
+  "i": 4,
+  "v": 19.4,
+  "text": "Same tiny programs, wildly different information. What makes something worth learning?",
+  "say": "Same tiny programs, wildly different information. What makes something worth learning?",
+  "file": "cache/0e938e93708e8bc1.wav",
+  "dur": 6.4,
+  "heard": "Same tiny programs, wildly different information. What makes something worth learning?",
+  "wer": 0.0
+ }
+]

@@ -1,0 +1,79 @@
+[
+ {
+  "scene": "OrderTwoWays",
+  "i": 0,
+  "v": 0.3,
+  "text": "Can reading things in a different order change what you learn?",
+  "say": "Can reading things in a different order change what you learn?",
+  "file": "cache/597200dc0ba24fc4.wav",
+  "dur": 4.35,
+  "heard": "Can reading things in a different order change what you learn?",
+  "wer": 0.0
+ },
+ {
+  "scene": "OrderTwoWays",
+  "i": 1,
+  "v": 4.0,
+  "text": "Write a chess game as its moves, then the final board. Or flip it: the board first, then the moves.",
+  "say": "Write a chess game as its moves, then the final board. Or flip it: the board first, then the moves.",
+  "file": "cache/ca68b81d5bc52af0.wav",
+  "dur": 6.9,
+  "heard": "Write a chess game as its moves, then the final board, or flip it, the board first, then the moves.",
+  "wer": 0.0
+ },
+ {
+  "scene": "OrderTwoWays",
+  "i": 2,
+  "v": 11.5,
+  "text": "For Shannon, the total information is the same either way.",
+  "say": "For Shannon, the total information is the same either way.",
+  "file": "cache/0a40beac7c709da0.wav",
+  "dur": 4.425,
+  "heard": "For Shannon, the total information is the same either way.",
+  "wer": 0.0
+ },
+ {
+  "scene": "OrderData",
+  "i": 0,
+  "v": 0.3,
+  "text": "But to a model with limited compute, the reverse order holds more structure.",
+  "say": "But to a model with limited compute, the reverse order holds more structure.",
+  "file": "cache/255c2ce9aa5d29b7.wav",
+  "dur": 5.4,
+  "heard": "But to a model with limited compute, the reverse order holds more structure.",
+  "wer": 0.0
+ },
+ {
+  "scene": "OrderData",
+  "i": 1,
+  "v": 7.5,
+  "text": "From the board, it has to work out how the game got there.",
+  "say": "From the board, it has to work out how the game got there.",
+  "file": "cache/50c868a74f22ced9.wav",
+  "dur": 3.925,
+  "heard": "From the board, it has to work out how the game got there.",
+  "wer": 0.0
+ },
+ {
+  "scene": "OrderData",
+  "i": 2,
+  "v": 12.5,
+  "text": "Then both were tuned on new tasks. On puzzles, they tie. At judging who has the advantage, the reverse model does clearly better.",
+  "say": "Then both were tuned on new tasks. On puzzles, they tie. At judging who has the advantage, the reverse model does clearly better.",
+  "file": "cache/0c8e5cf1fa4932b4.wav",
+  "dur": 9.325,
+  "heard": "Then both were tuned on new tasks. On puzzles, they tie. At judging who has the advantage, the reverse model does clearly better.",
+  "wer": 0.0
+ },
+ {
+  "scene": "OrderData",
+  "i": 3,
+  "v": 22.0,
+  "text": "If order changes what's learnable, how should we arrange our training data?",
+  "say": "If order changes what's learnable, how should we arrange our training data?",
+  "file": "cache/52c83dc271291e49.wav",
+  "dur": 5.2,
+  "heard": "If order changes what's learnable, how should we arrange our training data?",
+  "wer": 0.0
+ }
+]

@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "SeedStretch",
+  "i": 0,
+  "v": 0.3,
+  "text": "This screen holds a million random-looking bits, and they all grew from a seed of just seven bytes.",
+  "say": "This screen holds a million random-looking bits, and they all grew from a seed of just seven bytes.",
+  "file": "cache/de255556296f2840.wav",
+  "dur": 6.75,
+  "heard": "This screen holds a million random-looking bits, and they all grew from a seed of just seven bites.",
+  "wer": 0.053
+ },
+ {
+  "scene": "SeedStretch",
+  "i": 1,
+  "v": 7.0,
+  "text": "A hash function stretches it out, with no randomness added.",
+  "say": "A hash function stretches it out, with no randomness added.",
+  "file": "cache/20fcbcd0ae0b158d.wav",
+  "dur": 4.625,
+  "heard": "A hash function stretches it out, with no randomness added.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SeedJudges",
+  "i": 0,
+  "v": 0.4,
+  "text": "So how much information is in it? Shannon says fifty-six bits, because only the seed was random.",
+  "say": "So how much information is in it? Shannon says fifty-six bits, because only the seed was random.",
+  "file": "cache/16b7558efde39cf6.wav",
+  "dur": 7.6,
+  "heard": "So how much information is in it? Shannon says 56 bits, because only the seed was random.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SeedJudges",
+  "i": 1,
+  "v": 5.6,
+  "text": "Real compressors can't shrink it at all. In our check, it behaves just like coin flips.",
+  "say": "Real compressors can't shrink it at all. In our check, it behaves just like coin flips.",
+  "file": "cache/17c28e93ea7d732a.wav",
+  "dur": 6.55,
+  "heard": "Real compressors can't shrink it at all. In our check, it behaves just like coin flips.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SeedJudges",
+  "i": 2,
+  "v": 11.6,
+  "text": "And to a learner with limited compute, the paper's theorem says it's pure noise, with nothing to learn.",
+  "say": "And to a learner with limited compute, the paper's theorem says it's pure noise, with nothing to learn.",
+  "file": "cache/94a1af956ddb4c36.wav",
+  "dur": 7.375,
+  "heard": "And to a learner with limited compute, the paper's theorem says it's pure noise, with nothing to learn.",
+  "wer": 0.0
+ },
+ {
+  "scene": "SeedJudges",
+  "i": 3,
+  "v": 18.0,
+  "text": "Same file, three answers. So is information in the data, or in whoever is looking?",
+  "say": "Same file, three answers. So is information in the data, or in whoever is looking?",
+  "file": "cache/2c1ac2debcbe5ea8.wav",
+  "dur": 6.675,
+  "heard": "Same file, three answers. So is information in the data or in whoever is looking.",
+  "wer": 0.0
+ }
+]

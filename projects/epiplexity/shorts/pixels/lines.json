@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "PixelsTotal",
+  "i": 0,
+  "v": 0.3,
+  "text": "Which holds more information: a pile of web text, or a pile of tiny images?",
+  "say": "Which holds more information: a pile of web text, or a pile of tiny images?",
+  "file": "cache/96ae867e6e9f6a81.wav",
+  "dur": 6.0,
+  "heard": "which holds more information, a pile of web text or a pile of tiny images.",
+  "wer": 0.0
+ },
+ {
+  "scene": "PixelsTotal",
+  "i": 1,
+  "v": 5.2,
+  "text": "Count the raw bits, and the images win, with more than three times as many.",
+  "say": "Count the raw bits, and the images win, with more than three times as many.",
+  "file": "cache/f6a891711327908b.wav",
+  "dur": 5.525,
+  "heard": "Count the raw bits, and the images win with more than three times as many.",
+  "wer": 0.0
+ },
+ {
+  "scene": "PixelsStructure",
+  "i": 0,
+  "v": 0.4,
+  "text": "Now count only the structure a model can learn. The paper calls it epiplexity.",
+  "say": "Now count only the structure a model can learn. The paper calls it eppiplexity.",
+  "file": "cache/6680cd87532bc107.wav",
+  "dur": 6.15,
+  "heard": "Now count only the structure a model can learn. The paper calls it epiplexity.",
+  "wer": 0.0
+ },
+ {
+  "scene": "PixelsStructure",
+  "i": 1,
+  "v": 6.0,
+  "text": "The ranking flips. Text from the web comes out on top, and chess comes next. The images come last.",
+  "say": "The ranking flips. Text from the web comes out on top, and chess comes next. The images come last.",
+  "file": "cache/9e132d868005bc0a.wav",
+  "dur": 7.65,
+  "heard": "The ranking flips. Text from the web comes out on top, and chess comes next. The images come last.",
+  "wer": 0.0
+ },
+ {
+  "scene": "PixelsStructure",
+  "i": 2,
+  "v": 13.0,
+  "text": "Over ninety-nine percent of their bits are random detail, like the exact shade of each pixel.",
+  "say": "Over ninety-nine percent of their bits are random detail, like the exact shade of each pixel.",
+  "file": "cache/43de0387daec248c.wav",
+  "dur": 7.05,
+  "heard": "Over 99% of their bits are random detail, like the exact shade of each pixel.",
+  "wer": 0.0
+ },
+ {
+  "scene": "PixelsStructure",
+  "i": 3,
+  "v": 19.0,
+  "text": "So what a file holds isn't what a model can learn. What would you rather train on?",
+  "say": "So what a file holds isn't what a model can learn. What would you rather train on?",
+  "file": "cache/71525842a847eb89.wav",
+  "dur": 5.8,
+  "heard": "So what a file holds isn't what a model can learn. What would you rather train on?",
+  "wer": 0.0
+ }
+]
