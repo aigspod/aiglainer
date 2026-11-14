@@ -1,0 +1,46 @@
+{
+ "source": "our run (not the paper): compressed bits per input bit, N = 2^20 bits per source; ECA rows of width 1024 from a random first row; prng = SHA-256 counter mode on a 7-byte seed",
+ "N": 1048576,
+ "results": {
+  "zeros": {
+   "gzip": 0.0011,
+   "bz2": 0.0003,
+   "xz": 0.0012
+  },
+  "period": {
+   "gzip": 0.0012,
+   "bz2": 0.0003,
+   "xz": 0.0012
+  },
+  "coin": {
+   "gzip": 1.0004,
+   "bz2": 1.0075,
+   "xz": 1.0005
+  },
+  "prng": {
+   "gzip": 1.0004,
+   "bz2": 1.0074,
+   "xz": 1.0005
+  },
+  "rule15": {
+   "gzip": 0.0322,
+   "bz2": 0.0485,
+   "xz": 0.0168
+  },
+  "rule30": {
+   "gzip": 1.0004,
+   "bz2": 1.0072,
+   "xz": 1.0005
+  },
+  "rule54": {
+   "gzip": 0.6189,
+   "bz2": 0.562,
+   "xz": 0.4707
+  },
+  "rule110": {
+   "gzip": 0.371,
+   "bz2": 0.368,
+   "xz": 0.2773
+  }
+ }
+}
