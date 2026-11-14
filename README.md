@@ -106,6 +106,7 @@ it's organized and how to commit; each folder has its own `AGENTS.md`. Build any
 | [`lawful`](projects/lawful/AGENTS.md) | *LAWFUL: Law-Aligned Witness for Faithful Use of Latents* (Chen, Parker & Arora, ICML 2026 MI workshop, [arXiv:2607.28672](https://arxiv.org/abs/2607.28672)) | a 7:52 video (`videos/explainer`, `make CUT=full` gives the original 9-min cut), a ~27-min episode and two pilots (`pods/`), five shorts |
 | [`errors`](projects/errors/AGENTS.md) | *Rethinking Circuit Evaluation: Do Circuits Explain Model Errors?* (Zhang, Geng et al., 2026, [arXiv:2609.35686](https://arxiv.org/abs/2609.35686)) | three standalone videos and a six-minute cut, a ~24-min episode, seven shorts |
 | [`dynamics`](projects/dynamics/AGENTS.md) | *A Mechanistic Analysis of Transformers for Dynamical Systems* (Duthé, Evangelou et al., 2025, [arXiv:2512.21113](https://arxiv.org/abs/2512.21113)) | three standalone videos and a six-minute cut, a ~21-min episode, six shorts |
+| [`epiplexity`](projects/epiplexity/AGENTS.md) | *From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence* (Finzi, Qiu, Jiang et al., 2026, [arXiv:2601.03220](https://arxiv.org/abs/2601.03220)); an aigs pod extra, not a journal-club paper | two ~10-min videos, a ~26-min episode, five shorts, and a small laptop lab (`lab/`) |
 | [`examples`](projects/examples/AGENTS.md) | how to use the engine | `videos/light`: a different look from settings alone |
 
 ## Layout
