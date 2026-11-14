@@ -1,0 +1,30 @@
+\documentclass[border=1pt,multi=preview]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{fourier}
+\definecolor{W}{HTML}{EFE5D6}
+\definecolor{Y}{HTML}{E3A75A}
+\definecolor{G}{HTML}{5AA6EC}
+\definecolor{F}{HTML}{45C99A}
+\definecolor{C}{HTML}{F07A4F}
+\definecolor{X}{HTML}{C3A6D8}
+\definecolor{M}{HTML}{AAA0AD}
+\begin{document}
+\color{W}
+\begin{preview}$\displaystyle \text{surprise}(x) = \log_2 \frac{1}{p(x)}$\end{preview}
+\begin{preview}$\displaystyle H(X) = \mathbb{E}\Big[\log_2 \frac{1}{p(X)}\Big]$\end{preview}
+\begin{preview}$\displaystyle H\big(f(X)\big) \;\le\; H(X)$\end{preview}
+\begin{preview}$\displaystyle K(x) = \min\{\, |p| \;:\; U(p) = x \,\}$\end{preview}
+\begin{preview}$\displaystyle K\big(f(x)\big) \;\le\; K(x) + K(f) + c$\end{preview}
+\begin{preview}$\displaystyle P^\star = \operatorname*{arg\,min}_{P\,\in\,\mathcal{P}_{\color{Y}T}} \; {\color{Y}|P|} \;+\; {\color{G}\mathbb{E}\Big[\log \frac{1}{P(X)}\Big]}$\end{preview}
+\begin{preview}$\displaystyle {\color{Y}S_T(X) = |P^\star|}$\end{preview}
+\begin{preview}$\displaystyle {\color{G}H_T(X) = \mathbb{E}\Big[\log \frac{1}{P^\star(X)}\Big]}$\end{preview}
+\begin{preview}$\displaystyle {\color{Y}S_T}$\end{preview}
+\begin{preview}$\displaystyle {\color{G}H_T}$\end{preview}
+\begin{preview}$\displaystyle |P_{\mathrm{preq}}| \approx \sum_{i} \Big( \log \frac{1}{P_i(Z_i)} - \log \frac{1}{P_M(Z_i)} \Big)$\end{preview}
+\begin{preview}$\displaystyle |P_{\mathrm{req}}| \approx \sum_{i} \mathrm{KL}\big(P^{\,t}_i \,\big\|\, P^{\,s}_i\big)$\end{preview}
+\begin{preview}$\displaystyle {\color{G}H_{\mathrm{poly}}\big(G(U_k)\big) > n - 2 - n\varepsilon} \qquad {\color{Y}S_{\mathrm{poly}}\big(G(U_k)\big) \le c + n\varepsilon}$\end{preview}
+\begin{preview}$\displaystyle H(X) + H(Y\,|\,X) \;=\; H(Y) + H(X\,|\,Y)$\end{preview}
+\begin{preview}$\displaystyle \operatorname*{arg\,min}_{P}\; \mathbb{E}_{X\sim Q}\big[-\log P(X)\big] \;=\; Q$\end{preview}
+\begin{preview}$\displaystyle {\color{Y}|P|} \;+\; {\color{G}\mathbb{E}\big[\log 1/P(X)\big]}$\end{preview}
+\end{document}

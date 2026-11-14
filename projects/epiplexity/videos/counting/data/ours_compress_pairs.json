@@ -1,0 +1,24 @@
+{
+ "source": "our check (not the paper): compressed bits per input bit for 8192 pairs (random 64-cell row X, then rule^48(X)), 2^20 bits per file; lab/check_pairs.py",
+ "pairs": 8192,
+ "width": 64,
+ "steps": 48,
+ "N": 1048576,
+ "results": {
+  "rule15": {
+   "gzip": 0.6815,
+   "bz2": 0.8687,
+   "xz": 0.5262
+  },
+  "rule30": {
+   "gzip": 1.0004,
+   "bz2": 1.0076,
+   "xz": 1.0005
+  },
+  "rule54": {
+   "gzip": 0.9433,
+   "bz2": 0.9319,
+   "xz": 0.9377
+  }
+ }
+}
