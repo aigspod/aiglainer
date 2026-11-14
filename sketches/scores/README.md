@@ -93,3 +93,29 @@ pixi run python sketches/scores/sleep.py brass sketches/scores/out/brass.wav
   sampled piano (e.g. Salamander Grand; check its licence first).
 - Adding them left existing outputs untouched: `make check P=lawful/videos/explainer` printed `IDENTICAL`, and the night and dawn
   scores and a podcast mix hashed the same before and after.
+
+## `velours.py`: after ROUGGE
+
+Five sketches after ROUGGE's piano-and-voice lullabies (*L'heure du soir - Berceuses pour piano et voix*, 2025), what he
+calls "inside music": intimate and nocturnal, the voice a wordless texture (murmurs, and now and then a high, strained
+keen) rather than words. Original material (keys, chords, figures, lines), written to what Music Flamingo heard in
+four of the EP's tracks: minor-mode loops that rock like a lullaby with no dominant pulling home (i-iv swaying,
+i-bVII-bVI circling), soft, heavily pedalled piano in free time over a low foundation, a close voice in reverb and
+delay, long swells and real silences. The recordings were only listened to, never used or kept here.
+
+| sketch | after | what it is |
+|---|---|---|
+| `velours` | the first sketch | C# minor, ~4.5 s a chord (C#m - F#m(add9) - Amaj7 - G#m7, then E - B/D# - C#m(add9) - A(add9)); the murmur from the second pass, the keen over the middle |
+| `velours2` | the same, with edits | the voice forward and drier, the mouth opening from 'mm' to 'ah' as it swells, breaths before phrases, a rawer keen that catches near its peak |
+| `berceuse` | the i-iv rocking | A minor, Am9 <-> Dm9 every 3.4 s, a flowing rocking arpeggio, the murmur higher, the keen soaring to C6 |
+| `cascade` | the circling loops | F# minor, F#m - E - Dmaj7 at 2.4 s, continuous arpeggios, a low murmur across each loop, a 3 s silence, then the keen |
+| `nuit` | the silences | E-flat minor, 6.4 s chords, three-note figures, 2.4-3 s rests, the murmur far off in a long echo, one distant keen |
+
+The voice is synthesized (`voice()`): a soft glottal source plus breath noise through vowel formants, pitch that glides
+and never sits still, `line()` for portamento and the keen's upward scoop. Music Flamingo hears the murmur as breathy,
+wordless humming when asked about the voice, but calls it "string pads" in its general description and has never
+picked out the keen (it misses quiet and synthetic voices). The owner liked all five (Nov 14, 2026). Engine styles since Nov 14, 2026
+(`aiglainer/scores.py`): `velours` (the `velours2` settings), `berceuse`, `cascade` and `nuit`; the chord loop repeats
+to fill any length, the voice renders only where it sings (a ten-minute bed in about a minute), and the keen comes in
+only where `arp_on` is up (a video's busy middle, a podcast's theme), so a podcast's bed is piano and murmur.
+Usage: `python velours.py velours|velours2|berceuse|cascade|nuit out.wav` (6-8 s each).
