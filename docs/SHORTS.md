@@ -41,8 +41,11 @@ SCENES = [
   score: 'night' (the default: minor ninths, 96 bpm), 'dawn' (brighter major progression, 112 bpm, soft
   pulse), or one after music the pod loves: 'daylight' (strings over a lament bass, after Richter), 'encore' (soft
   solo piano, after Jarrett), 'analog' (mellow piano house, after Martin Roth), 'silencia' (guitar swells and cello)
-  or 'mysterium' (strings and a wordless choir), both after Hammock. Styles live in `aiglainer/audio.py` `STYLES`
-  (the last five in `aiglainer/scores.py`).
+  or 'mysterium' (strings and a wordless choir), both after Hammock; or one of four piano-and-voice lullabies after
+  ROUGGE, soft pedalled piano with a synthesized wordless murmur and, over the busy middle, a high keen: 'velours'
+  (C# minor), 'berceuse' (a rocking A-minor lullaby), 'cascade' (a quick falling F#-minor loop) or 'nuit' (the
+  sparsest, E-flat minor, the voice far off). Styles live in `aiglainer/audio.py` `STYLES`
+  (all but 'night' and 'dawn' in `aiglainer/scores.py`).
 - **Captions are burned in**, a few words at a time with the spoken word in amber, timed from Whisper's word
   timestamps (computed by `make narration`). Many people watch with the sound off.
 - **Writing:** one idea per short; the hook in the first line (a question or a surprise, not a title); ~100–130 words;

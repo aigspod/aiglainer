@@ -22,8 +22,9 @@ doesn't replace it).
 - A project with `KIND = 'short'` is a 9:16 YouTube Short / TikTok (see [docs/SHORTS.md](docs/SHORTS.md)): it borrows
   scenes and data from `SOURCES` projects and shows them as crops, or draws native vertical scenes. Check its
   `out/narrated/qa/safe_*.png`: nothing that matters may fall in the red (the apps' buttons cover it).
-- Score styles are picked with `MUSIC['style']` (or your own file, or `'none'`: docs/STYLES.md): `night` and `dawn` in `aiglainer/audio.py`, and five after music the
-  pod loves in `aiglainer/scores.py` (`daylight`, `encore`, `analog`, `silencia`, `mysterium`), prototyped in
+- Score styles are picked with `MUSIC['style']` (or your own file, or `'none'`: docs/STYLES.md): `night` and `dawn` in `aiglainer/audio.py`, and nine after music the
+  pod loves in `aiglainer/scores.py` (`daylight`, `encore`, `analog`, `silencia`, `mysterium`, and four piano-and-voice
+  lullabies after ROUGGE: `velours`, `berceuse`, `cascade`, `nuit`), prototyped in
   `sketches/scores/` (its README says what each is after). Keep them separate tracks (never blend them), write
   original material only, and never use the recordings.
 - **Listen to scores you change.** `make listen F=<audio> Q="..."` asks NVIDIA Music Flamingo (`aiglainer/listen.py`, also

@@ -62,7 +62,8 @@ whose licence allows it, and include the licence.
 
 ## Music
 
-`MUSIC['style']` is one of our scores (`night`, the default, `dawn`, `daylight`, `encore`, `analog`, `silencia`, `mysterium`;
+`MUSIC['style']` is one of our scores (`night`, the default, `dawn`, `daylight`, `encore`, `analog`, `silencia`, `mysterium`,
+`velours`, `berceuse`, `cascade`, `nuit`;
 docs/WORKFLOW.md describes them), `'none'`, or **your own audio file**:
 
 ```python

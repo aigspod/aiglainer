@@ -115,10 +115,11 @@ score: a quiet drone and a riser before `intro_until`, a plucked arpeggio betwee
 score: 'night' (the default: minor ninths, 96 bpm), 'dawn' (brighter major progression, 112 bpm, soft
   pulse), or one after music the pod loves: 'daylight' (strings over a lament bass, after Richter), 'encore' (soft
   solo piano, after Jarrett), 'analog' (mellow piano house, after Martin Roth), 'silencia' (guitar swells and cello)
-  or 'mysterium' (strings and a wordless choir), both after Hammock. Every style
+  or 'mysterium' (strings and a wordless choir), both after Hammock; or a piano-and-voice lullaby after ROUGGE
+  ('velours', 'berceuse', 'cascade', 'nuit': soft piano, a synthesized wordless murmur, a high keen). Every style
 fits any length and sits at the same loudness, so trying one is a one-word change (`make audio` to hear it). The
-last five live in `aiglainer/scores.py` and use the arp window for their moving part (the piano figure, the drums and
-hook, the violins); `sketches/scores/` has the 60-second prototypes they grew from.
+last nine live in `aiglainer/scores.py` and use the arp window for their moving part (the piano figure, the drums and
+hook, the violins, the lullabies' keen); `sketches/scores/` has the 60-second prototypes they grew from.
 
 ## Before uploading
 

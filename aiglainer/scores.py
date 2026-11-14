@@ -5,6 +5,10 @@
   analog     mellow piano house at 106 bpm (after Martin Roth)
   silencia   swelling processed-guitar pads, a cello line, a few soft piano notes (after Hammock's Silencia)
   mysterium  low strings and a wordless choir that swell, guitar haze above (after Hammock's Mysterium)
+  velours    soft pedalled piano in C# minor and a wordless murmur, a high keen over the middle (after ROUGGE)
+  berceuse   the same voice over a rocking A-minor lullaby, Am9 <-> Dm9 (after ROUGGE)
+  cascade    a quick falling loop in F# minor with flowing arpeggios, a low murmur (after ROUGGE)
+  nuit       the sparsest: E-flat minor, long chords and rests, the voice far off in an echo (after ROUGGE)
 
 All original material, prototyped in sketches/scores/ (its README has what each is after and why). Each renders a
 bed of any length in its own room, at the loudness of the 'night' score after its reverb, so swapping styles keeps
@@ -413,5 +417,239 @@ def mysterium(total, arp_on):
             place(dry, x * 0.6, t0, 0.2); place(send, x * 0.7, t0, 0.2)
     return soft(hall(dry, send, 6.0, 1.2))[:int(total * SR)]
 
-STYLES = dict(daylight=daylight, encore=encore, analog=analog, silencia=silencia, mysterium=mysterium)
-SEEDS = dict(daylight=101, encore=102, analog=103, silencia=104, mysterium=105)
+# ---------------------------------------------------------------- velours, berceuse, cascade, nuit
+# After ROUGGE's piano-and-voice lullabies ("inside music"): soft, pedalled piano in free time over minor loops with no
+# dominant, and a wordless synthesized voice as texture (a breathy murmur that opens from 'mm' towards 'ah' as it
+# swells, breaths before phrases, and over the busy middle a thin high keen that scoops up into its notes and catches).
+# Prototyped in sketches/scores/velours.py; original material.
+V_HUM = [(260, 1.0, 70), (1050, 0.10, 140), (2500, 0.05, 200)]
+V_AH = [(700, 1.0, 110), (1150, 0.45, 130), (2600, 0.18, 170)]
+V_EE = [(300, 0.7, 80), (2350, 0.65, 170), (3100, 0.45, 220)]
+
+def _formant(fh, formants):
+    return sum(a / (1 + ((fh - F) / bw) ** 2) for F, a, bw in formants)
+
+def _drift(n, rate, depth):
+    w = lp(rng.normal(0, 1, n + SR), rate)[SR:]
+    return 1 + depth * w / (np.abs(w).max() + 1e-9)
+
+def _smooth(x, k):
+    """Centred moving average over k samples, as a running sum."""
+    if k < 2:
+        return x
+    c = np.concatenate([[0.0], np.cumsum(np.pad(x, (k, k), mode='edge'))])
+    o = k // 2
+    return ((c[k:] - c[:-k]) / k)[k - o:k - o + len(x)]
+
+def _voice(path, amps, formants, tilt=1.6, breath=0.25, jitter=0.0012, rough=0.0, cut=3000):
+    """One wordless voice: a soft glottal source (harmonics as 1/h^tilt) and breath noise through vowel formants;
+    `path` is Hz per sample, `amps` loudness per sample."""
+    n = len(path)
+    t = np.arange(n) / SR
+    f = path * _drift(n, 6, jitter)
+    amax = amps.max() + 1e-9
+    vib = 1 + 0.0035 * np.clip(amps / amax - 0.5, 0, 1) * np.sin(2 * np.pi * 4.6 * t + rng.uniform(0, 6))
+    ph = 2 * np.pi * np.cumsum(f * vib) / SR
+    f0 = float(np.median(path[amps > 0])) if (amps > 0).any() else float(np.median(path))
+    x = np.zeros(n)
+    for h in range(1, 60):
+        if h * f0 > cut * 1.6:
+            break
+        x += _formant(h * f0, formants) / h ** tilt * np.sin(h * ph + rng.uniform(0, 6))
+    noise = rng.normal(0, 1, n)
+    x = (x + sum(a * bp(noise, max(80, F - bw), F + bw) for F, a, bw in formants) * breath) * amps * _drift(n, 0.7, 0.18)
+    if rough:
+        x *= 1 + rough * (amps / amax) ** 2 * np.sin(2 * np.pi * 31 * t) * _drift(n, 3, 0.5)
+    return lp(hp(x, 70), cut)
+
+def _sung(path, amps, fn):
+    """Render a voice only where it sings: each stretch of non-zero loudness (with 1.5 s either side) on its own,
+    so a ten-minute bed with a few minutes of voice stays quick."""
+    out = np.zeros(len(path))
+    on = np.flatnonzero(amps > 0)
+    if not len(on):
+        return out
+    pad = int(1.5 * SR)
+    cuts = np.flatnonzero(np.diff(on) > 2 * pad)
+    for a, b in zip(np.r_[on[0], on[cuts + 1]], np.r_[on[cuts], on[-1]]):
+        a, b = max(0, a - pad), min(len(path), b + pad)
+        out[a:b] += fn(path[a:b], amps[a:b])
+    return out
+
+def _line(notes, n, glide=0.18, scoop=0.0):
+    """Pitch (Hz) and loudness paths for notes (start, dur, midi, level): portamento of `glide` s, and with `scoop`
+    a slide up into each note from that many semitones below."""
+    midi = np.full(n, float(notes[0][2]) if notes else 60.0)
+    amp = np.zeros(n)
+    for (t0, d, m, lv) in notes:
+        a, b = int(t0 * SR), min(n, int((t0 + d) * SR))
+        if b <= a:
+            continue
+        seg = np.full(b - a, float(m))
+        if scoop:
+            seg -= scoop * np.exp(-np.arange(b - a) / SR / 0.22)
+        midi[a:b] = seg
+        amp[a:b] = np.maximum(amp[a:b], lv * env_adsr(b - a, min(0.9, d * 0.35), 0.3, 0.85, min(1.4, d * 0.4)))
+    return 440 * 2 ** ((_smooth(midi, int(glide * SR)) - 69) / 12), amp
+
+def _echo(x, d=0.39, fb=0.38, taps=4):
+    y, rep, k = x.copy(), x, int(d * SR)
+    for i in range(1, taps + 1):
+        rep = lp(np.pad(rep, (k, 0))[:len(x)], 3200 - 500 * i) * fb
+        y += rep
+    return y
+
+def _inhale(out, at, level):
+    L, a = int(0.35 * SR), int(at * SR)
+    if 0 <= a and a + L <= len(out):
+        out[a:a + L] += bp(rng.normal(0, 1, L), 500, 3500) * np.linspace(0, 1, L) ** 2 * level
+
+def _nearest(pcs, lo, hi, prev):
+    return min((m for m in range(lo, hi + 1) if m % 12 in pcs), key=lambda m: (abs(m - prev), m))
+
+def _lullaby(sp, total, arp_on):
+    """One of the four lullaby styles: the chord loop `body` repeats to fill the bed, then `final` is rolled."""
+    C, body = sp['chords'], sp['body']
+    L = len(body)
+    seq, durs, rest, t = [], [], [], 0.6
+    while True:
+        i = len(seq)
+        d = sp['dur'] * rng.uniform(1 - sp.get('jit', 0.07), 1 + sp.get('jit', 0.07))
+        r = sp.get('breaths', {}).get(i % L, 0.0)
+        if seq and t + d + r + sp['dur'] * 1.3 + 5 > total:
+            break
+        seq.append(body[i % L]); durs.append(d); rest.append(r); t += d + r
+    seq.append(sp['final']); durs.append(sp['dur'] * 1.3); rest.append(0.0)
+    starts = np.concatenate([[0.6], 0.6 + np.cumsum(np.add(durs, rest))])
+    N = int((total + 8) * SR)
+    pno = np.zeros((N, 2))
+    g0, g1 = sp.get('gaps', (0.62, 0.78))
+    pat = sp.get('arp', [0, 1, 2, 3, 2, 1])
+    for i, name in enumerate(seq):
+        bass, up = C[name]
+        t0, d = starts[i], durs[i]
+        last = i == len(seq) - 1
+        hold = d + (4 if last else 0.15) + rest[i] * 0.3
+        dyn = sp.get('pv', 1.0) * (0.8 + 0.2 * np.sin(np.pi * (i % 8) / 7))
+        for j, m in enumerate(bass):
+            place(pno, grand(mtof(m), 0.30 * dyn, hold - 0.05 * j), t0 + 0.05 * j, -0.25)
+        if last:
+            for j, m in enumerate(up + [up[0] + 12]):
+                place(pno, grand(mtof(m), 0.19 * dyn, hold - 0.4 - 0.17 * j), t0 + 0.4 + 0.17 * j, (m - 60) / 45)
+            continue
+        nst = max(sp.get('min_steps', 3), int((d - 0.5) / ((g0 + g1) / 2)))
+        if not sp.get('flow', False):
+            nst = min(nst, len(pat))
+        gaps = np.linspace(g0, g1, nst) * rng.uniform(0.95, 1.05, nst)
+        tt = t0 + sp.get('arp_in', 0.55)
+        for k in range(nst):
+            m = up[pat[k % len(pat)]]
+            vel = (0.19 + 0.05 * (k % len(pat) == 0)) * dyn * rng.uniform(0.9, 1.08)
+            place(pno, grand(mtof(m), vel, max(0.6, t0 + hold - tt)), tt + rng.normal(0, 0.01), (m - 60) / 45)
+            tt += gaps[k]
+        if (i % L) in sp.get('answer', ()) and arp_on(t0) > 0.5:      # a high note answers the keen
+            m = up[-1] + 12
+            place(pno, grand(mtof(m), 0.14 * dyn, max(0.6, hold - d * 0.62)), t0 + d * 0.62, 0.3)
+    pno = room(soundboard(pno), *sp.get('proom', (2.4, 2.6, 0.85, 0.22)))
+
+    vox = np.zeros(N)
+    mu, ke = sp['mur'], sp.get('kee')
+    lo, hi = mu['reg']
+    prev, notes, last_end, hold_n = (lo + hi) // 2, [], -9.0, mu.get('hold', 1)
+    for i in range(mu['from'], len(seq), hold_n):          # the murmur: lazy voice leading through chord tones
+        pcs = {m % 12 for m in C[seq[i]][0] + C[seq[i]][1]}
+        prev = _nearest(pcs, lo, hi, prev)
+        j = min(len(seq) - 1, i + hold_n - 1)
+        t0 = starts[i] + rng.uniform(0.2, 0.7)
+        dur = starts[j] + durs[j] - t0 - rng.uniform(0.2, 0.8)
+        if rng.uniform() < mu.get('sigh', 0.3) and dur > 3:
+            d1 = dur * rng.uniform(0.55, 0.7)
+            notes.append((t0, d1 + 0.3, prev, mu['lv'] * rng.uniform(0.85, 1)))
+            prev = _nearest(pcs, lo, hi, prev - 2)
+            notes.append((t0 + d1, dur - d1, prev, mu['lv'] * 0.8))
+        else:
+            notes.append((t0, dur, prev, mu['lv'] * rng.uniform(0.8, 1)))
+        if t0 - last_end > 1.2:
+            _inhale(vox, t0 - 0.42, 0.05 * mu['lv'])
+        last_end = t0 + dur
+    p, a = _line(notes, N, glide=mu.get('glide', 0.3))
+    op = mu.get('open', 0.5)
+    def murmur(pp, aa):
+        o = op * (aa / (aa.max() + 1e-9)) ** 1.5
+        kw = dict(tilt=1.7, breath=mu.get('air', 0.3), cut=2800)
+        return _voice(pp, aa * (1 - o), V_HUM, **kw) + _voice(pp, aa * o, V_AH, **kw) * 0.8
+    vox += _sung(p, a, murmur) * mu.get('gain', 0.7)
+    if ke:                                                  # the keen, only over the busy middle
+        lo, hi = ke['reg']
+        prev, notes = hi - 2, []
+        for i in range(len(seq) - 1):
+            if (i % L) not in ke['at'] or arp_on(starts[i]) < 0.5:
+                continue
+            prev = _nearest({m % 12 for m in C[seq[i]][1]}, lo, hi, prev + 1)
+            notes.append((starts[i] + rng.uniform(0.6, 1.3), min(durs[i] * 0.8, ke.get('max', 3.6)), prev,
+                          ke['lv'] * rng.uniform(0.85, 1)))
+        if notes:
+            p, a = _line(notes, N, glide=0.1, scoop=ke.get('scoop', 2.0))
+            for (t0, d, m, lv) in notes:                   # a brief flip up near each peak, like a voice catching
+                c0, Lc = int((t0 + d * 0.45) * SR), int(0.11 * SR)
+                if c0 + Lc < N:
+                    p[c0:c0 + Lc] *= 2 ** (ke.get('crack', 1.0) / 12 * np.sin(np.linspace(0, np.pi, Lc)))
+            vox += _sung(p, a, lambda pp, aa: _voice(pp, aa, V_EE, tilt=1.0, breath=0.5, jitter=0.003,
+                                                     rough=ke.get('rough', 0.4), cut=7000)) * ke.get('gain', 0.45)
+    vox = room(stereo(_echo(vox, *sp.get('echo', (0.39, 0.38))), 0.05), *sp.get('vroom', (4.5, 1.4, 0.8, 0.35)))
+    return soft(pno + vox * sp.get('vox', 0.75), 0.95)[:int(total * SR)]
+
+_CS = {'C#m': ([37, 44], [56, 61, 64, 68]), 'F#m9': ([42, 49], [57, 61, 66, 68]), 'Amaj7': ([45, 52], [56, 61, 64, 69]),
+       'G#m7': ([44, 51], [59, 63, 66, 68]), 'E': ([40, 47], [56, 59, 64, 68]), 'B/D#': ([39, 47], [54, 59, 63, 66]),
+       'C#m9': ([37, 44], [56, 63, 64, 68]), 'Aadd9': ([45, 52], [57, 59, 64, 69])}
+_AM = {'Am9': ([33, 40], [60, 64, 67, 71]), 'Dm9': ([38, 45], [60, 64, 65, 69]),
+       'Fmaj7': ([41, 48], [57, 60, 64, 69]), 'Em7': ([40, 47], [55, 59, 62, 67])}
+_FS = {'F#m': ([42, 49], [57, 61, 66, 69]), 'E': ([40, 47], [56, 59, 64, 68]), 'Dmaj7': ([38, 45], [57, 61, 66, 69]),
+       'Bm9': ([35, 42], [57, 61, 62, 66]), 'D': ([38, 45], [57, 62, 66, 69]), 'Esus4': ([40, 47], [57, 59, 64, 69])}
+_EB = {'Ebm': ([39, 46], [58, 63, 66, 70]), 'Cbmaj7': ([35, 42], [59, 63, 66, 70]), 'Gbadd9': ([42, 49], [56, 61, 66, 70]),
+       'Db/F': ([41, 49], [56, 61, 65, 68]), 'Abm9': ([44, 51], [59, 63, 66, 70])}
+LULLABIES = dict(
+    velours=dict(chords=_CS, body=['C#m', 'F#m9', 'Amaj7', 'G#m7'] * 2 + ['E', 'B/D#', 'C#m9', 'Aadd9', 'E', 'B/D#', 'Aadd9', 'G#m7'],
+                 final='C#m', dur=4.6, breaths={3: 1.8, 7: 2.4, 11: 1.8, 15: 2.4}, answer=(8, 10, 12),
+                 mur=dict(reg=(52, 59), hold=1, lv=0.9, open=0.6, sigh=0.35, gain=0.8, **{'from': 4}),
+                 kee=dict(reg=(72, 81), at=(8, 9, 10, 12, 13, 14), lv=0.85, rough=0.5, crack=1.2, gain=0.5),
+                 vroom=(4.0, 1.6, 0.85, 0.28), vox=0.85),
+    berceuse=dict(chords=_AM, body=['Am9', 'Dm9'] * 2 + ['Am9', 'Dm9', 'Fmaj7', 'Em7'] + ['Am9', 'Dm9'] * 2 + ['Fmaj7', 'Em7', 'Dm9', 'Em7'],
+                  final='Am9', dur=3.4, breaths={3: 1.2, 7: 2.0, 11: 1.2, 15: 2.0}, arp=[0, 2, 1, 3, 1, 2], gaps=(0.5, 0.62),
+                  flow=True, answer=(9, 11),
+                  mur=dict(reg=(57, 64), hold=2, lv=0.9, open=0.5, sigh=0.5, gain=0.75, **{'from': 2}),
+                  kee=dict(reg=(74, 84), at=(8, 10, 12, 13), lv=0.9, rough=0.45, crack=1.5, scoop=2.5, max=4.0, gain=0.5)),
+    cascade=dict(chords=_FS, body=['F#m', 'E', 'Dmaj7'] * 4 + ['Bm9', 'D', 'Esus4', 'F#m', 'Bm9', 'D', 'Esus4'],
+                 final='F#m', dur=2.4, jit=0.05, breaths={11: 3.0, 18: 1.5}, arp=[0, 1, 2, 3, 2, 1], gaps=(0.36, 0.42),
+                 flow=True, arp_in=0.3,
+                 mur=dict(reg=(49, 56), hold=3, lv=0.85, open=0.35, sigh=0.6, gain=0.8, glide=0.45, **{'from': 3}),
+                 kee=dict(reg=(73, 81), at=(12, 13, 14, 16, 17, 18), lv=0.8, rough=0.35, crack=1.0, gain=0.42),
+                 proom=(2.0, 2.8, 0.85, 0.2)),
+    nuit=dict(chords=_EB, body=['Ebm', 'Cbmaj7', 'Gbadd9', 'Db/F', 'Ebm', 'Cbmaj7', 'Abm9', 'Db/F'], final='Ebm',
+              dur=6.4, breaths={1: 2.4, 3: 3.0, 5: 2.4, 7: 3.0}, arp=[1, 2, 3], gaps=(0.9, 1.2), arp_in=1.0, pv=0.85,
+              mur=dict(reg=(51, 58), hold=1, lv=0.75, open=0.3, sigh=0.4, gain=0.65, air=0.45, **{'from': 1}),
+              kee=dict(reg=(75, 82), at=(6,), lv=0.6, rough=0.25, crack=0.8, gain=0.35, max=4.5),
+              echo=(0.62, 0.45), vroom=(6.0, 1.0, 0.6, 0.6), vox=0.65),
+)
+
+def velours(total, arp_on):
+    """C# minor, ~4.6 s a chord (C#m - F#m(add9) - Amaj7 - G#m7, then E - B/D# - C#m(add9) - A(add9)); the murmur from
+    the second pass, the keen over the busy middle."""
+    return _lullaby(LULLABIES['velours'], total, arp_on)
+
+def berceuse(total, arp_on):
+    """The rocking lullaby: A minor, Am9 <-> Dm9 every 3.4 s, a flowing rocking arpeggio, the keen soaring to C6."""
+    return _lullaby(LULLABIES['berceuse'], total, arp_on)
+
+def cascade(total, arp_on):
+    """The circling loop: F# minor, F#m - E - Dmaj7 at 2.4 s, flowing arpeggios, a low murmur across each loop."""
+    return _lullaby(LULLABIES['cascade'], total, arp_on)
+
+def nuit(total, arp_on):
+    """The sparsest: E-flat minor, 6.4 s chords, three-note figures, long rests, the voice far off in a long echo."""
+    return _lullaby(LULLABIES['nuit'], total, arp_on)
+
+STYLES = dict(daylight=daylight, encore=encore, analog=analog, silencia=silencia, mysterium=mysterium,
+              velours=velours, berceuse=berceuse, cascade=cascade, nuit=nuit)
+SEEDS = dict(daylight=101, encore=102, analog=103, silencia=104, mysterium=105,
+             velours=106, berceuse=107, cascade=108, nuit=109)

@@ -67,9 +67,10 @@ STYLES = dict(
     dawn=dict(chords=[[48, 55, 62, 64, 69], [45, 52, 57, 60, 62], [41, 48, 57, 60, 64], [43, 50, 55, 60, 64]],
               ch_len=60 / 112 * 8, bpm=112, pattern=[0, 1, 2, 3, 2, 1, 3, 2], pulse=0.07, cutoff=6400),
     # after music the pod loves, rendered by aiglainer/scores.py in their own rooms (see its docstring):
-    # Richter, Jarrett, Martin Roth, and Hammock's Silencia and Mysterium
+    # Richter, Jarrett, Martin Roth, Hammock's Silencia and Mysterium, and ROUGGE's piano-and-voice lullabies
     daylight=dict(score='daylight'), encore=dict(score='encore'), analog=dict(score='analog'),
     silencia=dict(score='silencia'), mysterium=dict(score='mysterium'),
+    velours=dict(score='velours'), berceuse=dict(score='berceuse'), cascade=dict(score='cascade'), nuit=dict(score='nuit'),
 )
 
 def own_room(style):
