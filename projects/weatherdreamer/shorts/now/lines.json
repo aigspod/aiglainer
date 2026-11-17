@@ -1,0 +1,57 @@
+[
+ {
+  "scene": "NowClues",
+  "i": 0,
+  "v": 0.3,
+  "text": "Every weather forecast starts from a picture of the atmosphere right now. And nobody can see right now.",
+  "say": "Every weather forecast starts from a picture of the atmosphere right now. And nobody can see right now.",
+  "file": "cache/8b218a955c26192a.wav",
+  "dur": 7.225,
+  "heard": "Every weather forecast starts from a picture of the atmosphere right now. And nobody can see right now.",
+  "wer": 0.0
+ },
+ {
+  "scene": "NowClues",
+  "i": 1,
+  "v": 5.5,
+  "text": "Stations dot the land. Balloons rise twice a day. Satellites sweep past in stripes, measuring light, not temperature.",
+  "say": "Stations dot the land. Balloons rise twice a day. Satellites sweep past in stripes, measuring light, not temperature.",
+  "file": "cache/eb79d05f26351497.wav",
+  "dur": 9.45,
+  "heard": "Stations dot the land. Balloons rise twice a day. Satellites sweep past in stripes, measuring light, not temperature.",
+  "wer": 0.0
+ },
+ {
+  "scene": "NowCycle",
+  "i": 0,
+  "v": 0.3,
+  "text": "Stitching those clues into one picture usually takes big physics machinery, every six hours, and it arrives hours late.",
+  "say": "Stitching those clues into one picture usually takes big physics machinery, every six hours, and it arrives hours late.",
+  "file": "cache/2ee096667735876e.wav",
+  "dur": 9.225,
+  "heard": "Stitching those clues into one picture usually takes big physics machinery, every six hours, and it arrives hours late.",
+  "wer": 0.0
+ },
+ {
+  "scene": "NowCycle",
+  "i": 1,
+  "v": 7.0,
+  "text": "A new model learns the whole job from the clues alone, with no answer key. A fresh global picture every hour, in about a minute and a half on one GPU.",
+  "say": "A new model learns the whole job from the clues alone, with no answer key. A fresh global picture every hour, in about a minute and a half on one GPU.",
+  "file": "cache/d0dbe1a5eff8231e.wav",
+  "dur": 11.85,
+  "heard": "A new model learns the whole job from the clues alone, with no answer key. A fresh global picture every hour, in about a minute and a half on one GPU.",
+  "wer": 0.0
+ },
+ {
+  "scene": "NowCycle",
+  "i": 2,
+  "v": 15.0,
+  "text": "Near the ground, it already competes with the big forecasts. What would you do with a fresh picture every hour?",
+  "say": "Near the ground, it already competes with the big forecasts. What would you do with a fresh picture every hour?",
+  "file": "cache/f0002e9022caeb10.wav",
+  "dur": 7.65,
+  "heard": "Near the ground, it already competes with the big forecasts. What would you do with a fresh picture every hour?",
+  "wer": 0.0
+ }
+]

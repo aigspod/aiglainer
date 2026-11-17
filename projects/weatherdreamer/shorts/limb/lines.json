@@ -1,0 +1,57 @@
+[
+ {
+  "scene": "LimbSlant",
+  "i": 0,
+  "v": 0.3,
+  "text": "A satellite looking straight down sees deep into the air. Looking at a slant, its view crosses more atmosphere, and sees higher, colder layers.",
+  "say": "A satellite looking straight down sees deep into the air. Looking at a slant, its view crosses more atmosphere, and sees higher, colder layers.",
+  "file": "cache/26ac1abc16b6541a.wav",
+  "dur": 9.975,
+  "heard": "A satellite looking straight down seas deep into the air. Looking at a slant, its view crosses more atmosphere and sees higher, colder layers.",
+  "wer": 0.042
+ },
+ {
+  "scene": "LimbSlant",
+  "i": 1,
+  "v": 8.0,
+  "text": "So images go cold toward the edges, with seams where one satellite hands off to the next.",
+  "say": "So images go cold toward the edges, with seams where one satellite hands off to the next.",
+  "file": "cache/754a236e911c91c2.wav",
+  "dur": 6.575,
+  "heard": "So images go cold toward the edges, with seams where one satellite hands off to the next.",
+  "wer": 0.0
+ },
+ {
+  "scene": "LimbFix",
+  "i": 0,
+  "v": 0.3,
+  "text": "This weather model is told each view's angle, and can redraw any view as if looking straight down.",
+  "say": "This weather model is told each view's angle, and can redraw any view as if looking straight down.",
+  "file": "cache/9c3df42c88f1972d.wav",
+  "dur": 6.825,
+  "heard": "This weather model is told each view's angle and can redraw any view as if looking straight down.",
+  "wer": 0.0
+ },
+ {
+  "scene": "LimbFix",
+  "i": 1,
+  "v": 6.0,
+  "text": "That removes eighty-three to ninety-six percent of the edge cooling, from about six degrees in a clear window channel to twenty-two in an ozone channel.",
+  "say": "That removes eighty-three to ninety-six percent of the edge cooling, from about six degrees in a clear window channel to twenty-two in an ozone channel.",
+  "file": "cache/8edde9af97874bdd.wav",
+  "dur": 10.55,
+  "heard": "That removes 83 to 96% of the edge cooling, from about 6 degrees in a clear window channel to 22 in an ozone channel.",
+  "wer": 0.0
+ },
+ {
+  "scene": "LimbFix",
+  "i": 2,
+  "v": 14.0,
+  "text": "The stripes vanish. It learned this because the same spot is often seen from two angles at once. What else could disagreement teach a model?",
+  "say": "The stripes vanish. It learned this because the same spot is often seen from two angles at once. What else could disagreement teach a model?",
+  "file": "cache/89f7f7b10f995d0a.wav",
+  "dur": 9.675,
+  "heard": "The stripes vanish. It learned this because the same spot is often seen from two angles at once. What else could disagreement teach a model?",
+  "wer": 0.0
+ }
+]

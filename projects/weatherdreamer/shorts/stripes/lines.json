@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "StripesMemory",
+  "i": 0,
+  "v": 0.3,
+  "text": "This is the inside of a weather model's memory, mapped across the globe.",
+  "say": "This is the inside of a weather model's memory, mapped across the globe.",
+  "file": "cache/2db77ad10a6661f7.wav",
+  "dur": 5.3,
+  "heard": "This is the inside of a weather model's memory, mapped across the globe.",
+  "wer": 0.0
+ },
+ {
+  "scene": "StripesMemory",
+  "i": 1,
+  "v": 5.0,
+  "text": "Some channels look like weather. But others show round footprints, and long diagonal stripes.",
+  "say": "Some channels look like weather. But others show round footprints, and long diagonal stripes.",
+  "file": "cache/7ed9db4b34b9b9db.wav",
+  "dur": 6.55,
+  "heard": "Some channels look like weather, but others show round footprints and long diagonal stripes.",
+  "wer": 0.0
+ },
+ {
+  "scene": "StripesMemory",
+  "i": 2,
+  "v": 11.0,
+  "text": "Those are the places its satellites were looking.",
+  "say": "Those are the places its satellites were looking.",
+  "file": "cache/eb72eec020ede89b.wav",
+  "dur": 3.575,
+  "heard": "Those are the places its satellites were looking.",
+  "wer": 0.0
+ },
+ {
+  "scene": "StripesWhy",
+  "i": 0,
+  "v": 0.3,
+  "text": "Why remember that? A filter has to know where it looked, to know how sure to be. Classical filters keep that in their error estimates.",
+  "say": "Why remember that? A filter has to know where it looked, to know how sure to be. Classical filters keep that in their error estimates.",
+  "file": "cache/b3058e2a18e0be61.wav",
+  "dur": 9.1,
+  "heard": "Why remember that? A filter has to know where it looked to know how sure to be. Classical filters keep that in their error estimates.",
+  "wer": 0.0
+ },
+ {
+  "scene": "StripesWhy",
+  "i": 1,
+  "v": 9.0,
+  "text": "The narrow weather state that the model reads out from is mostly weather, with only a faint trace.",
+  "say": "The narrow weather state that the model reads out from is mostly weather, with only a faint trace.",
+  "file": "cache/1cb015e76bb374f9.wav",
+  "dur": 6.725,
+  "heard": "The narrow weather state that the model reads out from is mostly weather, with only a faint trace.",
+  "wer": 0.0
+ },
+ {
+  "scene": "StripesWhy",
+  "i": 2,
+  "v": 15.0,
+  "text": "The open test: swap one satellite for another. Does the weather picture stay put?",
+  "say": "The open test: swap one satellite for another. Does the weather picture stay put?",
+  "file": "cache/8910b16e6a2a2fc6.wav",
+  "dur": 6.025,
+  "heard": "The open test, swap one satellite for another. Does the weather picture stay put?",
+  "wer": 0.0
+ }
+]

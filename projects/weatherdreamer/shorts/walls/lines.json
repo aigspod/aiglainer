@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "WallsRatio",
+  "i": 0,
+  "v": 0.3,
+  "text": "At surface weather stations, a model trained only on observations is within about ten percent of NOAA's own system.",
+  "say": "At surface weather stations, a model trained only on observations is within about ten percent of NOAA's own system.",
+  "file": "cache/03f7d35a520420a1.wav",
+  "dur": 9.275,
+  "heard": "At surface weather stations, a model trained only on observations is within about 10% of NOAA's own system.",
+  "wer": 0.0
+ },
+ {
+  "scene": "WallsRatio",
+  "i": 1,
+  "v": 6.5,
+  "text": "Higher up, it falls behind. Balloon winds are two point six times worse on average.",
+  "say": "Higher up, it falls behind. Balloon winds are two point six times worse on average.",
+  "file": "cache/d0433ec7b55a37f1.wav",
+  "dur": 6.625,
+  "heard": "Higher up, it falls behind. Balloon winds are 2.6 times worse on average.",
+  "wer": 0.0
+ },
+ {
+  "scene": "WallsCauses",
+  "i": 0,
+  "v": 0.3,
+  "text": "The paper gives two reasons. First, its dynamics run on patches about one thousand six hundred kilometres wide, too small for the big, slow circulation aloft.",
+  "say": "The paper gives two reasons. First, its dynamics run on patches about one thousand six hundred kilometres wide, too small for the big, slow circulation aloft.",
+  "file": "cache/b702a8f154aa2fa8.wav",
+  "dur": 12.3,
+  "heard": "the paper gives two reasons first its dynamics run on patches about one thousand six hundred kilometers wide too small for the big slow circulation aloft",
+  "wer": 0.038
+ },
+ {
+  "scene": "WallsCauses",
+  "i": 1,
+  "v": 5.5,
+  "text": "By our own arithmetic, a jet stream wind crosses one of those patches in about nine hours.",
+  "say": "By our own arithmetic, a jet stream wind crosses one of those patches in about nine hours.",
+  "file": "cache/64b5f4644920d324.wav",
+  "dur": 7.175,
+  "heard": "By our own arithmetic, a jet stream wind crosses one of those patches in about nine hours.",
+  "wer": 0.0
+ },
+ {
+  "scene": "WallsCauses",
+  "i": 2,
+  "v": 11.0,
+  "text": "Second, it leans only lightly on balloon readings up there.",
+  "say": "Second, it leans only lightly on balloon readings up there.",
+  "file": "cache/a9ccd01bc5b7a3eb.wav",
+  "dur": 4.6,
+  "heard": "Second, it leans only lightly on balloon readings up there.",
+  "wer": 0.0
+ },
+ {
+  "scene": "WallsCauses",
+  "i": 3,
+  "v": 16.0,
+  "text": "If you could fix one, which would it be?",
+  "say": "If you could fix one, which would it be?",
+  "file": "cache/8e46426eaebfeb8f.wav",
+  "dur": 3.075,
+  "heard": "If you could fix one, which would it be?",
+  "wer": 0.0
+ }
+]

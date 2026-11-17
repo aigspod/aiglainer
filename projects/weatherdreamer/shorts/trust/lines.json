@@ -1,0 +1,68 @@
+[
+ {
+  "scene": "TrustGain",
+  "i": 0,
+  "v": 0.3,
+  "text": "Your forecast says twenty degrees. A thermometer says twenty-two. How far should you move?",
+  "say": "Your forecast says twenty degrees. A thermometer says twenty-two. How far should you move?",
+  "file": "cache/9fc6e8a71c4c5158.wav",
+  "dur": 6.7,
+  "heard": "Your forecast says 20 degrees. A thermometer says 22. How far should you move?",
+  "wer": 0.0
+ },
+ {
+  "scene": "TrustGain",
+  "i": 1,
+  "v": 6.0,
+  "text": "It depends on how noisy each one is. That fraction is called the gain, and forecasting systems usually set the errors behind it by hand.",
+  "say": "It depends on how noisy each one is. That fraction is called the gain, and forecasting systems usually set the errors behind it by hand.",
+  "file": "cache/b9cd8ae1919cc1af.wav",
+  "dur": 10.275,
+  "heard": "It depends on how noisy each one is. That fraction is called the gain, and forecasting systems usually set the errors behind it by hand.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TrustLearned",
+  "i": 0,
+  "v": 0.3,
+  "text": "This model was never told. Yet for its microwave temperature channels, the noise it assumes is two to four tenths of a degree, the real noise of those instruments in orbit.",
+  "say": "This model was never told. Yet for its microwave temperature channels, the noise it assumes is two to four tenths of a degree, the real noise of those instruments in orbit.",
+  "file": "cache/82595875ae85d741.wav",
+  "dur": 12.35,
+  "heard": "This model was never told. Yet for its microwave temperature channels, the noise it assumes is two to four-tenths of a degree, the real noise of those instruments in orbit.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TrustLearned",
+  "i": 1,
+  "v": 9.0,
+  "text": "It isn't perfect. It's timid there, moving sixty-four percent of the way where about eighty-two would be best.",
+  "say": "It isn't perfect. It's timid there, moving sixty-four percent of the way where about eighty-two would be best.",
+  "file": "cache/b10202d90625f989.wav",
+  "dur": 7.5,
+  "heard": "It isn't perfect. It's timid there, moving 64% of the way where about 82 would be best.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TrustLearned",
+  "i": 2,
+  "v": 13.5,
+  "text": "It's too trusting of satellite winds over the ocean, and it barely listens to weather balloons high up.",
+  "say": "It's too trusting of satellite winds over the ocean, and it barely listens to weather balloons high up.",
+  "file": "cache/169656d883506410.wav",
+  "dur": 7.225,
+  "heard": "It's too trusting of satellite winds over the ocean, and it barely listens to weather balloons high up.",
+  "wer": 0.0
+ },
+ {
+  "scene": "TrustLearned",
+  "i": 3,
+  "v": 19.0,
+  "text": "How would you teach a model whom to trust?",
+  "say": "How would you teach a model whom to trust?",
+  "file": "cache/a095378265f3274b.wav",
+  "dur": 3.05,
+  "heard": "How would you teach a model whom to trust?",
+  "wer": 0.0
+ }
+]
