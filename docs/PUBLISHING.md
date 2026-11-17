@@ -64,6 +64,13 @@ If the call times out on a big file (archive.org did), start the fetch without a
   byte `length`, `guid` `aigspod-epNNN-<topic>`, `pubDate`, `itunes:image` `images/epNNN.png` (1400 × 1400, from the
   episode's `cover.py`, with "the aigs pod · episode NN"), `itunes:duration`, summary, `itunes:episode` NN.
 - `images/thumbs/epNNN.jpg` is the same art at 640 px (`sips -s format jpeg -Z 640`).
+- **An aigs pod extra (not a journal-club paper) must stay off the /mull/ desk**, which lists every feed episode by
+  itself: add its keys to `NOT_ON_DESK` in `mull/index.html`, both the paper link and `ep<N>` (the desk keys an episode
+  by the URL right after "Paper:" in its description, else by `ep<N>`; ours start "Paper: Authors, ..."). Check the
+  page locally (`python3 -m http.server`, open `/mull/`) before pushing.
+- **Shorts point to their full video:** set each short's Related video (Studio, the short's details page, "Related
+  video" pencil; or Video elements → Related video at upload) and put `▶ The full story (N-minute video): <link>` on the
+  first line of its description. Link the long video that answers the short's question.
 - Check `feed.xml` parses (`python3 -c "import xml.dom.minidom; xml.dom.minidom.parse('feed.xml')"`), commit on `main`
   ("Add episode NN: <title>"), push.
 

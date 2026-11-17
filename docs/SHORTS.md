@@ -50,5 +50,10 @@ SCENES = [
   timestamps (computed by `make narration`). Many people watch with the sound off.
 - **Writing:** one idea per short; the hook in the first line (a question or a surprise, not a title); ~100–130 words;
   end on a question. Same rigour as the long video: hypotheticals said as such, numbers from the paper's tables.
+- **Point to the full video.** Each short links its long video: Related video in Studio plus the first line of the
+  description (docs/PUBLISHING.md). Consider ending the script on a spoken pointer ("the whole story is in the
+  ten-minute video") rather than only a question. Evidence that this lifts retention is thin (the related-video link
+  is clicked by well under 1 % of viewers in creator reports), but it costs nothing; the real risk is linking a video
+  that doesn't answer the short's question.
 - **Uploading:** turn on the platform's AI-generated/synthetic-media label (the narration is a synthetic voice), and
   paste `youtube_description.txt` as the caption.
