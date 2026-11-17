@@ -11,8 +11,11 @@ check compares like with like (Whisper has never seen "aigs" and writes "eggs" o
 SAY = {
     # the aigs pod: "aygs", the vowel of "plague" (rhymes with "plagues"); never spelled out letter by letter
     'aigs': '[aigs](/ˈAɡz/)',
+    # NOAA (the US National Oceanic and Atmospheric Administration): said as one word, "Noah", never spelled out
+    'NOAA': '[NOAA](/nˈOə/)',
 }
 
 HEARD = {
     r"\b(?:a\.?i\.?g\.?s\.?|aigs|aegs|eggs|egg's|ags|ag's|agg?s)\s*-?\s*(pod(?:cast)?)\b": r'aigs \1',
+    r"\b(?:Noah|Noa|NOAA)('s)?\b": r'NOAA\1',
 }
