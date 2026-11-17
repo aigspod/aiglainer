@@ -1,0 +1,22 @@
+\documentclass[border=1pt,multi=preview]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{fourier}
+\definecolor{W}{HTML}{EFE5D6}
+\definecolor{Y}{HTML}{E3A75A}
+\definecolor{G}{HTML}{5AA6EC}
+\definecolor{F}{HTML}{45C99A}
+\definecolor{C}{HTML}{F07A4F}
+\definecolor{M}{HTML}{AAA0AD}
+\begin{document}
+\color{W}
+\begin{preview}$\displaystyle {\color{F}x^{b}_{t}} = M\big(x^{a}_{t-1}\big)$\end{preview}
+\begin{preview}$\displaystyle K_t = B_t H^{\top}\big(H B_t H^{\top} + R_t\big)^{-1}$\end{preview}
+\begin{preview}$\displaystyle {\color{Y}x^{a}_{t}} = {\color{F}x^{b}_{t}} + K_t\big({\color{G}y_t} - H({\color{F}x^{b}_{t}})\big)$\end{preview}
+\begin{preview}$\displaystyle k = \frac{\sigma_B^2}{\sigma_B^2 + \sigma_O^2}$\end{preview}
+\begin{preview}$\displaystyle h_t = f_{\mathrm{dyn}}\big(h_{t-1},\, z^{*}_{t-1},\, f_t\big)$\end{preview}
+\begin{preview}$\displaystyle {\color{F}\hat z_t} = p_\theta(h_t)$\end{preview}
+\begin{preview}$\displaystyle {\color{Y}z_t} = q_\phi(h_t,\, {\color{G}y_t})$\end{preview}
+\begin{preview}$\displaystyle {\color{G}\hat y^{m}_t} = D_m(z^{*}_t)$\end{preview}
+\begin{preview}$\displaystyle \mathcal{L}_{\mathrm{prior}} = \sum_t \big\| {\color{F}\hat z_t} - \mathrm{sg}({\color{Y}z_t}) \big\|^2$\end{preview}
+\end{document}
