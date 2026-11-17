@@ -91,7 +91,15 @@ the scene's authored timeline (read it off the scene code, or use `make preview`
 Global spacing (`GAP` between lines, `LEAD`, defaults) is at the top of `aiglainer/narrated.py`. `make plan` prints
 each scene's speed range; anything above ~2× in the tail column is content flashing by, so trim it with `vend`.
 
-**Voice.** `VOICE` and `SPEED` in `narration.py`; `make voices` builds an audition page.
+**Voice.** `VOICE` and `SPEED` in `narration.py`; `make voices` builds an audition page (blends work too:
+`make voices VOICES="am_michael:0.7,am_fenrir:0.3"`).
+
+**Pauses (opt-in).** Kokoro barely pauses inside a line, so "Case closed? Not quite." comes out in one breath. Set
+`PACE = dict(sentence=0.4, question=0.35, gap=0.5)` in `narration.py` (videos and shorts): each line is voiced
+sentence by sentence and joined back into one clip with `sentence` seconds of rest, `question` more after a "?", and
+`gap` seconds between lines (default 0.3). A line is still one clip, so beats, captions and checks work as before;
+sentence clips are cached, so editing one sentence re-synthesizes only that one. Pair it with `SPEED` around 0.94 for a
+voice that runs fast (Michael). Projects without `PACE` are unchanged. Podcasts have their own `PACE` (docs/PODCAST.md).
 
 **Look.** The aigspod site's dark /mull/ style: Fraunces headings with one amber italic word and a hand-drawn swash
 (`header(..., 'The plan: *three* steps')`), Inter body text, lowercase Space Mono labels, Caveat handwriting for

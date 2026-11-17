@@ -5,6 +5,13 @@ Writes <project>/cache/<hash>.wav (24 kHz mono) and <project>/lines.json:
   [{scene, i, v, text, file, dur, heard, wer}, ...]
 Clips are cached by (voice, speed, spoken text), so editing one line only re-synthesizes that line.
 Exits non-zero if any line's word error rate exceeds MAX_WER, so a mispronunciation can't slip through.
+
+Pacing for videos and shorts (opt-in): narration.py may set PACE, e.g.
+  PACE = dict(sentence=0.4, question=0.35, gap=0.5)
+Kokoro barely pauses inside a line, so "Case closed? Not quite." comes out in one breath. With PACE each line is voiced
+sentence by sentence (podcast.sentences) and joined back into ONE clip with `sentence` seconds of rest between them,
+plus `question` more after a sentence ending in "?"; `gap` replaces narrated.GAP (silence between lines). A line is
+still one file, so timing, captions and checks downstream are unchanged. Without PACE nothing changes.
 """
 import hashlib, json, os, re, sys
 import numpy as np
@@ -86,9 +93,18 @@ def main():
     P = project.get()
     N = P.narration()
     lines = []
+    pace = getattr(N, 'PACE', None) or {}
+    if 'sentence' in pace:
+        from .podcast import sentences
     for sc in N.SCENES:
         for i, (v, text) in enumerate(sc['beats']):
-            lines.append(dict(scene=sc.get('id', sc['scene']), i=i, v=v, text=text, say=spoken(text, getattr(N, 'SAY', {}))))
+            l = dict(scene=sc.get('id', sc['scene']), i=i, v=v, text=text, say=spoken(text, getattr(N, 'SAY', {})))
+            if 'sentence' in pace:
+                parts = sentences(text)
+                if len(parts) > 1:
+                    l['parts'] = [spoken(x, getattr(N, 'SAY', {})) for x in parts]
+                    l['pace'] = (pace['sentence'], pace.get('question', 0.0))
+            lines.append(l)
     voice = N.VOICE
     if voice in hosts.HOSTS:                     # a host's key ('bella') rather than a raw Kokoro voice id
         h = hosts.get(voice)
@@ -101,6 +117,32 @@ def main():
         short.word_times(P, lines)
     sys.exit(1 if bad else 0)
 
+def paced_clip(P, parts, pace, voice, speed, lang):
+    """PACE: voice each sentence on its own (cached as cache/s-<hash>.wav) and join them with rests: `sentence` seconds,
+    plus `question` after a '?'. Inner edges lose Kokoro's silence; the first clip keeps its lead-in and the last its
+    tail, so the line sits in the cut like an unpaced one."""
+    import soundfile as sf
+    sent, quest = pace
+    clips, sr = [], 24000
+    for x in parts:
+        f = P.path(os.path.join('cache', 's-' + hashlib.sha1(f'{voice}|{speed}|{x}'.encode()).hexdigest()[:16] + '.wav'))
+        if os.path.exists(f):
+            a, sr = sf.read(f)
+        else:
+            a, sr = backend.synth(x, kokoro_voice(voice), speed, lang)
+            sf.write(f, a, sr)
+        clips.append(np.asarray(a, np.float32))
+    out = []
+    for j, a in enumerate(clips):
+        on = np.flatnonzero(np.abs(a) > np.abs(a).max() * 10 ** (-42 / 20)) if len(a) else []
+        lo = 0 if j == 0 or not len(on) else max(0, on[0] - int(0.03 * sr))
+        hi = len(a) if j == len(clips) - 1 or not len(on) else on[-1] + int(0.10 * sr)
+        out.append(a[lo:hi])
+        if j < len(clips) - 1:
+            rest = sent + (quest if parts[j].rstrip(' "\u201d\u2019)').endswith('?') else 0.0)
+            out.append(np.zeros(int(rest * sr), np.float32))
+    return np.concatenate(out), sr
+
 def synthesize(P, lines, voice, speed, lang):
     """Synthesize (cached) and Whisper-check lines in place, write <project>/lines.json, return the number flagged.
     Each line is a dict with scene, i, text and say; a line may carry its own 'voice', 'speed' and 'lang'
@@ -110,19 +152,28 @@ def synthesize(P, lines, voice, speed, lang):
     os.environ.setdefault('TOKENIZERS_PARALLELISM', 'false')
     for l in lines:
         v, sp, lg = l.pop('voice', voice), l.pop('speed', speed), l.pop('lang', lang)
-        key = hashlib.sha1(f'{v}|{sp}|{l["say"]}'.encode()).hexdigest()[:16]
+        if 'parts' in l:      # PACE: one clip built from sentence clips with rests between (see the docstring)
+            key = hashlib.sha1(f'{v}|{sp}|{"||".join(l["parts"])}|{l["pace"]}'.encode()).hexdigest()[:16]
+        else:
+            key = hashlib.sha1(f'{v}|{sp}|{l["say"]}'.encode()).hexdigest()[:16]
         l['file'] = os.path.join('cache', key + '.wav')
         l['_voice'] = (v, sp, lg)
     todo = [l for l in lines if not os.path.exists(P.path(l['file']))]
     if todo:
         for l in todo:
-            audio, sr = backend.synth(l['say'], kokoro_voice(l['_voice'][0]), l['_voice'][1], l['_voice'][2])
+            if 'parts' in l:
+                audio, sr = paced_clip(P, l['parts'], l['pace'], *l['_voice'])
+            else:
+                audio, sr = backend.synth(l['say'], kokoro_voice(l['_voice'][0]), l['_voice'][1], l['_voice'][2])
             sf.write(P.path(l['file']), audio, sr)
             print(f"  synthesized {l['scene']}[{l['i']}]")
     for l in lines:
         if l['_voice'][0] != voice:
             l['voice'] = l['_voice'][0]
         del l['_voice']
+        l.pop('parts', None)
+        if l.pop('pace', None) is not None:
+            l['paced'] = True
     # clips are named by content, so a transcript from the previous run is still valid for the same file
     prev = {}
     if os.path.exists(P.path('lines.json')):

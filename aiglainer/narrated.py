@@ -22,6 +22,7 @@ HOLD = 0.75
 def build():
     P = project.get()
     SCRIPT = P.narration().SCENES
+    gap = (getattr(P.narration(), 'PACE', None) or {}).get('gap', GAP)     # PACE (opt-in) can widen the gap
     lines = json.load(open(P.path('lines.json')))
     by_scene = {}
     for l in lines:
@@ -38,8 +39,8 @@ def build():
             r = max(t_free, r_pts[-1] + (v - v_pts[-1]) / smax)
             r_pts.append(r); v_pts.append(v)
             placements.append(dict(t=T + r, file=P.path(l['file']), text=l['text'], dur=l['dur']))
-            t_free = r + l['dur'] + GAP
-        rend = t_free - GAP + sd.get('hold', HOLD)
+            t_free = r + l['dur'] + gap
+        rend = t_free - gap + sd.get('hold', HOLD)
         vend = sd.get('vend', inst.dur)
         still = sd.get('still', 0.0)
         if still:
