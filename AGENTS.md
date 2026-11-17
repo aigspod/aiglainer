@@ -2,7 +2,9 @@
 
 Guidance for AI agents (and people) picking up work in this repo. Read this first, then
 [docs/WORKFLOW.md](docs/WORKFLOW.md) (how a video is built and changed) and [docs/NEW_VIDEO.md](docs/NEW_VIDEO.md)
-(how to make a new one).
+(how to make a new one). Making a whole set from one paper (videos, shorts, episode) in one session:
+[docs/PLAYBOOK.md](docs/PLAYBOOK.md), lessons included. Putting it online (YouTube, archive.org, the feed):
+[docs/PUBLISHING.md](docs/PUBLISHING.md).
 
 ## What this is
 

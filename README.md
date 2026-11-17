@@ -92,6 +92,8 @@ folder (see the project's `extract_paper.py`). Run `make doctor` any time to see
 - **[docs/PODCAST.md](docs/PODCAST.md)**: audio-only episodes (`KIND = 'podcast'`): scripts, hosts, pronunciation, writing for the ear.
 - **[sketches/scores/](sketches/scores/README.md)**: the prototypes of five score styles after music we love (Richter, Jarrett, Martin Roth, Hammock), now `MUSIC['style']` options.
 - **[docs/NEW_VIDEO.md](docs/NEW_VIDEO.md)**: making a new video step by step (written for a paper; most steps apply to any topic).
+- **[docs/PLAYBOOK.md](docs/PLAYBOOK.md)**: one paper to a whole set (videos with different angles, shorts, an episode) in one session, and what we learned.
+- **[docs/PUBLISHING.md](docs/PUBLISHING.md)**: uploading to YouTube and archive.org and adding the episode to the feed.
 - **[AGENTS.md](AGENTS.md)**: orientation and ground rules for AI agents (and people) picking up the work.
 - **[docs/WORKFLOW.md](docs/WORKFLOW.md)**: the pipeline, changing lines, timing and visuals, the pre-upload
   checklist, and the decisions behind it.
@@ -107,6 +109,7 @@ it's organized and how to commit; each folder has its own `AGENTS.md`. Build any
 | [`errors`](projects/errors/AGENTS.md) | *Rethinking Circuit Evaluation: Do Circuits Explain Model Errors?* (Zhang, Geng et al., 2026, [arXiv:2609.35686](https://arxiv.org/abs/2609.35686)) | three standalone videos and a six-minute cut, a ~24-min episode, seven shorts |
 | [`dynamics`](projects/dynamics/AGENTS.md) | *A Mechanistic Analysis of Transformers for Dynamical Systems* (Duthé, Evangelou et al., 2025, [arXiv:2512.21113](https://arxiv.org/abs/2512.21113)) | three standalone videos and a six-minute cut, a ~21-min episode, six shorts |
 | [`epiplexity`](projects/epiplexity/AGENTS.md) | *From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence* (Finzi, Qiu, Jiang et al., 2026, [arXiv:2601.03220](https://arxiv.org/abs/2601.03220)); an aigs pod extra, not a journal-club paper | two ~10-min videos, a ~26-min episode, five shorts, and a small laptop lab (`lab/`) |
+| [`weatherdreamer`](projects/weatherdreamer/AGENTS.md) | *WeatherDreamer: Learning a World Model from Multimodal Earth Observations* (Duffy, Penn, Ballard, Posch & Vandal, 2026, [arXiv:2611.18393](https://arxiv.org/abs/2611.18393)); an aigs pod extra | two videos (8:21 `loop`, 10:41 `trust`), a 22-min episode (ep. 30), five shorts
 | [`examples`](projects/examples/AGENTS.md) | how to use the engine | `videos/light`: a different look from settings alone |
 
 ## Layout
