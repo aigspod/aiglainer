@@ -13,6 +13,10 @@ HOSTS = {
     'nicole':  dict(voice='af_nicole',  name='Nicole',  lang='a', speed=1.0),
     # Bella, softer and closer: 70% Bella, 30% Nicole. Still introduced as Bella on air.
     'bella-nicole': dict(voice='af_bella:0.7,af_nicole:0.3', name='Bella', lang='a', speed=1.0),
+    # The owner's picks after an A/B on Nov 17, 2026 ("we will revisit later for more refinements"); the defaults for
+    # new pieces. Bella with a touch of Nicole and Heart; Michael with a little Onyx, a touch slower (pair with PACE).
+    'bella-nicole-heart': dict(voice='af_bella:0.85,af_nicole:0.1,af_heart:0.05', name='Bella', lang='a', speed=1.0),
+    'michael-onyx': dict(voice='am_michael:0.85,am_onyx:0.15', name='Michael', lang='a', speed=0.94),
     'fable':   dict(voice='bm_fable',   name='Fable',   lang='b', speed=1.0),
     'lewis':   dict(voice='bm_lewis',   name='Lewis',   lang='b', speed=1.0),
     'emma':    dict(voice='bf_emma',    name='Emma',    lang='b', speed=1.0),

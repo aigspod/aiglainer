@@ -40,7 +40,7 @@ between lines are short (0.38 s). Episode 28 ran at 172 words a minute while spe
 rushed. For new episodes, set in `episode.py`:
 
 ```python
-HOSTS = {'H': 'bella-nicole'}       # Bella blended 70/30 with Nicole: softer and closer
+HOSTS = {'H': 'bella-nicole-heart'} # Bella 85 / Nicole 10 / Heart 5 (owner's pick, Nov 17, 2026); 'michael-onyx' for Michael
 SPEED = 0.92                        # unhurried
 PACE = dict(sentence=0.45, same=0.7, turn=0.35, segment=1.8, question=0.5, rest=1.2)
 ```

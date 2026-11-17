@@ -99,7 +99,7 @@ each scene's speed range; anything above ~2× in the tail column is content flas
 sentence by sentence and joined back into one clip with `sentence` seconds of rest, `question` more after a "?", and
 `gap` seconds between lines (default 0.3). A line is still one clip, so beats, captions and checks work as before;
 sentence clips are cached, so editing one sentence re-synthesizes only that one. Pair it with `SPEED` around 0.94 for a
-voice that runs fast (Michael). Projects without `PACE` are unchanged. Podcasts have their own `PACE` (docs/PODCAST.md).
+voice that runs fast (Michael). Default hosts for new pieces: `bella-nicole-heart` and `michael-onyx` (aiglainer/hosts.py). Projects without `PACE` are unchanged. Podcasts have their own `PACE` (docs/PODCAST.md).
 
 **Look.** The aigspod site's dark /mull/ style: Fraunces headings with one amber italic word and a hand-drawn swash
 (`header(..., 'The plan: *three* steps')`), Inter body text, lowercase Space Mono labels, Caveat handwriting for

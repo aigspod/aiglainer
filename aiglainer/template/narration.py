@@ -7,8 +7,9 @@ vend (authored time to end the scene at), still (seconds frozen at the end).
 Write for the ear, ~145 words a minute; spell symbols out ("alpha", "tau"). Respellings go in SAY.
 """
 
-VOICE = 'af_bella'      # audition others with `make voices`
-SPEED = 1.0
+VOICE = 'bella-nicole-heart'   # a host in aiglainer/hosts.py (or 'michael-onyx'); audition others with `make voices`
+SPEED = 1.0                     # 0.94 for michael-onyx
+PACE = dict(sentence=0.4, question=0.35, gap=0.5)   # rest between sentences and after questions (docs/WORKFLOW.md)
 LANG = 'a'              # a = American, b = British English
 SAY = {}                # written form -> what to pronounce, e.g. {'MLP': 'M L P'}
 
