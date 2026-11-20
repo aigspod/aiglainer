@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700&family=Barlow:wght@600&family=VT323&display=swap">
+<style>body{margin:0;background:#000}#sky{width:1200px;height:630px;display:block}</style></head><body>
+<canvas id="sky"></canvas>
+<script>
+const $ = s => document.querySelector(s); const REDUCED = true;
+Object.defineProperty(window, 'devicePixelRatio', {get: () => 1});
+</script>
+<script src="hero.js"></script>
+<script>
+(async () => {
+  await document.fonts.load('120px Anton'); await document.fonts.load('700 20px "Barlow Condensed"'); await document.fonts.load('600 20px Barlow'); await document.fonts.load('30px VT323');
+  sizeSky(); drawSky(10500);
+  const c = sky.getContext('2d');
+  // darken the left for legibility
+  let g = c.createLinearGradient(0, 0, 760, 0); g.addColorStop(0, 'rgba(5,7,11,.7)'); g.addColorStop(1, 'rgba(5,7,11,0)'); c.fillStyle = g; c.fillRect(0, 0, 1200, 630);
+  c.fillStyle = '#e0413a'; c.fillRect(0, 622, 1200, 8);
+  c.font = '700 22px "Barlow Condensed"'; c.fillStyle = '#f1eee6'; c.letterSpacing = '6px'; c.fillText('THE AIGS HACKATHON · FRIDAY, NOVEMBER 20', 64, 92); c.letterSpacing = '0px';
+  const lines = [['EXEGE', '#f1eee6', 0], ['HACKS', '#f1eee6', 60], ['CIRCUITS', '#ffb547', 0]];
+  c.font = '400 138px Anton'; c.lineJoin = 'round';
+  lines.forEach(([t, col, dx], i) => {
+    const y = 236 + i*124; c.save(); c.setTransform(1, 0, -0.14, 1, 0.14*y, 0);
+    c.fillStyle = '#000'; c.fillText(t, 64 + dx + 8, y + 8);
+    c.lineWidth = 12; c.strokeStyle = '#000'; c.strokeText(t, 64 + dx, y);
+    c.fillStyle = col; c.fillText(t, 64 + dx, y); c.restore();
+  });
+  c.font = '600 27px Barlow'; c.fillStyle = '#f1eee6'; c.shadowColor = '#000'; c.shadowBlur = 8; c.fillText('Two sessions · two kits · one very good radio', 66, 562); c.shadowBlur = 0;
+  // pager, top right
+  const px = 836, py = 40, pw = 320, ph = 78;
+  c.fillStyle = '#16191e'; c.strokeStyle = '#000'; c.lineWidth = 2; c.beginPath(); c.roundRect(px, py, pw, ph, [10, 10, 16, 16]); c.fill(); c.stroke();
+  c.font = '700 12px "Barlow Condensed"'; c.fillStyle = '#8c939e'; c.letterSpacing = '3px'; c.fillText('SKYPAGE 2001', px + 12, py + 20); c.fillStyle = '#e0413a'; c.fillText('● MSG', px + pw - 64, py + 20); c.letterSpacing = '0px';
+  g = c.createLinearGradient(0, py + 28, 0, py + 66); g.addColorStop(0, '#a9c47a'); g.addColorStop(1, '#8fae5e'); c.fillStyle = g; c.beginPath(); c.roundRect(px + 10, py + 28, pw - 20, 38, 4); c.fill();
+  c.font = '30px VT323'; c.fillStyle = '#18240c'; c.fillText('NOON & 3 PM ET', px + 20, py + 56);
+  const blob = await new Promise(r => sky.toBlob(r, 'image/png'));
+  const res = await fetch('/save', {method: 'POST', body: blob}); document.title = 'saved ' + res.status;
+})();
+</script></body></html>
